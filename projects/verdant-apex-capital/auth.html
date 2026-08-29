@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sign In – Verdant Apex Capital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo"><i class="fas fa-chart-line"></i><span>Verdant Apex Capital</span></div>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="research.html" class="nav-link">Research</a>
+        <a href="research-pro.html" class="nav-link">Pro Research</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-toggle" id="nav-toggle"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+    </div>
+  </nav>
+
+  <main class="page-section" style="padding-top:100px;">
+            <div class="auth-toggle-row">
+        <button class="auth-toggle active" id="showSignIn">Sign in</button>
+        <button class="auth-toggle" id="showSignUp">Create account</button>
+        </div>
+
+        <form class="contact-form" id="signinForm">
+        <h3 style="margin-bottom:12px;color:var(--green);">Sign in</h3>
+        <div class="form-group"><input type="email" id="signinEmail" placeholder="Email" required></div>
+        <div class="form-group"><input type="password" id="signinPassword" placeholder="Password" required></div>
+        <button type="submit" class="submit-button">Sign in <i class="fas fa-arrow-right"></i></button>
+        </form>
+
+        <form class="contact-form" id="signupForm" style="display:none;">
+        <h3 style="margin-bottom:12px;color:var(--green);">Create account</h3>
+        <div class="form-group"><input type="text" id="signupName" placeholder="Full name"></div>
+        <div class="form-group"><input type="email" id="signupEmail" placeholder="Email" required></div>
+        <div class="form-group"><input type="password" id="signupPassword" placeholder="Password" required></div>
+        <button type="submit" class="submit-button">Create account <i class="fas fa-user-plus"></i></button>
+        <p style="margin-top:10px;color:var(--gray-600);font-size:0.9rem;">
+            By creating an account you’ll be on the Free plan by default.
+        </p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><div class="footer-bottom">&copy; 2025 Verdant Apex Capital.</div></div>
+  </footer>
+
+  <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toast-message">Saved.</span></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

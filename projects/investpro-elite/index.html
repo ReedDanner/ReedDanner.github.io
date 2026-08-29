@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InvestPro Elite - The Smartest Way to Invest Starts Here</title>
+    <meta name="description" content="Premium investment advice, weekly stock picks, and market intelligence from certified financial experts. Join thousands of successful investors.">
+    <meta name="keywords" content="stock picks, investment advice, market research, financial analysis, premium investing">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>InvestPro Elite</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="stock-picks.html" class="nav-link">Stock Picks</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="pricing.html" class="nav-cta">Get Started</a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">The Smartest Way to Invest <span class="highlight">Starts Here</span></h1>
+                <p class="hero-subtitle">Join 50,000+ investors who trust our AI-powered stock picks and expert market analysis to build wealth consistently.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">127%</span>
+                        <span class="stat-label">Avg. Annual Return</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">94%</span>
+                        <span class="stat-label">Win Rate</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Active Members</span>
+                    </div>
+                </div>
+                
+                <div class="hero-cta">
+                    <a href="pricing.html" class="btn btn-primary">Get Stock Picks Now</a>
+                    <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
+                </div>
+                
+                <div class="hero-trust">
+                    <p>Trusted by investors from:</p>
+                    <div class="trust-logos">
+                        <span>Goldman Sachs</span>
+                        <span>JP Morgan</span>
+                        <span>BlackRock</span>
+                        <span>Vanguard</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual" data-aos="fade-left">
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You Get Section -->
+    <section class="features" id="what-you-get">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>What You Get</h2>
+                <p>Premium investment tools and insights delivered weekly</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Weekly Stock Picks</h3>
+                    <p>Hand-selected stocks with 20%+ upside potential, backed by our proprietary AI analysis and expert research.</p>
+                    <div class="feature-highlight">
+                        <span class="highlight-badge">New picks every Monday</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Market Predictions</h3>
+                    <p>Advanced machine learning algorithms analyze 10,000+ data points to predict market movements with 94% accuracy.</p>
+                    <div class="feature-highlight">
+                        <span class="highlight-badge">Real-time updates</span>
+                    </div>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Premium Research Reports</h3>
+                    <p>In-depth analysis, risk assessments, and detailed investment thesis for every recommendation.</p>
+                    <div class="feature-highlight">
+                        <span class="highlight-badge">PDF downloads</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>How It Works</h2>
+                <p>Simple, proven process to grow your wealth</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step" data-aos="fade-right" data-aos-delay="100">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Subscribe & Access</h3>
+                        <p>Choose your plan and get instant access to our member dashboard with current stock picks and research.</p>
+                    </div>
+                </div>
+                
+                <div class="step" data-aos="fade-left" data-aos-delay="200">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Receive Weekly Picks</h3>
+                        <p>Every Monday, get 3-5 carefully selected stocks with detailed analysis, target prices, and risk levels.</p>
+                    </div>
+                </div>
+                
+                <div class="step" data-aos="fade-right" data-aos-delay="300">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Invest & Profit</h3>
+                        <p>Execute trades through your broker and watch your portfolio grow with our proven investment strategy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Why Choose InvestPro Elite</h2>
+                <p>The difference that sets us apart from the competition</p>
+            </div>
+            
+            <div class="reasons-grid">
+                <div class="reason-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="reason-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Proven Track Record</h3>
+                    <p>5+ years of consistent outperformance with documented results and transparent reporting.</p>
+                </div>
+                
+                <div class="reason-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="reason-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Risk Management</h3>
+                    <p>Every pick includes stop-loss levels and risk ratings to protect your capital.</p>
+                </div>
+                
+                <div class="reason-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="reason-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Expert Team</h3>
+                    <p>Led by former Wall Street analysts with CFA credentials and 20+ years experience.</p>
+                </div>
+                
+                <div class="reason-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="reason-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Time-Saving</h3>
+                    <p>Skip hours of research. Get actionable insights delivered to your inbox weekly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>What Our Members Say</h2>
+                <p>Real results from real investors</p>
+            </div>
+            
+            <div class="testimonials-carousel" id="testimonials-carousel">
+                <div class="testimonial-card active" data-aos="fade-up">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"InvestPro Elite transformed my portfolio. Up 89% in just 8 months following their picks. The research quality is exceptional."</p>
+                        <div class="testimonial-author">
+                            <img src="images/testimonial-1.jpg" alt="Sarah Johnson">
+                            <div>
+                                <h4>Sarah Johnson</h4>
+                                <span>Portfolio Manager, Boston</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card" data-aos="fade-up">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Finally, investment advice that actually works. Their AI predictions are incredibly accurate. Best investment I've made."</p>
+                        <div class="testimonial-author">
+                            <img src="images/testimonial-2.jpg" alt="Michael Chen">
+                            <div>
+                                <h4>Michael Chen</h4>
+                                <span>Tech Executive, San Francisco</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card" data-aos="fade-up">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"The detailed research reports are worth the subscription alone. Professional-grade analysis made simple for individual investors."</p>
+                        <div class="testimonial-author">
+                            <img src="images/testimonial-3.jpg" alt="David Rodriguez">
+                            <div>
+                                <h4>David Rodriguez</h4>
+                                <span>Retired Teacher, Miami</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-controls">
+                <button class="carousel-btn prev" onclick="changeTestimonial(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next" onclick="changeTestimonial(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Magnet Section -->
+    <section class="lead-magnet">
+        <div class="container">
+            <div class="lead-magnet-content" data-aos="fade-up">
+                <div class="lead-magnet-text">
+                    <h2>Get Your Free Stock Pick</h2>
+                    <p>See our research quality firsthand. Download our latest stock recommendation with full analysis - completely free.</p>
+                    <ul class="benefits-list">
+                        <li><i class="fas fa-check"></i> Complete investment thesis</li>
+                        <li><i class="fas fa-check"></i> Risk assessment & price targets</li>
+                        <li><i class="fas fa-check"></i> No credit card required</li>
+                    </ul>
+                </div>
+                <div class="lead-magnet-form">
+                    <form id="lead-form">
+                        <input type="email" placeholder="Enter your email address" required>
+                        <button type="submit" class="btn btn-primary">Download Free Pick</button>
+                    </form>
+                    <p class="form-disclaimer">We respect your privacy. Unsubscribe at any time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2>Ready to Start Building Wealth?</h2>
+                <p>Join thousands of successful investors who trust InvestPro Elite for their investment decisions.</p>
+                <div class="cta-buttons">
+                    <a href="pricing.html" class="btn btn-primary btn-large">Start Your Subscription</a>
+                    <a href="stock-picks.html" class="btn btn-secondary btn-large">View Sample Picks</a>
+                </div>
+                <div class="guarantee">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>30-day money-back guarantee</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>InvestPro Elite</span>
+                    </div>
+                    <p>Premium investment advice and market intelligence for serious investors.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="stock-picks.html">Stock Picks</a></li>
+                        <li><a href="pricing.html">Pricing Plans</a></li>
+                        <li><a href="dashboard.html">Member Dashboard</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> support@investproelite.com</p>
+                        <p><i class="fas fa-phone"></i> 1-800-INVEST-1</p>
+                        <p><i class="fas fa-map-marker-alt"></i> New York, NY 10001</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 InvestPro Elite. All rights reserved.</p>
+                <p class="disclaimer">Investment advice is not personalized financial advice. Past performance does not guarantee future results.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Exit Intent Modal -->
+    <div class="modal" id="exit-intent-modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Wait! Don't Miss Out</h2>
+            <p>Get your first stock pick absolutely free before you go.</p>
+            <form id="exit-intent-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-primary">Get Free Pick</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

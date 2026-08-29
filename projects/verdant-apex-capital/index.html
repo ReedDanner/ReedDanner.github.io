@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verdant Apex Capital – AI-Driven Wealth Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>Verdant Apex Capital</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="research.html" class="nav-link">Research</a>
+                <a href="research-pro.html" class="nav-link">Pro Research</a>
+
+                <a href="model.html" class="nav-link">Model Creator</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Builder</a>
+
+                <a href="clients.html" class="nav-link">Clients</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+
+                <!-- auth buttons (script.js will wire these) -->
+                <a href="auth.html" class="nav-link" id="nav-auth-link">Sign in</a>
+                <a href="#" class="nav-link" id="nav-logout-link" style="display:none;">Logout</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div>
+                <h1 class="hero-title">
+                    Verdant Apex Capital
+                    <span class="gradient-text">AI-Driven Wealth Management</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Institutional-grade intelligence for serious investors.
+                </p>
+                <p class="hero-description">
+                    Verdant Apex Capital blends advanced AI, market micro-data, and fundamental analysis
+                    to uncover high-conviction opportunities across equities and ETF strategies.
+                </p>
+                <div class="cta-row">
+                    <a href="solutions.html" class="cta-button">
+                        Explore Our Current Ideas
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="model.html" class="cta-button secondary">
+                        Build an Investment Scenario
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <span class="stat-number">87%</span>
+                        <span class="stat-label">Idea Hit-Rate* (Backtested)</span>
+                    </div>
+                    <div>
+                        <span class="stat-number">24%</span>
+                        <span class="stat-label">Avg Model Portfolio Return*</span>
+                    </div>
+                    <div>
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Investors & Analysts Served</span>
+                    </div>
+                </div>
+                <p class="hero-footnote">
+                    *Illustrative only. Past performance is not indicative of future results.
+                </p>
+            </div>
+            <div class="hero-visual">
+                <div class="ai-brain">
+                    <div class="brain-core"></div>
+                    <div class="neural-network">
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                        <div class="node"></div>
+                    </div>
+                </div>
+                <div class="floating-chart">
+                    <canvas id="heroChart" style="width:280px;height:180px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Institutional Thinking, Built for Individuals</h2>
+                <p>Everything at Verdant Apex is designed to feel like your personal investment desk.</p>
+            </div>
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <h3>AI Model Engine</h3>
+                    <p>
+                        Blend macro, factor, and single-name signals to generate scenario-tested allocations.
+                        Tune risk, time horizon, and drawdown tolerances in our Model Creator.
+                    </p>
+                </div>
+                <div class="overview-card">
+                    <h3>Portfolio Builder</h3>
+                    <p>
+                        Assemble custom portfolios, set target weights, validate risk scores and allocation
+                        discipline in one place.
+                    </p>
+                </div>
+                <div class="overview-card">
+                    <h3>Strategy Library</h3>
+                    <p>
+                        Explore factor, thematic, and income strategies—each with clearly defined rules,
+                        benchmarks, and risk frameworks.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK FEATURES -->
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>How Our Stack Thinks About Markets</h2>
+                <p>Technology, fundamentals, and risk discipline in one unified framework.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>Signal-Driven</h3>
+                    <p>Our models monitor price action, volatility regimes, and factor rotations in near-real time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-balance-scale"></i></div>
+                    <h3>Risk-Anchored</h3>
+                    <p>Drawdown sensitivity, position sizing, and diversification are treated as first-class citizens.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-seedling"></i></div>
+                    <h3>Long-Term Oriented</h3>
+                    <p>We prioritize durable cash-flow growth and quality factors, not short-lived momentum alone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Investors Are Saying</h2>
+                <p>Early adopters using Verdant Apex tooling in their daily process.</p>
+            </div>
+            <div class="testimonials-carousel">
+                <div class="testimonial-card active">
+                    <div class="testimonial-content">
+                        <p>"The model creator feels like a lightweight quant desk. It changed how I think about risk."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=60&h=60&fit=crop&crop=face" alt="">
+                        <div class="author-info">
+                            <h4>Daniel K.</h4>
+                            <span>Private Investor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The portfolio builder forces discipline. No more accidental 130% total weights."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=60&h=60&fit=crop&crop=face" alt="">
+                        <div class="author-info">
+                            <h4>Amelia R.</h4>
+                            <span>Family Office Analyst</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Clean, focused, and institutional. Exactly the feel I wanted for my own process."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1525134479668-1bee5c7c6845?w=60&h=60&fit=crop&crop=face" alt="">
+                        <div class="author-info">
+                            <h4>Olivia M.</h4>
+                            <span>Student & Aspiring PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (shared) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Verdant Apex Capital</span>
+                    </div>
+                    <p>AI-driven tools built to help investors think in models, not headlines.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="model.html">Model Creator</a></li>
+                        <li><a href="portfolio.html">Portfolio Builder</a></li>
+                        <li><a href="solutions.html">Strategies</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="clients.html">Clients</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Risk Disclosure</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 Verdant Apex Capital. All rights reserved. For informational purposes only.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Message sent.</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Picks - InvestPro Elite</title>
+    <meta name="description" content="Access our premium stock picks with detailed analysis, price targets, and risk assessments. Join thousands of successful investors.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stock-picks.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>InvestPro Elite</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="stock-picks.html" class="nav-link active">Stock Picks</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="#" class="nav-cta">Get Started</a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Stock Picks Hero -->
+    <section class="stock-picks-hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1>Premium Stock Picks</h1>
+                <p>Discover high-potential stocks backed by AI analysis and expert research</p>
+                
+                <!-- Performance Stats -->
+                <div class="performance-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">+127%</div>
+                        <div class="stat-label">Avg. Annual Return</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">89%</div>
+                        <div class="stat-label">Win Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2.3x</div>
+                        <div class="stat-label">Outperform S&P 500</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters and Search -->
+    <section class="stock-filters">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="growth">Growth</button>
+                        <button class="filter-btn" data-filter="value">Value</button>
+                        <button class="filter-btn" data-filter="dividend">Dividend</button>
+                        <button class="filter-btn" data-filter="tech">Tech</button>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="sort-select">Sort by:</label>
+                    <select id="sort-select">
+                        <option value="date">Latest</option>
+                        <option value="return">Highest Return</option>
+                        <option value="risk">Lowest Risk</option>
+                    </select>
+                </div>
+                
+                <div class="search-group">
+                    <input type="text" id="search-input" placeholder="Search stocks...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Pick -->
+    <section class="featured-pick">
+        <div class="container">
+            <div class="featured-header" data-aos="fade-up">
+                <h2>This Week's Featured Pick</h2>
+                <div class="countdown-container">
+                    <span>Next pick in:</span>
+                    <div id="countdown-timer"></div>
+                </div>
+            </div>
+            
+            <div class="featured-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="featured-content">
+                    <div class="stock-header">
+                        <div class="stock-info">
+                            <div class="stock-symbol">NVDA</div>
+                            <div class="stock-name">NVIDIA Corporation</div>
+                            <div class="stock-price">$875.28 <span class="price-change positive">+2.4%</span></div>
+                        </div>
+                        <div class="stock-logo">
+                            <img src="images/nvidia-logo.png" alt="NVIDIA" class="lazy" data-src="images/nvidia-logo.png">
+                        </div>
+                    </div>
+                    
+                    <div class="stock-metrics">
+                        <div class="metric">
+                            <span class="metric-label">Target Price</span>
+                            <span class="metric-value">$1,200</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Upside Potential</span>
+                            <span class="metric-value positive">+37%</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Risk Level</span>
+                            <span class="metric-value risk-medium">Medium</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Time Horizon</span>
+                            <span class="metric-value">12 months</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stock-analysis">
+                        <h3>Investment Thesis</h3>
+                        <p>NVIDIA continues to dominate the AI chip market with strong demand for its H100 and upcoming H200 GPUs. The company's data center revenue grew 206% YoY, driven by enterprise AI adoption and cloud infrastructure expansion.</p>
+                        
+                        <div class="key-catalysts">
+                            <h4>Key Catalysts</h4>
+                            <ul>
+                                <li>AI chip demand acceleration</li>
+                                <li>New product launches (H200, Grace Hopper)</li>
+                                <li>Expanding automotive partnerships</li>
+                                <li>Gaming recovery in 2024</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="stock-chart">
+                        <canvas id="featured-stock-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="access-overlay">
+                    <div class="overlay-content">
+                        <i class="fas fa-lock"></i>
+                        <h3>Premium Content</h3>
+                        <p>Unlock detailed analysis, price targets, and risk assessments</p>
+                        <a href="pricing.html" class="btn btn-primary">Upgrade Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stock Picks Grid -->
+    <section class="stock-picks-grid">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Recent Stock Picks</h2>
+                <p>Our latest recommendations with performance tracking</p>
+            </div>
+            
+            <div class="stocks-grid">
+                <!-- Stock Card 1 -->
+                <div class="stock-card" data-category="tech" data-return="45.2" data-risk="medium" data-date="2024-01-15" data-aos="fade-up">
+                    <div class="stock-card-header">
+                        <div class="stock-basic-info">
+                            <div class="stock-symbol">MSFT</div>
+                            <div class="stock-name">Microsoft Corp</div>
+                        </div>
+                        <div class="stock-return positive">+45.2%</div>
+                    </div>
+                    
+                    <div class="stock-card-body">
+                        <div class="stock-price">$420.55 <span class="price-change positive">+1.8%</span></div>
+                        <div class="stock-target">Target: $500</div>
+                        
+                        <div class="stock-tags">
+                            <span class="tag tag-tech">Tech</span>
+                            <span class="tag tag-growth">Growth</span>
+                        </div>
+                        
+                        <p class="stock-summary">Strong cloud growth and AI integration driving revenue expansion.</p>
+                    </div>
+                    
+                    <div class="stock-card-footer">
+                        <div class="pick-date">Jan 15, 2024</div>
+                        <button class="btn btn-sm btn-outline">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Stock Card 2 -->
+                <div class="stock-card" data-category="growth" data-return="32.7" data-risk="high" data-date="2024-01-10" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stock-card-header">
+                        <div class="stock-basic-info">
+                            <div class="stock-symbol">TSLA</div>
+                            <div class="stock-name">Tesla Inc</div>
+                        </div>
+                        <div class="stock-return positive">+32.7%</div>
+                    </div>
+                    
+                    <div class="stock-card-body">
+                        <div class="stock-price">$248.42 <span class="price-change negative">-0.5%</span></div>
+                        <div class="stock-target">Target: $320</div>
+                        
+                        <div class="stock-tags">
+                            <span class="tag tag-growth">Growth</span>
+                            <span class="tag tag-ev">EV</span>
+                        </div>
+                        
+                        <p class="stock-summary">Model 3 refresh and Cybertruck production ramp-up expected.</p>
+                    </div>
+                    
+                    <div class="stock-card-footer">
+                        <div class="pick-date">Jan 10, 2024</div>
+                        <button class="btn btn-sm btn-outline">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Stock Card 3 -->
+                <div class="stock-card" data-category="dividend" data-return="18.5" data-risk="low" data-date="2024-01-08" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stock-card-header">
+                        <div class="stock-basic-info">
+                            <div class="stock-symbol">JNJ</div>
+                            <div class="stock-name">Johnson & Johnson</div>
+                        </div>
+                        <div class="stock-return positive">+18.5%</div>
+                    </div>
+                    
+                    <div class="stock-card-body">
+                        <div class="stock-price">$162.89 <span class="price-change positive">+0.3%</span></div>
+                        <div class="stock-target">Target: $185</div>
+                        
+                        <div class="stock-tags">
+                            <span class="tag tag-dividend">Dividend</span>
+                            <span class="tag tag-healthcare">Healthcare</span>
+                        </div>
+                        
+                        <p class="stock-summary">Stable dividend aristocrat with strong pharmaceutical pipeline.</p>
+                    </div>
+                    
+                    <div class="stock-card-footer">
+                        <div class="pick-date">Jan 8, 2024</div>
+                        <button class="btn btn-sm btn-outline">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Stock Card 4 -->
+                <div class="stock-card" data-category="value" data-return="28.9" data-risk="medium" data-date="2024-01-05" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stock-card-header">
+                        <div class="stock-basic-info">
+                            <div class="stock-symbol">BRK.B</div>
+                            <div class="stock-name">Berkshire Hathaway</div>
+                        </div>
+                        <div class="stock-return positive">+28.9%</div>
+                    </div>
+                    
+                    <div class="stock-card-body">
+                        <div class="stock-price">$442.31 <span class="price-change positive">+1.2%</span></div>
+                        <div class="stock-target">Target: $520</div>
+                        
+                        <div class="stock-tags">
+                            <span class="tag tag-value">Value</span>
+                            <span class="tag tag-conglomerate">Conglomerate</span>
+                        </div>
+                        
+                        <p class="stock-summary">Undervalued conglomerate with strong cash position and buybacks.</p>
+                    </div>
+                    
+                    <div class="stock-card-footer">
+                        <div class="pick-date">Jan 5, 2024</div>
+                        <button class="btn btn-sm btn-outline">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Stock Card 5 -->
+                <div class="stock-card" data-category="tech" data-return="52.1" data-risk="medium" data-date="2024-01-03" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stock-card-header">
+                        <div class="stock-basic-info">
+                            <div class="stock-symbol">GOOGL</div>
+                            <div class="stock-name">Alphabet Inc</div>
+                        </div>
+                        <div class="stock-return positive">+52.1%</div>
+                    </div>
+                    
+                    <div class="stock-card-body">
+                        <div class="stock-price">$142.56 <span class="price-change positive">+2.1%</span></div>
+                        <div class="stock-target">Target: $180</div>
+                        
+                        <div class="stock-tags">
+                            <span class="tag tag-tech">Tech</span>
+                            <span class="tag tag-ai">AI</span>
+                        </div>
+                        
+                        <p class="stock-summary">Bard AI improvements and cloud growth driving valuation recovery.</p>
+                    </div>
+                    
+                    <div class="stock-card-footer">
+                        <div class="pick-date">Jan 3, 2024</div>
+                        <button class="btn btn-sm btn-outline">View Details</button>
+                    </div>
+                </div>
+
+                <!-- Stock Card 6 -->
+                <div class="stock-card" data-category="growth" data-return="41.3" data-risk="high" data-date="2024-01-01" data-aos="fade-up" data-aos-delay="500">
+                    <div class="stock-card-header">
+                        <div class="stock-basic-info">
+                            <div class="stock-symbol">AMZN</div>
+                            <div class="stock-name">Amazon.com Inc</div>
+                        </div>
+                        <div class="stock-return positive">+41.3%</div>
+                    </div>
+                    
+                    <div class="stock-card-body">
+                        <div class="stock-price">$155.89 <span class="price-change positive">+1.5%</span></div>
+                        <div class="stock-target">Target: $200</div>
+                        
+                        <div class="stock-tags">
+                            <span class="tag tag-growth">Growth</span>
+                            <span class="tag tag-cloud">Cloud</span>
+                        </div>
+                        
+                        <p class="stock-summary">AWS growth acceleration and retail margin improvements.</p>
+                    </div>
+                    
+                    <div class="stock-card-footer">
+                        <div class="pick-date">Jan 1, 2024</div>
+                        <button class="btn btn-sm btn-outline">View Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Load More Button -->
+            <div class="load-more-container" data-aos="fade-up">
+                <button class="btn btn-secondary" id="load-more-btn">Load More Picks</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Tracking -->
+    <section class="performance-tracking">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Track Record</h2>
+                <p>Transparent performance history of all our recommendations</p>
+            </div>
+            
+            <div class="performance-content">
+                <div class="performance-chart-container" data-aos="fade-up" data-aos-delay="200">
+                    <canvas id="performance-tracking-chart"></canvas>
+                </div>
+                
+                <div class="performance-stats-grid" data-aos="fade-up" data-aos-delay="300">
+                    <div class="performance-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">156</div>
+                            <div class="stat-label">Winning Picks</div>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">+127%</div>
+                            <div class="stat-label">Avg Return</div>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">89%</div>
+                            <div class="stat-label">Success Rate</div>
+                        </div>
+                    </div>
+                    
+                    <div class="performance-stat">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number">8.2</div>
+                            <div class="stat-label">Avg Hold (months)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="stock-picks-cta">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2>Ready to Access Premium Picks?</h2>
+                <p>Join thousands of investors who trust our research and analysis</p>
+                <div class="cta-buttons">
+                    <a href="pricing.html" class="btn btn-primary btn-large">Start Free Trial</a>
+                    <a href="#" class="btn btn-secondary btn-large">View Sample Report</a>
+                </div>
+                <div class="cta-guarantee">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>30-day money-back guarantee</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>InvestPro Elite</span>
+                    </div>
+                    <p>Empowering investors with data-driven insights and proven strategies for building long-term wealth.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="stock-picks.html">Stock Picks</a></li>
+                        <li><a href="research.html">Research Reports</a></li>
+                        <li><a href="portfolio.html">Portfolio Tools</a></li>
+                        <li><a href="education.html">Investment Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="press.html">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> support@investproelite.com</p>
+                        <p><i class="fas fa-phone"></i> 1-800-INVEST-1</p>
+                        <p><i class="fas fa-map-marker-alt"></i> New York, NY</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 InvestPro Elite. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="disclaimer.html">Investment Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="main.js"></script>
+    <script src="jstock-picks.js"></script>
+</body>
+</html>

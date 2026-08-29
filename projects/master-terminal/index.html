@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance & Investment Master Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Instrument+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   CSS VARIABLES & THEME
+   ═══════════════════════════════════════════ */
+:root {
+  --bg-primary: #0a0e17;
+  --bg-secondary: #111827;
+  --bg-tertiary: #1a2035;
+  --bg-card: rgba(17, 24, 39, 0.7);
+  --bg-card-hover: rgba(26, 32, 53, 0.9);
+  --bg-glass: rgba(17, 24, 39, 0.5);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-accent: rgba(212, 175, 55, 0.2);
+  --text-primary: #e8eaed;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --gold: #d4af37;
+  --gold-dim: rgba(212, 175, 55, 0.15);
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.12);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96, 165, 250, 0.12);
+  --cyan: #22d3ee;
+  --purple: #a78bfa;
+  --sidebar-w: 260px;
+  --topbar-h: 56px;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Instrument Sans', sans-serif;
+  --font-display: 'Playfair Display', serif;
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+/* ═══════════════════════════════════════════
+   LAYOUT SHELL
+   ═══════════════════════════════════════════ */
+.app-shell { display: flex; height: 100vh; width: 100vw; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--bg-secondary);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform var(--transition);
+}
+.sidebar-header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sidebar-logo .logo-icon {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--gold), #b8941f);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700;
+  color: var(--bg-primary);
+  font-family: var(--font-display);
+}
+.sidebar-logo .logo-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+.sidebar-logo .logo-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 10px;
+}
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 16px 12px 6px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  position: relative;
+  margin-bottom: 2px;
+}
+.nav-item:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-primary);
+}
+.nav-item.active {
+  background: var(--gold-dim);
+  color: var(--gold);
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 20px;
+  background: var(--gold);
+  border-radius: 0 3px 3px 0;
+}
+.nav-icon {
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.nav-badge {
+  margin-left: auto;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: var(--gold-dim);
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* MAIN CONTENT AREA */
+.main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* TOPBAR */
+.topbar {
+  height: var(--topbar-h);
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  z-index: 50;
+}
+.search-box {
+  flex: 1;
+  max-width: 500px;
+  position: relative;
+}
+.search-box input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px 8px 36px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+  transition: all var(--transition);
+}
+.search-box input::placeholder { color: var(--text-muted); }
+.search-box input:focus {
+  border-color: var(--gold);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+.search-box .search-icon {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+.search-box .search-kbd {
+  position: absolute;
+  right: 10px; top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+.topbar-btn {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  transition: all var(--transition);
+}
+.topbar-btn:hover {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-primary);
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* CONTENT AREA */
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  scroll-behavior: smooth;
+}
+
+/* ═══════════════════════════════════════════
+   CARD SYSTEM
+   ═══════════════════════════════════════════ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition);
+}
+.card:hover {
+  border-color: rgba(255,255,255,0.1);
+  background: var(--bg-card-hover);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.card-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE / SECTION
+   ═══════════════════════════════════════════ */
+.page {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+.page.active { display: block; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-header {
+  margin-bottom: 28px;
+}
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.page-header p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 1200px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 800px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+/* ═══════════════════════════════════════════
+   DASHBOARD WIDGETS
+   ═══════════════════════════════════════════ */
+.stat-widget {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  transition: all var(--transition);
+}
+.stat-widget:hover { border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.stat-change {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 6px;
+  display: flex; align-items: center; gap: 4px;
+}
+.stat-change.up { color: var(--green); }
+.stat-change.down { color: var(--red); }
+
+/* PROGRESS BAR */
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), #e8c547);
+  transition: width 1s ease;
+}
+
+/* ═══════════════════════════════════════════
+   TOPIC CARDS
+   ═══════════════════════════════════════════ */
+.topic-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.topic-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(212, 175, 55, 0.08);
+}
+.topic-card .topic-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+.topic-card .topic-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.topic-card .topic-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.topic-card .topic-tag {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tag-beginner { background: var(--green-dim); color: var(--green); }
+.tag-intermediate { background: var(--blue-dim); color: var(--blue); }
+.tag-advanced { background: var(--gold-dim); color: var(--gold); }
+
+/* TOPIC DETAIL */
+.topic-detail-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+.topic-detail-overlay.open { display: flex; }
+.topic-detail-panel {
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-y: auto;
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.topic-detail-panel .detail-close {
+  float: right;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition);
+}
+.topic-detail-panel .detail-close:hover { background: rgba(255,255,255,0.06); color: var(--text-primary); }
+.topic-detail-panel h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.detail-section {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(255,255,255,0.02);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--gold);
+}
+.detail-section h3 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.detail-section p, .detail-section li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+.detail-section ul { padding-left: 18px; }
+.detail-section li { margin-bottom: 4px; }
+.formula-box {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--cyan);
+  margin: 10px 0;
+  overflow-x: auto;
+}
+.detail-actions {
+  display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;
+}
+.detail-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.detail-btn:hover { background: rgba(255,255,255,0.06); color: var(--text-primary); }
+.detail-btn.primary { background: var(--gold-dim); color: var(--gold); border-color: rgba(212,175,55,0.3); }
+.detail-btn.primary:hover { background: rgba(212,175,55,0.25); }
+
+/* ═══════════════════════════════════════════
+   CALCULATORS
+   ═══════════════════════════════════════════ */
+.calc-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.calc-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.calc-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.calc-row label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.calc-row input {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  transition: all var(--transition);
+}
+.calc-row input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+.calc-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--gold), #b8941f);
+  color: var(--bg-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.calc-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,175,55,0.3); }
+.calc-result {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(52, 211, 153, 0.06);
+  border: 1px solid rgba(52, 211, 153, 0.15);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--green);
+  text-align: center;
+  display: none;
+}
+.calc-result.visible { display: block; animation: fadeIn 0.3s ease; }
+
+/* ═══════════════════════════════════════════
+   NOTES PANEL
+   ═══════════════════════════════════════════ */
+.notes-area textarea {
+  width: 100%;
+  min-height: 120px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+  resize: vertical;
+  transition: border-color var(--transition);
+}
+.notes-area textarea:focus { border-color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   QUIZ & FLASHCARD
+   ═══════════════════════════════════════════ */
+.quiz-option {
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.quiz-option:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); border-color: rgba(255,255,255,0.12); }
+.quiz-option.correct { background: var(--green-dim); border-color: var(--green); color: var(--green); }
+.quiz-option.wrong { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+
+.flashcard {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  perspective: 1000px;
+}
+.flashcard-inner {
+  padding: 32px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+.flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+.flashcard-front, .flashcard-back {
+  backface-visibility: hidden;
+}
+.flashcard-back {
+  transform: rotateY(180deg);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  color: var(--green);
+}
+
+/* ═══════════════════════════════════════════
+   TABS
+   ═══════════════════════════════════════════ */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+.tab-item {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.tab-item:hover { color: var(--text-secondary); }
+.tab-item.active { background: var(--gold-dim); color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   CHECKLIST
+   ═══════════════════════════════════════════ */
+.checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.checklist-item:last-child { border-bottom: none; }
+.checklist-check {
+  width: 20px; height: 20px; min-width: 20px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: transparent;
+  margin-top: 2px;
+}
+.checklist-check.checked {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg-primary);
+}
+.checklist-text { font-size: 14px; color: var(--text-secondary); line-height: 1.5; }
+
+/* ═══════════════════════════════════════════
+   SEARCH RESULTS OVERLAY
+   ═══════════════════════════════════════════ */
+.search-results {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+}
+.search-results.open { display: block; }
+.search-result-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background var(--transition);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.search-result-item:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
+.search-result-item:last-child { border-bottom: none; }
+.search-result-item .sr-section {
+  font-size: 10px;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ═══════════════════════════════════════════
+   BOOKMARK STAR
+   ═══════════════════════════════════════════ */
+.bookmark-btn {
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-muted);
+  transition: all var(--transition);
+}
+.bookmark-btn:hover { color: var(--gold); }
+.bookmark-btn.active { color: var(--gold); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .sidebar { position: fixed; left: 0; top: 0; bottom: 0; transform: translateX(-100%); z-index: 200; }
+  .sidebar.open { transform: translateX(0); }
+  :root { --sidebar-w: 260px; }
+}
+
+/* BACKGROUND GRAIN */
+.app-shell::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* COMPARISON TABLE */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.compare-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+.compare-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+.compare-table .val-good { color: var(--green); font-weight: 600; }
+.compare-table .val-bad { color: var(--red); font-weight: 600; }
+.compare-table .val-neutral { color: var(--blue); font-weight: 600; }
+
+/* INSIGHT BOX */
+.insight-box {
+  background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.02));
+  border: 1px solid rgba(212,175,55,0.15);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.insight-box .insight-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+.insight-box .insight-text {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* MINI CHART (CSS-only spark bar) */
+.spark-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 40px;
+}
+.spark-bar {
+  width: 6px;
+  border-radius: 2px;
+  background: var(--gold);
+  opacity: 0.6;
+  transition: height 0.5s ease;
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- ═══════════ SIDEBAR ═══════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <div class="logo-icon">F</div>
+        <div>
+          <div class="logo-text">FinTerminal</div>
+          <div class="logo-sub">Master System v2.0</div>
+        </div>
+      </div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <div class="nav-section-label">Main</div>
+      <div class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">◉</span> Dashboard
+      </div>
+
+      <div class="nav-section-label">Knowledge Base</div>
+      <div class="nav-item" data-page="fundamentals">
+        <span class="nav-icon">◈</span> Finance Fundamentals
+      </div>
+      <div class="nav-item" data-page="personal">
+        <span class="nav-icon">◇</span> Personal Finance
+      </div>
+      <div class="nav-item" data-page="investing">
+        <span class="nav-icon">△</span> Investing Core
+      </div>
+      <div class="nav-item" data-page="analysis">
+        <span class="nav-icon">▤</span> Stock Analysis
+        <span class="nav-badge">PRO</span>
+      </div>
+      <div class="nav-item" data-page="portfolio">
+        <span class="nav-icon">⬡</span> Portfolio Mgmt
+      </div>
+      <div class="nav-item" data-page="advanced">
+        <span class="nav-icon">◆</span> Advanced Investing
+      </div>
+      <div class="nav-item" data-page="macro">
+        <span class="nav-icon">⊕</span> Macroeconomics
+      </div>
+
+      <div class="nav-section-label">Tools</div>
+      <div class="nav-item" data-page="calculators">
+        <span class="nav-icon">⊞</span> Calculators
+      </div>
+      <div class="nav-item" data-page="learning">
+        <span class="nav-icon">▸</span> Learning Paths
+      </div>
+      <div class="nav-item" data-page="quiz">
+        <span class="nav-icon">?</span> Quiz & Flashcards
+      </div>
+      <div class="nav-item" data-page="compare">
+        <span class="nav-icon">⇄</span> Compare Stocks
+      </div>
+      <div class="nav-item" data-page="notes">
+        <span class="nav-icon">✎</span> My Notes
+      </div>
+      <div class="nav-item" data-page="bookmarks">
+        <span class="nav-icon">★</span> Bookmarks
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ═══════════ MAIN ═══════════ -->
+  <div class="main-area">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="topbar-btn" id="menuToggle" style="display:none;">☰</button>
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="searchInput" placeholder="Search topics, concepts, formulas…" autocomplete="off">
+        <span class="search-kbd">⌘K</span>
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <div class="topbar-actions">
+        <button class="topbar-btn" id="themeToggle" title="Theme">☽</button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="content-area" id="contentArea">
+
+      <!-- ════════════════════════════════════════
+           DASHBOARD
+           ════════════════════════════════════════ -->
+      <div class="page active" id="page-dashboard">
+        <div class="page-header">
+          <h1>Command Center</h1>
+          <p>Your personal finance & investing intelligence dashboard</p>
+        </div>
+
+        <div class="grid-4" style="margin-bottom:24px;">
+          <div class="stat-widget">
+            <div class="stat-label">Learning Progress</div>
+            <div class="stat-value" id="dashProgress">0%</div>
+            <div class="progress-bar-container"><div class="progress-bar-fill" id="dashProgressBar" style="width:0%"></div></div>
+          </div>
+          <div class="stat-widget">
+            <div class="stat-label">Topics Completed</div>
+            <div class="stat-value" id="dashCompleted">0</div>
+            <div class="stat-change up">of 50 total topics</div>
+          </div>
+          <div class="stat-widget">
+            <div class="stat-label">Bookmarks</div>
+            <div class="stat-value" id="dashBookmarks">0</div>
+            <div class="stat-change" style="color:var(--blue)">saved items</div>
+          </div>
+          <div class="stat-widget">
+            <div class="stat-label">Quiz Score</div>
+            <div class="stat-value" id="dashQuizScore">—</div>
+            <div class="stat-change" style="color:var(--purple)">best score</div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:24px;">
+          <div class="insight-box">
+            <div class="insight-label">Investor Mindset — Tip of the Day</div>
+            <div class="insight-text" id="dailyTip"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Continue Learning</div></div>
+            <div id="continueSection" style="font-size:14px;color:var(--text-secondary);">
+              Start by exploring Finance Fundamentals to build a strong foundation.
+            </div>
+            <div style="margin-top:14px;">
+              <button class="detail-btn primary" onclick="navigateTo('fundamentals')">Start Learning →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:24px;">
+          <div class="card-header"><div class="card-title">Quick Navigation</div></div>
+          <div class="grid-4">
+            <div class="topic-card" onclick="navigateTo('fundamentals')" style="text-align:center;">
+              <div class="topic-icon" style="background:var(--gold-dim);color:var(--gold);margin:0 auto 10px;">◈</div>
+              <div class="topic-name">Fundamentals</div>
+              <div class="topic-desc">Core financial concepts</div>
+            </div>
+            <div class="topic-card" onclick="navigateTo('analysis')" style="text-align:center;">
+              <div class="topic-icon" style="background:var(--green-dim);color:var(--green);margin:0 auto 10px;">▤</div>
+              <div class="topic-name">Stock Analysis</div>
+              <div class="topic-desc">Deep dive into equities</div>
+            </div>
+            <div class="topic-card" onclick="navigateTo('calculators')" style="text-align:center;">
+              <div class="topic-icon" style="background:var(--blue-dim);color:var(--blue);margin:0 auto 10px;">⊞</div>
+              <div class="topic-name">Calculators</div>
+              <div class="topic-desc">Financial computation tools</div>
+            </div>
+            <div class="topic-card" onclick="navigateTo('quiz')" style="text-align:center;">
+              <div class="topic-icon" style="background:rgba(167,139,250,0.12);color:var(--purple);margin:0 auto 10px;">?</div>
+              <div class="topic-name">Quiz Mode</div>
+              <div class="topic-desc">Test your knowledge</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           FINANCE FUNDAMENTALS
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-fundamentals">
+        <div class="page-header">
+          <h1>Finance Fundamentals</h1>
+          <p>Master the core principles that underpin all financial decision-making</p>
+        </div>
+        <div class="grid-3" id="fundamentalsGrid"></div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           PERSONAL FINANCE
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-personal">
+        <div class="page-header">
+          <h1>Personal Finance System</h1>
+          <p>Build an unshakable personal financial foundation</p>
+        </div>
+        <div class="grid-3" id="personalGrid"></div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           INVESTING CORE
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-investing">
+        <div class="page-header">
+          <h1>Investing Core</h1>
+          <p>Understand every major investment vehicle and strategy</p>
+        </div>
+        <div class="grid-3" id="investingGrid"></div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           STOCK ANALYSIS
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-analysis">
+        <div class="page-header">
+          <h1>Stock Analysis — Pro Level</h1>
+          <p>The complete framework for analyzing any public company</p>
+        </div>
+        <div class="tab-bar" id="analysisTabBar">
+          <div class="tab-item active" data-tab="analysis-fundamental">Fundamental</div>
+          <div class="tab-item" data-tab="analysis-valuation">Valuation</div>
+          <div class="tab-item" data-tab="analysis-qualitative">Qualitative</div>
+          <div class="tab-item" data-tab="analysis-redflags">Red Flags</div>
+        </div>
+        <div id="analysis-fundamental" class="tab-content"><div class="grid-3" id="fundamentalGrid"></div></div>
+        <div id="analysis-valuation" class="tab-content" style="display:none"><div class="grid-3" id="valuationGrid"></div></div>
+        <div id="analysis-qualitative" class="tab-content" style="display:none"><div class="grid-3" id="qualitativeGrid"></div></div>
+        <div id="analysis-redflags" class="tab-content" style="display:none"><div class="grid-3" id="redflagsGrid"></div></div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           PORTFOLIO MANAGEMENT
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-portfolio">
+        <div class="page-header">
+          <h1>Portfolio Management</h1>
+          <p>Professional-grade portfolio construction and risk management</p>
+        </div>
+        <div class="grid-3" id="portfolioGrid"></div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           ADVANCED INVESTING
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-advanced">
+        <div class="page-header">
+          <h1>Advanced Investing</h1>
+          <p>Options, futures, behavioral finance, and beyond</p>
+        </div>
+        <div class="grid-3" id="advancedGrid"></div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           MACROECONOMICS
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-macro">
+        <div class="page-header">
+          <h1>Macroeconomics</h1>
+          <p>How the broader economy shapes markets and investment returns</p>
+        </div>
+        <div class="grid-3" id="macroGrid"></div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           CALCULATORS
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-calculators">
+        <div class="page-header">
+          <h1>Financial Calculators</h1>
+          <p>Interactive tools for investment analysis and planning</p>
+        </div>
+        <div class="grid-2">
+          <!-- Compound Interest -->
+          <div class="calc-card">
+            <h3>⊞ Compound Interest Calculator</h3>
+            <div class="calc-row"><label>Principal ($)</label><input type="number" id="ciPrincipal" value="10000"></div>
+            <div class="calc-row"><label>Annual Rate (%)</label><input type="number" id="ciRate" value="8" step="0.1"></div>
+            <div class="calc-row"><label>Years</label><input type="number" id="ciYears" value="20"></div>
+            <div class="calc-row"><label>Monthly Contribution ($)</label><input type="number" id="ciMonthly" value="500"></div>
+            <button class="calc-btn" onclick="calcCompound()">Calculate</button>
+            <div class="calc-result" id="ciResult"></div>
+          </div>
+          <!-- Return Calculator -->
+          <div class="calc-card">
+            <h3>△ Return Calculator</h3>
+            <div class="calc-row"><label>Buy Price ($)</label><input type="number" id="retBuy" value="100"></div>
+            <div class="calc-row"><label>Sell Price ($)</label><input type="number" id="retSell" value="150"></div>
+            <div class="calc-row"><label>Dividends Received ($)</label><input type="number" id="retDiv" value="10"></div>
+            <button class="calc-btn" onclick="calcReturn()">Calculate</button>
+            <div class="calc-result" id="retResult"></div>
+          </div>
+          <!-- Position Sizing -->
+          <div class="calc-card">
+            <h3>⬡ Position Sizing Calculator</h3>
+            <div class="calc-row"><label>Portfolio Value ($)</label><input type="number" id="psPV" value="100000"></div>
+            <div class="calc-row"><label>Risk Per Trade (%)</label><input type="number" id="psRisk" value="2" step="0.1"></div>
+            <div class="calc-row"><label>Entry Price ($)</label><input type="number" id="psEntry" value="50"></div>
+            <div class="calc-row"><label>Stop Loss Price ($)</label><input type="number" id="psStop" value="45"></div>
+            <button class="calc-btn" onclick="calcPosition()">Calculate</button>
+            <div class="calc-result" id="psResult"></div>
+          </div>
+          <!-- DCF Calculator -->
+          <div class="calc-card">
+            <h3>▤ Simple DCF Calculator</h3>
+            <div class="calc-row"><label>Current Free Cash Flow ($M)</label><input type="number" id="dcfFCF" value="500"></div>
+            <div class="calc-row"><label>Growth Rate (%)</label><input type="number" id="dcfGrowth" value="12" step="0.1"></div>
+            <div class="calc-row"><label>Discount Rate (%)</label><input type="number" id="dcfDiscount" value="10" step="0.1"></div>
+            <div class="calc-row"><label>Projection Years</label><input type="number" id="dcfYears" value="10"></div>
+            <div class="calc-row"><label>Shares Outstanding (M)</label><input type="number" id="dcfShares" value="100"></div>
+            <button class="calc-btn" onclick="calcDCF()">Calculate</button>
+            <div class="calc-result" id="dcfResult"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           LEARNING PATHS
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-learning">
+        <div class="page-header">
+          <h1>Learning Paths</h1>
+          <p>Structured roadmaps from beginner to professional investor</p>
+        </div>
+        <div class="tab-bar" id="learningTabBar">
+          <div class="tab-item active" data-tab="lp-beginner">Beginner</div>
+          <div class="tab-item" data-tab="lp-intermediate">Intermediate</div>
+          <div class="tab-item" data-tab="lp-advanced">Advanced</div>
+          <div class="tab-item" data-tab="lp-checklists">Checklists</div>
+        </div>
+        <div id="lp-beginner" class="tab-content"><div id="beginnerPath"></div></div>
+        <div id="lp-intermediate" class="tab-content" style="display:none"><div id="intermediatePath"></div></div>
+        <div id="lp-advanced" class="tab-content" style="display:none"><div id="advancedPath"></div></div>
+        <div id="lp-checklists" class="tab-content" style="display:none"><div id="checklistsPath"></div></div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           QUIZ & FLASHCARDS
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-quiz">
+        <div class="page-header">
+          <h1>Quiz & Flashcards</h1>
+          <p>Test and reinforce your financial knowledge</p>
+        </div>
+        <div class="tab-bar" id="quizTabBar">
+          <div class="tab-item active" data-tab="quiz-mode">Quiz</div>
+          <div class="tab-item" data-tab="flash-mode">Flashcards</div>
+        </div>
+        <div id="quiz-mode" class="tab-content">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Knowledge Quiz</div>
+              <div style="font-family:var(--font-mono);font-size:14px;color:var(--gold);" id="quizScoreDisplay">Score: 0/0</div>
+            </div>
+            <div id="quizContainer"></div>
+            <div style="margin-top:16px;">
+              <button class="detail-btn primary" onclick="nextQuizQuestion()">Next Question →</button>
+              <button class="detail-btn" onclick="resetQuiz()">Reset Quiz</button>
+            </div>
+          </div>
+        </div>
+        <div id="flash-mode" class="tab-content" style="display:none">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Flashcards</div>
+              <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);" id="flashCounter">1 / 20</div>
+            </div>
+            <div class="flashcard card" id="flashcardBox" onclick="flipFlashcard()" style="min-height:220px;cursor:pointer;">
+              <div class="flashcard-inner">
+                <div class="flashcard-front" id="flashFront" style="font-size:18px;font-weight:600;"></div>
+                <div class="flashcard-back" id="flashBack" style="font-size:15px;color:var(--green);"></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:14px;justify-content:center;">
+              <button class="detail-btn" onclick="prevFlashcard()">← Previous</button>
+              <button class="detail-btn primary" onclick="nextFlashcard()">Next →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           COMPARE STOCKS
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-compare">
+        <div class="page-header">
+          <h1>Stock Comparison</h1>
+          <p>Side-by-side analysis of two companies (demo data)</p>
+        </div>
+        <div class="card">
+          <table class="compare-table">
+            <thead>
+              <tr><th>Metric</th><th>Company A (Growth Co.)</th><th>Company B (Value Co.)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Revenue Growth (YoY)</td><td class="val-good">+32%</td><td class="val-neutral">+6%</td></tr>
+              <tr><td>EPS Growth</td><td class="val-good">+45%</td><td class="val-neutral">+8%</td></tr>
+              <tr><td>Gross Margin</td><td class="val-good">72%</td><td class="val-neutral">38%</td></tr>
+              <tr><td>Operating Margin</td><td class="val-neutral">18%</td><td class="val-good">22%</td></tr>
+              <tr><td>Net Margin</td><td class="val-neutral">12%</td><td class="val-good">16%</td></tr>
+              <tr><td>ROE</td><td class="val-neutral">15%</td><td class="val-good">24%</td></tr>
+              <tr><td>ROIC</td><td class="val-neutral">11%</td><td class="val-good">18%</td></tr>
+              <tr><td>Debt-to-Equity</td><td class="val-good">0.3</td><td class="val-neutral">0.8</td></tr>
+              <tr><td>P/E Ratio</td><td class="val-bad">55x</td><td class="val-good">14x</td></tr>
+              <tr><td>PEG Ratio</td><td class="val-neutral">1.2</td><td class="val-good">0.9</td></tr>
+              <tr><td>EV/EBITDA</td><td class="val-bad">38x</td><td class="val-good">9x</td></tr>
+              <tr><td>Free Cash Flow Yield</td><td class="val-neutral">1.8%</td><td class="val-good">7.2%</td></tr>
+              <tr><td>Dividend Yield</td><td class="val-neutral">0%</td><td class="val-good">3.1%</td></tr>
+              <tr><td>Current Ratio</td><td class="val-good">2.4</td><td class="val-neutral">1.5</td></tr>
+              <tr><td>Economic Moat</td><td class="val-good">Wide (Network Effects)</td><td class="val-neutral">Narrow (Cost Advantage)</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:16px;padding:16px;background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);border-left:3px solid var(--gold);">
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;"><strong style="color:var(--gold);">Analysis:</strong> Company A is a high-growth compounder — strong revenue and earnings growth with wide moat, but trading at premium valuation. Company B is a mature value play — lower growth but excellent profitability, attractive valuation, and paying dividends. Your decision depends on investment horizon and risk tolerance.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           NOTES
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-notes">
+        <div class="page-header">
+          <h1>My Notes</h1>
+          <p>Personal investment notes and strategy journal</p>
+        </div>
+        <div class="card notes-area">
+          <div class="card-header">
+            <div class="card-title">Investment Journal</div>
+            <button class="detail-btn primary" onclick="saveNotes()">Save Notes</button>
+          </div>
+          <textarea id="notesTextarea" placeholder="Write your investment thesis, strategies, observations, and lessons learned here..."></textarea>
+          <div style="margin-top:12px;font-size:11px;color:var(--text-muted);" id="notesSaved"></div>
+        </div>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           BOOKMARKS
+           ════════════════════════════════════════ -->
+      <div class="page" id="page-bookmarks">
+        <div class="page-header">
+          <h1>Bookmarks</h1>
+          <p>Your saved topics for quick reference</p>
+        </div>
+        <div id="bookmarksList" class="grid-3"></div>
+        <div id="noBookmarks" style="text-align:center;padding:60px 20px;color:var(--text-muted);font-size:14px;">
+          No bookmarks yet. Click the ★ icon on any topic to save it here.
+        </div>
+      </div>
+
+    </div><!-- /content-area -->
+  </div><!-- /main-area -->
+</div><!-- /app-shell -->
+
+<!-- ═══════════ TOPIC DETAIL OVERLAY ═══════════ -->
+<div class="topic-detail-overlay" id="topicOverlay">
+  <div class="topic-detail-panel" id="topicPanel"></div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   DATA — COMPLETE TOPIC DATABASE
+   ═══════════════════════════════════════════════════════ */
+const TOPICS = {
+  fundamentals: [
+    {
+      id:'tvm', name:'Time Value of Money', icon:'◈', level:'beginner',
+      desc:'A dollar today is worth more than a dollar tomorrow.',
+      definition:'The concept that money available now is worth more than the same amount in the future due to its potential earning capacity.',
+      whyMatters:'It is the foundation of all financial calculations — discounted cash flows, loan amortization, investment returns, and retirement planning all depend on this principle.',
+      example:'If you invest $1,000 today at 8% annually, in 10 years it becomes $2,159. Waiting one year to invest costs you the compound growth of that first year.',
+      formula:'FV = PV × (1 + r)^n\nPV = FV / (1 + r)^n',
+      takeaway:'Always consider when cash flows occur, not just how much they are. Earlier money is more valuable.',
+      mistakes:['Ignoring time value when comparing investment options','Not discounting future payments to present value','Confusing nominal and real returns over time']
+    },
+    {
+      id:'compound', name:'Compound Interest', icon:'◈', level:'beginner',
+      desc:'The eighth wonder of the world — earning returns on returns.',
+      definition:'Interest calculated on both the initial principal and the accumulated interest from previous periods.',
+      whyMatters:'Compounding is the single most powerful force in wealth building. Small differences in rate or time create enormous differences in outcome.',
+      example:'$10,000 at 10% for 30 years = $174,494. At 12%, it becomes $299,599. A 2% difference nearly doubles the outcome.',
+      formula:'A = P(1 + r/n)^(nt)\nWhere: P=principal, r=annual rate, n=compounds per year, t=years',
+      takeaway:'Start early, stay invested, and minimize fees. Time is your greatest asset.',
+      mistakes:['Starting too late — every year of delay is costly','Underestimating the impact of fees on long-term compounding','Interrupting compounding by withdrawing early']
+    },
+    {
+      id:'inflation', name:'Inflation Mechanics', icon:'◈', level:'beginner',
+      desc:'The silent tax that erodes purchasing power over time.',
+      definition:'The general increase in prices over time, reducing what each unit of currency can buy.',
+      whyMatters:'If your investments don\'t outpace inflation, you\'re losing real wealth even if your nominal balance grows.',
+      example:'At 3% inflation, $100,000 today has the purchasing power of only $74,409 in 10 years and $55,368 in 20 years.',
+      formula:'Real Return ≈ Nominal Return − Inflation Rate\nFuture Value (real) = PV / (1 + inflation)^n',
+      takeaway:'Always think in real (inflation-adjusted) terms. Your target return must exceed inflation.',
+      mistakes:['Keeping too much cash that loses value to inflation','Confusing nominal growth with real wealth gains','Ignoring inflation when planning for retirement']
+    },
+    {
+      id:'realnom', name:'Real vs Nominal Returns', icon:'◈', level:'beginner',
+      desc:'The difference between what you earn and what you keep in purchasing power.',
+      definition:'Nominal return is the percentage gain before adjusting for inflation. Real return is the actual purchasing power gained.',
+      whyMatters:'An 8% nominal return with 3% inflation gives you only ~5% real growth. Without this distinction, you may overestimate your wealth.',
+      example:'A bond yielding 5% when inflation is 4% gives you only 1% real return — barely growing wealth at all.',
+      formula:'Real Return ≈ (1 + Nominal) / (1 + Inflation) − 1',
+      takeaway:'Always evaluate investments on their real returns, especially for long-term planning.',
+      mistakes:['Celebrating high nominal returns without checking inflation','Comparing returns across different inflation environments','Ignoring taxes, which further reduce real returns']
+    },
+    {
+      id:'rates', name:'Interest Rates & Yield Curves', icon:'◈', level:'intermediate',
+      desc:'The price of money and what different maturities signal about the future.',
+      definition:'Interest rates represent the cost of borrowing money. The yield curve plots rates across different bond maturities.',
+      whyMatters:'Rates affect everything — stock valuations, bond prices, mortgages, corporate profits. An inverted yield curve has preceded every recession since 1955.',
+      example:'When the Fed raises rates, borrowing costs rise, slowing economic activity. Long-term yields below short-term yields (inversion) signal recession fear.',
+      formula:'Yield Spread = Long-term rate − Short-term rate',
+      takeaway:'Monitor the yield curve as a leading economic indicator. Rate changes ripple through all asset classes.',
+      mistakes:['Ignoring rate environment when valuing stocks','Not understanding how rising rates hurt bond prices','Assuming rates will stay low forever']
+    },
+    {
+      id:'riskrew', name:'Risk vs Reward', icon:'◈', level:'beginner',
+      desc:'Higher potential returns always come with higher potential losses.',
+      definition:'The principle that the potential return on any investment rises with the level of risk taken.',
+      whyMatters:'Understanding this tradeoff prevents both excessive caution (missing growth) and excessive risk (catastrophic loss).',
+      example:'Treasury bills return ~4% with near-zero risk. Stocks historically return ~10% but can drop 30%+ in a year. Speculative assets can 10x or go to zero.',
+      formula:'Risk-Adjusted Return = (Return − Risk-Free Rate) / Standard Deviation (Sharpe Ratio)',
+      takeaway:'Don\'t chase returns without understanding the risk. Optimize for risk-adjusted returns.',
+      mistakes:['Taking excessive risk without adequate diversification','Being so risk-averse that inflation erodes your wealth','Not understanding your personal risk tolerance and time horizon']
+    },
+    {
+      id:'oppcost', name:'Opportunity Cost', icon:'◈', level:'beginner',
+      desc:'Every financial decision has a hidden cost — the next best alternative you gave up.',
+      definition:'The value of the best alternative forgone when making a choice.',
+      whyMatters:'Every dollar spent is a dollar not invested. Every bad investment is capital not allocated elsewhere.',
+      example:'Spending $300/month on a car payment instead of investing: over 30 years at 10%, that\'s $678,000 in lost potential wealth.',
+      formula:'Opportunity Cost = Return of Best Foregone Option − Return of Chosen Option',
+      takeaway:'Think about what you\'re giving up, not just what you\'re getting.',
+      mistakes:['Only considering explicit costs, not implicit opportunity costs','Holding losing investments because of sunk cost fallacy','Not calculating the compounded cost of recurring expenses']
+    },
+    {
+      id:'liquidity', name:'Liquidity', icon:'◈', level:'beginner',
+      desc:'How quickly and easily an asset can be converted to cash without significant loss.',
+      definition:'The degree to which an asset can be quickly bought or sold in the market at a price reflecting its intrinsic value.',
+      whyMatters:'Illiquid investments trap your capital. In a crisis, illiquidity becomes your biggest enemy.',
+      example:'Apple stock is highly liquid — millions of shares trade daily. Real estate is illiquid — selling can take months and involves high transaction costs.',
+      formula:'Bid-Ask Spread is a key liquidity metric\nNarrower spread = Higher liquidity',
+      takeaway:'Ensure your portfolio has enough liquid assets to handle emergencies and opportunities.',
+      mistakes:['Overallocating to illiquid assets without reserves','Ignoring bid-ask spreads and transaction costs','Assuming you can always sell at the quoted price']
+    },
+    {
+      id:'capalloc', name:'Capital Allocation', icon:'◈', level:'intermediate',
+      desc:'The strategic process of distributing financial resources for maximum return.',
+      definition:'How a company or individual directs capital among different investment opportunities to optimize risk-adjusted returns.',
+      whyMatters:'The quality of capital allocation decisions is the single biggest determinant of long-term wealth creation, whether for companies or individuals.',
+      example:'Warren Buffett evaluates every use of Berkshire\'s capital against all alternatives. Buying back stock, acquiring companies, holding cash — each has different expected returns.',
+      formula:'ROIC > WACC = Value Creation\nROIC < WACC = Value Destruction',
+      takeaway:'Think like a capital allocator. Every dollar should go to its highest and best use.',
+      mistakes:['Allocating based on emotion rather than expected returns','Not comparing opportunity costs across all options','Failing to reassess allocation as circumstances change']
+    }
+  ],
+  personal: [
+    {id:'budget',name:'Budgeting Systems',icon:'◇',level:'beginner',desc:'Frameworks for directing every dollar with intention.',definition:'A structured plan for allocating income across spending, saving, and investing categories.',whyMatters:'Without a budget, money flows to impulse and habit. With one, money flows to your goals.',example:'50/30/20 Rule: 50% needs, 30% wants, 20% savings/investing. Zero-based: every dollar assigned a job until income minus expenses equals zero.',formula:'Income − (Needs + Wants + Savings) = 0',takeaway:'The best budget is one you actually follow. Start simple and refine.',mistakes:['Making budgets too restrictive to sustain','Not tracking actual spending against the plan','Treating savings as optional rather than a fixed expense']},
+    {id:'saving',name:'Saving Strategies',icon:'◇',level:'beginner',desc:'Building the foundation of financial security through systematic saving.',definition:'Methods for consistently setting aside money for future needs and goals.',whyMatters:'Saving is the bridge between income and wealth. Without savings, you cannot invest.',example:'Pay yourself first: auto-transfer 20% of each paycheck to savings/investments before spending on anything else.',formula:'Savings Rate = (Income − Expenses) / Income × 100%',takeaway:'Automate your savings so it happens before you can spend. Aim for 20%+ savings rate.',mistakes:['Saving what\'s left over instead of saving first','Keeping all savings in a low-yield account','Not having specific goals for your savings']},
+    {id:'emergency',name:'Emergency Funds',icon:'◇',level:'beginner',desc:'Your financial safety net against life\'s inevitable surprises.',definition:'A readily accessible cash reserve covering 3-6 months of essential expenses.',whyMatters:'Without an emergency fund, any unexpected expense becomes a financial crisis that can derail long-term plans.',example:'Monthly expenses of $4,000 → target emergency fund of $12,000-$24,000 in a high-yield savings account.',formula:'Emergency Fund = Monthly Essential Expenses × 3 to 6',takeaway:'Build this before investing. It protects your investments from being liquidated at the worst time.',mistakes:['Investing emergency funds in volatile assets','Setting the fund too low for your situation','Dipping into it for non-emergencies']},
+    {id:'credit',name:'Credit Score Deep Dive',icon:'◇',level:'beginner',desc:'Understanding and optimizing the number that controls your borrowing costs.',definition:'A numerical score (300-850) representing your creditworthiness based on payment history, utilization, length, mix, and inquiries.',whyMatters:'A high credit score saves tens of thousands in lower interest rates on mortgages, auto loans, and credit cards.',example:'A 760+ score might get a 6.5% mortgage rate vs 8% for a 650 score. On a $300K mortgage, that\'s $100,000+ in extra interest paid over 30 years.',formula:'FICO Components: Payment History 35%, Utilization 30%, Length 15%, Mix 10%, Inquiries 10%',takeaway:'Pay on time, keep utilization under 30% (ideally under 10%), and don\'t close old accounts.',mistakes:['Closing old credit cards (reduces average age)','Carrying balances thinking it helps (it doesn\'t)','Maxing out cards even if paying in full']},
+    {id:'debt',name:'Debt Management',icon:'◇',level:'beginner',desc:'Strategic approaches to eliminating bad debt and leveraging good debt.',definition:'The process of managing and repaying debts efficiently while distinguishing between productive and destructive borrowing.',whyMatters:'High-interest debt compounds against you. Eliminating it is the highest guaranteed return you can earn.',example:'Paying off a 20% APR credit card is equivalent to earning a guaranteed 20% return, tax-free. No investment can match that.',formula:'Avalanche: Pay minimums on all, extra to highest rate\nSnowball: Pay minimums on all, extra to smallest balance',takeaway:'Attack high-interest debt aggressively. It\'s the best investment you can make.',mistakes:['Only paying minimums on high-interest debt','Taking on new debt while trying to pay off old debt','Not distinguishing between good debt (mortgage, education) and bad debt (credit cards)']},
+    {id:'loans',name:'Loans & Interest Breakdown',icon:'◇',level:'beginner',desc:'Understanding the true cost of borrowed money.',definition:'A comprehensive look at how different loan structures work and how interest accumulates.',whyMatters:'Understanding amortization reveals how much you truly pay for borrowed money.',example:'On a $300,000 30-year mortgage at 7%, you pay $418,527 in interest — more than the house costs. Total: $718,527.',formula:'Monthly Payment = P × [r(1+r)^n] / [(1+r)^n − 1]\nWhere P=principal, r=monthly rate, n=total payments',takeaway:'Shorter loan terms and extra payments save enormous amounts of interest.',mistakes:['Only looking at monthly payment, not total interest','Not shopping around for the best rates','Ignoring the impact of even 0.5% rate difference']},
+    {id:'taxes',name:'Tax Essentials',icon:'◇',level:'intermediate',desc:'Understanding the tax system to keep more of what you earn.',definition:'Key tax concepts every investor needs: brackets, capital gains, deductions, and tax-advantaged accounts.',whyMatters:'Tax-efficient investing can add 1-2% annually to your returns. Over decades, this compounds enormously.',example:'Long-term capital gains (held 1+ year) are taxed at 0%, 15%, or 20% vs ordinary income rates up to 37%. Tax-loss harvesting offsets gains.',formula:'After-Tax Return = Pre-Tax Return × (1 − Tax Rate)\nTax-deferred growth: FV = PV × (1 + r)^n (taxed only at withdrawal)',takeaway:'Maximize tax-advantaged accounts (401k, IRA, Roth). Think about after-tax returns.',mistakes:['Not maximizing employer 401k match (free money)','Triggering short-term capital gains unnecessarily','Ignoring tax-loss harvesting opportunities']},
+    {id:'wealthpsy',name:'Wealth-Building Psychology',icon:'◇',level:'intermediate',desc:'The mental frameworks that separate wealth builders from everyone else.',definition:'The psychological principles and habits that enable consistent wealth accumulation.',whyMatters:'Your behavior matters more than your strategy. The best plan fails if you can\'t stick to it.',example:'Studies show the average investor earns 3-4% less than the market because of emotional buying/selling. Discipline beats intelligence.',formula:'Wealth = (Income − Spending) × Investment Returns × Time',takeaway:'Focus on what you can control: savings rate, costs, time horizon, and emotional discipline.',mistakes:['Lifestyle inflation as income rises','Comparing yourself to others and making emotional decisions','Seeking get-rich-quick schemes instead of steady compounding']},
+    {id:'incomeasset',name:'Income vs Assets Mindset',icon:'◇',level:'intermediate',desc:'Shifting from trading time for money to owning assets that generate wealth.',definition:'The distinction between earning money through labor (income) vs owning things that produce money (assets).',whyMatters:'Income is linear and limited by hours. Assets compound and can grow exponentially.',example:'A $500K stock portfolio yielding 4% produces $20,000/year passively. Reinvested at 10% growth, it doubles every 7 years without additional work.',formula:'Financial Freedom = Passive Income > Living Expenses',takeaway:'Use income to buy assets. Assets buy your freedom.',mistakes:['Spending all income instead of converting it to assets','Confusing liabilities (depreciating items) with assets','Not starting to build assets early enough']}
+  ],
+  investing: [
+    {id:'stocks',name:'Stocks',icon:'△',level:'beginner',desc:'Ownership shares in public companies — the primary wealth-building vehicle.',definition:'A stock represents fractional ownership in a corporation, entitling you to a share of profits and assets.',whyMatters:'Stocks have returned ~10% annually over the long term, outperforming every other major asset class.',example:'Buying 100 shares of a $50 stock means you own $5,000 worth of that company. If it grows to $100/share, your investment doubles.',formula:'Market Cap = Share Price × Shares Outstanding\nEarnings Per Share (EPS) = Net Income / Shares Outstanding',takeaway:'Stocks are volatile short-term but the best long-term wealth builder for most people.',mistakes:['Treating stocks like lottery tickets instead of business ownership','Panic selling during downturns','Not diversifying across enough companies']},
+    {id:'bonds',name:'Bonds',icon:'△',level:'beginner',desc:'Lending money to governments or corporations in exchange for regular interest.',definition:'A bond is a fixed-income debt instrument where the issuer borrows money and pays interest until maturity.',whyMatters:'Bonds provide stability, income, and portfolio diversification. They typically move inversely to stocks.',example:'A $10,000 Treasury bond at 5% coupon pays $500/year for the term, then returns your $10,000 at maturity.',formula:'Bond Price = Σ [Coupon / (1+r)^t] + [Face Value / (1+r)^n]\nCurrent Yield = Annual Coupon / Current Price',takeaway:'Bonds anchor a portfolio. Their role grows as you approach your financial goals.',mistakes:['Ignoring interest rate risk — bond prices fall when rates rise','Reaching for yield in risky bonds without understanding default risk','Having zero bond allocation during accumulation phase']},
+    {id:'etfs',name:'ETFs & Index Funds',icon:'△',level:'beginner',desc:'Instant diversification in a single trade — the most efficient investing tool.',definition:'Exchange-Traded Funds trade like stocks but hold a basket of assets, often tracking an index.',whyMatters:'~90% of actively managed funds fail to beat their index over 15+ years. Low-cost index investing is the evidence-based approach.',example:'An S&P 500 ETF (expense ratio 0.03%) gives you exposure to 500 of the largest US companies for just $3 per $10,000 invested annually.',formula:'Total Cost = Assets × Expense Ratio\nTracking Error = ETF Return − Index Return',takeaway:'For most investors, a diversified portfolio of low-cost index funds is the optimal strategy.',mistakes:['Paying high fees for active management that underperforms','Over-diversifying with overlapping ETFs','Trading ETFs frequently instead of holding long-term']},
+    {id:'dividends',name:'Dividends',icon:'△',level:'beginner',desc:'Regular cash payments from profitable companies to shareholders.',definition:'A portion of a company\'s earnings distributed to shareholders, typically quarterly.',whyMatters:'Dividends have contributed ~40% of total stock market returns historically. They provide income and signal financial health.',example:'A stock at $100 paying $3/year has a 3% dividend yield. Reinvested over 20 years, dividends can double your total return.',formula:'Dividend Yield = Annual Dividend / Share Price\nPayout Ratio = Dividends / Net Income\nDividend Growth Rate = (New Dividend / Old Dividend) − 1',takeaway:'Focus on dividend growth, not just high yield. Growing dividends signal a healthy business.',mistakes:['Chasing the highest yield without checking sustainability','Ignoring the payout ratio — too high means the dividend is at risk','Not reinvesting dividends during the accumulation phase']},
+    {id:'growval',name:'Growth vs Value',icon:'△',level:'intermediate',desc:'Two fundamental investment philosophies that approach stock selection differently.',definition:'Growth investing targets companies with above-average revenue/earnings growth. Value investing seeks undervalued companies trading below intrinsic worth.',whyMatters:'Understanding both styles helps you build a balanced portfolio and identify opportunities in any market.',example:'Growth: A tech company growing revenue 30%/year at P/E 50. Value: A mature company with stable earnings at P/E 12 with strong cash flow.',formula:'Growth: Focus on Revenue Growth, EPS Growth, TAM\nValue: Focus on P/E, P/B, DCF, Margin of Safety',takeaway:'The best investments often combine both — quality companies at reasonable prices (GARP: Growth at a Reasonable Price).',mistakes:['Overpaying for growth without margin of safety','Buying cheap companies that are cheap for good reason (value traps)','Not adapting your style to market conditions']},
+    {id:'assetalloc',name:'Asset Allocation',icon:'△',level:'intermediate',desc:'The strategic mix of different investment types that determines 90%+ of returns.',definition:'The process of dividing investments among different asset categories like stocks, bonds, real estate, and cash.',whyMatters:'Research shows asset allocation determines over 90% of portfolio return variability. It\'s more important than individual stock selection.',example:'Age-based rule of thumb: Stock allocation = 110 minus your age. A 30-year-old might target 80% stocks, 20% bonds.',formula:'Expected Return = Σ (Weight_i × Return_i)\nPortfolio Risk depends on correlations between assets',takeaway:'Get your asset allocation right before worrying about which specific stocks to buy.',mistakes:['100% in one asset class','Not adjusting allocation as you age','Ignoring international diversification']},
+    {id:'diversify',name:'Diversification',icon:'△',level:'beginner',desc:'The only free lunch in investing — reducing risk without necessarily reducing returns.',definition:'Spreading investments across different assets, sectors, and geographies to reduce portfolio risk.',whyMatters:'Diversification protects against the unpredictable. No single investment failure can devastate your portfolio.',example:'Owning stocks across technology, healthcare, finance, and consumer sectors means a downturn in one sector doesn\'t sink your whole portfolio.',formula:'Portfolio Variance = Σ Σ (w_i × w_j × σ_i × σ_j × ρ_ij)',takeaway:'Diversify across asset classes, sectors, geographies, and time (dollar-cost averaging).',mistakes:['Over-diversifying to the point of owning the entire market multiple times','Thinking 10 tech stocks is diversified','Not diversifying across asset classes, only within stocks']},
+    {id:'riskadj',name:'Risk-Adjusted Returns',icon:'△',level:'intermediate',desc:'The true measure of investment skill — not just returns, but returns per unit of risk.',definition:'Metrics that evaluate investment performance relative to the risk taken to achieve it.',whyMatters:'Earning 15% with massive volatility is worse than earning 12% with steady growth. Risk-adjusted metrics reveal true skill.',example:'Fund A returns 12% with 15% volatility (Sharpe 0.53). Fund B returns 10% with 8% volatility (Sharpe 0.75). Fund B is better risk-adjusted.',formula:'Sharpe Ratio = (Return − Risk-Free Rate) / Standard Deviation\nSortino Ratio = (Return − Risk-Free Rate) / Downside Deviation',takeaway:'Always evaluate investments on risk-adjusted returns, not absolute returns alone.',mistakes:['Comparing returns without considering volatility','Ignoring downside risk and only looking at average returns','Not understanding that leverage amplifies both returns and risk']}
+  ],
+  analysisFundamental: [
+    {id:'revgrowth',name:'Revenue Growth',icon:'▤',level:'intermediate',desc:'The top-line engine — how fast a company is growing its sales.',definition:'The rate at which a company\'s total sales increase over time, measured year-over-year (YoY) or quarter-over-quarter (QoQ).',whyMatters:'Revenue is the lifeblood. Without growing revenue, a company must cut costs to grow earnings — an unsustainable strategy.',example:'A company growing revenue from $1B to $1.3B in one year has 30% YoY growth. Sustained 20%+ growth is exceptional.',formula:'Revenue Growth (YoY) = (Revenue_current − Revenue_prior) / Revenue_prior × 100%',takeaway:'Look for consistent, accelerating revenue growth. Decelerating growth is an early warning sign.',mistakes:['Ignoring revenue quality — is it organic or from acquisitions?','Not checking if growth is slowing','Focusing only on top line without checking profitability']},
+    {id:'eps',name:'EPS Growth',icon:'▤',level:'intermediate',desc:'Earnings per share — the ultimate measure of profitability per owner.',definition:'Net income divided by outstanding shares. EPS growth shows how much per-share profit is increasing.',whyMatters:'Stock prices ultimately follow earnings growth. Strong EPS growth drives long-term share price appreciation.',example:'If EPS grows from $2 to $3 (50% growth) and the P/E stays at 20, the stock price should rise from $40 to $60.',formula:'EPS = Net Income / Shares Outstanding\nEPS Growth = (EPS_new − EPS_old) / EPS_old × 100%',takeaway:'Consistent double-digit EPS growth is the hallmark of a great company.',mistakes:['Not distinguishing between GAAP and adjusted EPS','Ignoring share buybacks that artificially inflate EPS','Looking at one quarter instead of multi-year trends']},
+    {id:'margins',name:'Profit Margins',icon:'▤',level:'intermediate',desc:'How much of each dollar of revenue becomes profit at each stage.',definition:'Gross margin (after COGS), operating margin (after operating expenses), and net margin (after everything) — each tells a different story.',whyMatters:'Expanding margins show improving efficiency and pricing power. Contracting margins signal competitive pressure or rising costs.',example:'Software companies often have 70%+ gross margins (low cost of goods). Retailers might have 30% gross margins.',formula:'Gross Margin = (Revenue − COGS) / Revenue\nOperating Margin = Operating Income / Revenue\nNet Margin = Net Income / Revenue',takeaway:'Look for stable or expanding margins. Compare within the same industry, not across different sectors.',mistakes:['Comparing margins across different industries','Ignoring margin trends in favor of a single snapshot','Not understanding which costs are driving margin changes']},
+    {id:'roe',name:'ROE, ROIC, ROA',icon:'▤',level:'advanced',desc:'Return metrics that reveal how effectively a company uses capital to generate profits.',definition:'ROE measures return on shareholder equity. ROIC measures return on all invested capital. ROA measures return on total assets.',whyMatters:'These metrics separate great businesses from mediocre ones. High ROIC sustained over time is the hallmark of competitive advantage.',example:'A company with 25% ROIC generates $25 of profit for every $100 invested. Anything consistently above 15% is excellent.',formula:'ROE = Net Income / Shareholders\' Equity\nROIC = NOPAT / Invested Capital\nROA = Net Income / Total Assets',takeaway:'ROIC is the single best metric for evaluating management quality and competitive advantage.',mistakes:['High ROE can be misleading if driven by excessive debt','Not comparing ROIC to the company\'s cost of capital (WACC)','Ignoring trends — a declining ROIC may signal eroding moat']},
+    {id:'fcf',name:'Free Cash Flow',icon:'▤',level:'advanced',desc:'The cash a business generates after maintaining/expanding its asset base — the truest measure of profit.',definition:'Operating cash flow minus capital expenditures. It represents cash available for dividends, buybacks, debt repayment, or reinvestment.',whyMatters:'Earnings can be manipulated through accounting. Free cash flow is much harder to fake.',example:'A company with $500M operating cash flow and $200M CapEx generates $300M free cash flow — real money available to shareholders.',formula:'FCF = Operating Cash Flow − Capital Expenditures\nFCF Yield = FCF per Share / Share Price',takeaway:'Companies that consistently convert earnings into free cash flow are higher quality investments.',mistakes:['Ignoring FCF and only looking at reported earnings','Not checking if CapEx is maintenance (required) vs growth (optional)','Assuming one year of strong FCF indicates a trend']},
+    {id:'debt',name:'Debt & Solvency',icon:'▤',level:'intermediate',desc:'Understanding a company\'s leverage and ability to survive economic downturns.',definition:'Debt metrics assess how much a company relies on borrowed money and whether it can service that debt.',whyMatters:'High debt amplifies both returns and losses. Over-leveraged companies can go bankrupt in downturns.',example:'A company with $2B debt and $1B equity has a D/E of 2.0 — highly leveraged. Interest coverage below 3x is a warning.',formula:'Debt-to-Equity = Total Debt / Shareholders\' Equity\nInterest Coverage = EBIT / Interest Expense\nNet Debt = Total Debt − Cash',takeaway:'Prefer companies with low leverage, strong interest coverage, and manageable debt maturities.',mistakes:['Ignoring debt when evaluating a company','Not checking debt maturity schedules','Assuming all debt is bad — some leverage is optimal']}
+  ],
+  analysisValuation: [
+    {id:'pe',name:'P/E & PEG Ratios',icon:'▤',level:'intermediate',desc:'The most common valuation metrics — what you pay for each dollar of earnings.',definition:'P/E = price per share divided by earnings per share. PEG adjusts P/E for growth rate.',whyMatters:'P/E tells you if a stock is expensive relative to current earnings. PEG accounts for growth.',example:'A stock at $100 with $5 EPS has a P/E of 20. If growing at 20%, PEG = 1.0 (fairly valued). PEG below 1 may be undervalued.',formula:'P/E = Share Price / EPS\nPEG = P/E / EPS Growth Rate',takeaway:'Use PEG to compare growth stocks. A P/E of 30 with 30% growth (PEG=1) may be better than P/E of 15 with 5% growth (PEG=3).',mistakes:['Using P/E alone without considering growth','Comparing P/E across different sectors','Using trailing P/E for cyclical companies at peak earnings']},
+    {id:'eveb',name:'EV/EBITDA',icon:'▤',level:'advanced',desc:'Enterprise value metric that accounts for debt — the professional\'s preferred valuation tool.',definition:'Enterprise Value divided by EBITDA. It compares the total value of a business (including debt) to its operational profitability.',whyMatters:'Unlike P/E, EV/EBITDA works across different capital structures and is harder to manipulate.',example:'A company with EV of $10B and EBITDA of $1B has EV/EBITDA of 10x. Compare to industry median for context.',formula:'EV = Market Cap + Total Debt − Cash\nEV/EBITDA = Enterprise Value / EBITDA',takeaway:'Below industry-median EV/EBITDA may indicate undervaluation, but always investigate why it\'s cheap.',mistakes:['Ignoring EV/EBITDA limitations for capital-intensive businesses','Not accounting for off-balance-sheet liabilities in EV','Applying across industries without sector context']},
+    {id:'dcfconcept',name:'DCF Valuation',icon:'▤',level:'advanced',desc:'The gold standard of intrinsic value — what a business is truly worth based on future cash flows.',definition:'Discounted Cash Flow analysis values a company by projecting future free cash flows and discounting them to present value.',whyMatters:'DCF is the most theoretically sound valuation method. It forces you to make explicit assumptions about growth and risk.',example:'If a company generates $100M FCF growing at 12%, discounted at 10%, the sum of discounted future cash flows gives intrinsic value.',formula:'Intrinsic Value = Σ [FCF_t / (1+r)^t] + Terminal Value / (1+r)^n\nTerminal Value = FCF_n × (1+g) / (r−g)',takeaway:'DCF is powerful but highly sensitive to assumptions. Small changes in growth rate or discount rate drastically change the output.',mistakes:['Being overly precise with inherently uncertain projections','Using unrealistic perpetual growth rates in terminal value','Not running sensitivity analysis with different assumptions']},
+    {id:'graham',name:'Graham Formula',icon:'▤',level:'intermediate',desc:'Benjamin Graham\'s simplified intrinsic value estimate for defensive investors.',definition:'A formula that estimates fair value based on current earnings and expected growth.',whyMatters:'Provides a quick back-of-envelope valuation to identify potentially undervalued stocks.',example:'A company with EPS of $5 and expected 10% growth: V = 5 × (8.5 + 2×10) = 5 × 28.5 = $142.50 intrinsic value.',formula:'V = EPS × (8.5 + 2g)\nWhere g = expected growth rate over next 7-10 years\nRevised: V = [EPS × (8.5 + 2g) × 4.4] / Y\nWhere Y = current AAA bond yield',takeaway:'Use as a quick screen, not a definitive valuation. Combine with other methods.',mistakes:['Taking the output as precise truth','Using for unprofitable or cyclical companies','Not applying a margin of safety to the result']},
+    {id:'ddm',name:'Dividend Discount Model',icon:'▤',level:'advanced',desc:'Valuing stocks based on the present value of expected future dividends.',definition:'A valuation method that prices a stock as the sum of all future dividend payments discounted to present value.',whyMatters:'Ideal for valuing mature, dividend-paying companies. Forces focus on actual shareholder returns.',example:'Stock paying $3 dividend, growing at 5%, required return 10%: Value = $3 / (0.10 − 0.05) = $60.',formula:'Gordon Growth Model: P = D₁ / (r − g)\nWhere D₁ = next year dividend, r = required return, g = dividend growth rate',takeaway:'Works best for stable, mature dividend growers. Less useful for growth stocks that don\'t pay dividends.',mistakes:['Applying to companies with unstable or no dividends','Using growth rate close to or above the discount rate','Not checking if the dividend is sustainable']}
+  ],
+  analysisQualitative: [
+    {id:'moat',name:'Economic Moat',icon:'▤',level:'advanced',desc:'A company\'s sustainable competitive advantage that protects profits from competitors.',definition:'Structural advantages that enable a company to maintain above-average profitability for extended periods.',whyMatters:'Moats protect profits. Without one, competition will erode margins to average levels.',example:'Types: Network effects (Visa), brand power (Apple), switching costs (Microsoft), cost advantages (Walmart), intangible assets (patents).',formula:'Moat Indicators: Sustained ROIC > WACC over 10+ years\nStable or expanding margins over time',takeaway:'Invest in companies with wide, durable moats. They compound wealth most reliably.',mistakes:['Assuming a strong brand alone equals a moat','Not testing whether the moat is widening or narrowing','Overpaying for moat companies at any price']},
+    {id:'mgmt',name:'Management Quality',icon:'▤',level:'advanced',desc:'Evaluating the people running the business — their skill, integrity, and incentives.',definition:'Assessing leadership based on capital allocation track record, insider ownership, compensation structure, and strategic vision.',whyMatters:'Great managers create value; poor managers destroy it. The same business can succeed or fail based on leadership.',example:'Check: Does the CEO own significant stock? Is compensation tied to long-term performance? Have they created shareholder value over 5+ years?',formula:'Key Metrics: Insider ownership %, executive compensation vs performance, capital allocation ROIC',takeaway:'Back management that thinks like owners, has skin in the game, and allocates capital wisely.',mistakes:['Ignoring management because the numbers look good','Not checking executive compensation structure','Trusting charisma over track record']},
+    {id:'industry',name:'Industry Positioning',icon:'▤',level:'intermediate',desc:'Understanding where a company sits within its competitive landscape.',definition:'Analyzing market share, industry dynamics, competitive forces, and secular trends affecting a company.',whyMatters:'Even great companies in declining industries face headwinds. Industry tailwinds lift average companies.',example:'Porter\'s Five Forces: Competitive rivalry, threat of new entrants, bargaining power of suppliers/buyers, threat of substitutes.',formula:'Market Share = Company Revenue / Total Industry Revenue\nIndustry Growth Rate signals opportunity',takeaway:'Invest in leaders within growing industries. Avoid value traps in structurally declining sectors.',mistakes:['Investing in a good company in a terrible industry','Not considering how technology disrupts existing industries','Assuming current market position is permanent']}
+  ],
+  analysisRedflags: [
+    {id:'accounting',name:'Accounting Red Flags',icon:'⚠',level:'advanced',desc:'Warning signs of financial manipulation or earnings quality problems.',definition:'Indicators that a company\'s reported financials may not accurately represent economic reality.',whyMatters:'Detecting accounting issues before the market does can save you from catastrophic losses.',example:'Revenue recognition tricks, capitalizing expenses, off-balance-sheet entities, frequent "one-time" charges, growing gap between earnings and cash flow.',formula:'Quality Check: Operating Cash Flow should track Net Income\nDays Sales Outstanding trending up = possible revenue manipulation',takeaway:'When earnings grow but free cash flow doesn\'t, something is wrong. Trust cash flow over earnings.',mistakes:['Trusting reported earnings without checking cash flow','Ignoring footnotes and off-balance-sheet items','Not comparing to industry peers for context']},
+    {id:'declmargin',name:'Declining Margins',icon:'⚠',level:'intermediate',desc:'Shrinking profitability signals competitive pressure or rising costs.',definition:'A consistent trend of decreasing gross, operating, or net margins over multiple quarters.',whyMatters:'Margin compression often precedes earnings declines and stock price drops.',example:'If operating margin falls from 25% to 20% to 16% over three years, the company is losing pricing power or efficiency.',formula:'Margin Trend = Compare margins over 4-8 quarters\nLook for consistent direction, not random fluctuation',takeaway:'One quarter of margin decline could be temporary. Multiple quarters indicate a structural problem.',mistakes:['Dismissing margin declines as one-time events','Not investigating the cause of margin compression','Holding stocks with deteriorating margins hoping for recovery']},
+    {id:'highdebt',name:'Excessive Leverage',icon:'⚠',level:'intermediate',desc:'When debt becomes a threat to survival rather than a tool for growth.',definition:'Dangerously high debt levels that risk default, especially during economic downturns.',whyMatters:'Over-leveraged companies can go bankrupt even with viable businesses. Debt amplifies downside risk.',example:'Debt/EBITDA above 4x is concerning. Interest coverage below 2x is dangerous. Rising debt with declining revenue is critical.',formula:'Debt/EBITDA > 4x = Danger zone\nInterest Coverage < 2x = Severe risk\nDebt Maturity Wall = check when debt comes due',takeaway:'Avoid heavily indebted companies, especially in cyclical or competitive industries.',mistakes:['Ignoring debt because the stock looks cheap','Not checking debt maturity schedules','Assuming the company can always refinance']},
+    {id:'weakfcf',name:'Weak Free Cash Flow',icon:'⚠',level:'advanced',desc:'When a company reports profits but can\'t generate actual cash.',definition:'A persistent gap between reported earnings and free cash flow, indicating low earnings quality.',whyMatters:'Cash pays dividends, buys back shares, and funds growth. Earnings without cash flow are an illusion.',example:'A company reports $500M net income but only $100M FCF. The gap may indicate aggressive accounting or massive CapEx requirements.',formula:'FCF Conversion = Free Cash Flow / Net Income\nHealthy: > 80%. Concerning: < 50%',takeaway:'Avoid companies that consistently fail to convert earnings into free cash flow.',mistakes:['Only looking at the income statement','Not understanding that some industries are naturally capital-intensive','Ignoring working capital changes that consume cash']}
+  ],
+  portfolio: [
+    {id:'position',name:'Position Sizing',icon:'⬡',level:'advanced',desc:'How much to invest in each position — arguably the most important investment decision.',definition:'The process of determining how many shares/dollars to allocate to each investment based on conviction and risk.',whyMatters:'Position sizing determines if a great pick makes a meaningful or negligible impact on your portfolio.',example:'A concentrated portfolio might have 10-15 stocks with 5-10% each in high-conviction ideas. An index approach might hold 500+ positions.',formula:'Position Size = (Portfolio × Risk%) / (Entry − Stop Loss)\nKelly Criterion: f* = (bp − q) / b',takeaway:'Size positions according to conviction and risk tolerance. Your best ideas should be your biggest positions.',mistakes:['Equal-weighting everything regardless of conviction','Putting too much in a single speculative position','Not having a systematic approach to sizing']},
+    {id:'riskm',name:'Risk Management',icon:'⬡',level:'advanced',desc:'Protecting capital is more important than growing it — the foundation of professional investing.',definition:'Systematic approaches to identifying, measuring, and limiting potential losses in a portfolio.',whyMatters:'A 50% loss requires a 100% gain to recover. Capital preservation is the first rule of investing.',example:'Setting maximum sector exposure (25%), individual position limits (10%), stop-losses, and portfolio drawdown limits.',formula:'Max Drawdown = (Peak − Trough) / Peak\nRecovery: Need (1 / (1−loss)) − 1 return to break even',takeaway:'Define your risk rules before you invest. Never risk what you can\'t afford to lose.',mistakes:['Not having predefined exit criteria','Doubling down on losers (averaging down without analysis)','Ignoring correlation — "diversified" assets that move together']},
+    {id:'sharpe',name:'Sharpe Ratio',icon:'⬡',level:'advanced',desc:'The premier measure of risk-adjusted performance — return per unit of risk.',definition:'Measures excess return (above risk-free rate) per unit of total volatility.',whyMatters:'Comparing raw returns is meaningless without risk context. The Sharpe ratio normalizes for risk.',example:'A hedge fund with 15% return and 20% volatility (Sharpe 0.50) is worse risk-adjusted than a fund with 10% return and 8% volatility (Sharpe 0.75).',formula:'Sharpe = (R_p − R_f) / σ_p\nWhere R_p = portfolio return, R_f = risk-free rate, σ_p = standard deviation',takeaway:'Target Sharpe ratios above 0.5. Above 1.0 is excellent. Above 2.0 is world-class.',mistakes:['Comparing returns without adjusting for risk','Assuming past Sharpe ratios will persist','Not understanding that Sharpe assumes normal distributions']},
+    {id:'rebalance',name:'Rebalancing Strategies',icon:'⬡',level:'intermediate',desc:'Maintaining your target allocation by periodically adjusting positions.',definition:'The process of realigning portfolio weights to maintain the desired asset allocation and risk profile.',whyMatters:'Without rebalancing, winners grow and losers shrink, drifting your portfolio from its intended risk level.',example:'Target: 70/30 stocks/bonds. After a bull market: 80/20. Rebalance by selling stocks and buying bonds to restore 70/30.',formula:'Drift = Current Weight − Target Weight\nRebalance when drift exceeds threshold (typically 5%)',takeaway:'Rebalance systematically — calendar-based (quarterly) or threshold-based (when drift exceeds 5%).',mistakes:['Rebalancing too frequently (tax and transaction costs)','Never rebalancing (letting risk drift unchecked)','Emotional resistance to selling winners and buying underperformers']},
+    {id:'concvdiv',name:'Concentration vs Diversification',icon:'⬡',level:'advanced',desc:'The tension between focused conviction and broad risk reduction.',definition:'Concentrated portfolios (10-20 stocks) vs diversified (50+ or index). Each approach has merits.',whyMatters:'Concentration builds wealth but requires skill. Diversification preserves wealth and suits most investors.',example:'Buffett: "Diversification is protection against ignorance." But also: "Wide diversification is only required when investors do not understand what they are doing."',formula:'Concentrated: Higher potential returns, higher risk\nDiversified: Market-like returns, lower risk\nOptimal: Concentrated within your circle of competence',takeaway:'Match your approach to your skill level. Start diversified, concentrate as expertise grows.',mistakes:['Concentrating without deep research','Over-diversifying into companies you don\'t understand','Not knowing your own circle of competence']}
+  ],
+  advanced: [
+    {id:'options',name:'Options Fundamentals',icon:'◆',level:'advanced',desc:'Contracts that give you the right (not obligation) to buy or sell at a set price.',definition:'Call options give the right to buy. Put options give the right to sell. Both expire on a set date.',whyMatters:'Options enable hedging, income generation, and leveraged bets. They\'re powerful but complex.',example:'Buy a $100 call option for $5 with 30 days to expiration. If stock goes to $115, option is worth $15 (200% return). If it stays below $100, you lose the $5.',formula:'Call Value at Expiry = max(Stock Price − Strike, 0)\nPut Value at Expiry = max(Strike − Stock Price, 0)\nBreakeven (Call) = Strike + Premium',takeaway:'Options are tools, not toys. Master the basics before trading. Start with covered calls and cash-secured puts.',mistakes:['Buying out-of-the-money options without understanding decay','Selling naked options with unlimited risk','Not understanding implied volatility\'s impact on pricing']},
+    {id:'greeks',name:'The Greeks',icon:'◆',level:'advanced',desc:'Measuring option sensitivity to different market variables.',definition:'Delta (price sensitivity), Gamma (delta change), Theta (time decay), Vega (volatility sensitivity), Rho (interest rate sensitivity).',whyMatters:'Greeks help you understand and manage the multiple dimensions of option risk.',example:'Delta 0.5 means the option moves $0.50 for every $1 stock move. Theta -0.05 means you lose $5/day from time decay on 100 shares.',formula:'Delta: 0 to 1 (calls), 0 to -1 (puts)\nTheta: Daily time decay (negative for buyers)\nVega: Price change per 1% IV change',takeaway:'Monitor Greeks to understand your true risk exposure. Time decay works against option buyers.',mistakes:['Ignoring theta decay in long option positions','Not understanding how implied volatility affects vega','Taking positions with unfavorable risk/reward Greek profiles']},
+    {id:'behfin',name:'Behavioral Finance',icon:'◆',level:'intermediate',desc:'How psychological biases cause investors to make irrational decisions.',definition:'The study of how cognitive biases and emotions affect financial decision-making.',whyMatters:'Understanding your biases is the first step to overcoming them. Most investment mistakes are psychological.',example:'Loss aversion: Losses hurt 2x more than equivalent gains feel good. This causes selling winners too early and holding losers too long.',formula:'Key Biases: Loss Aversion, Anchoring, Confirmation Bias, Herding, Overconfidence, Recency Bias',takeaway:'Create systematic rules-based processes to minimize the impact of emotional decision-making.',mistakes:['Thinking you\'re immune to biases','Making investment decisions based on emotions','Not having a written investment plan to follow when emotions run high']},
+    {id:'reits',name:'REITs',icon:'◆',level:'intermediate',desc:'Real estate investment trusts — own property without the hassle of being a landlord.',definition:'Companies that own and operate income-producing real estate, required to distribute 90% of taxable income as dividends.',whyMatters:'REITs provide real estate exposure, high income, and diversification away from stocks and bonds.',example:'A REIT owning 200 apartment buildings collected $500M in rent, pays 90%+ as dividends. Average REIT yields 4-5%.',formula:'Funds From Operations (FFO) = Net Income + Depreciation − Gains on Sales\nAFFO = FFO − Maintenance CapEx\nP/FFO replaces P/E for REITs',takeaway:'REITs add income and diversification. Evaluate using FFO and AFFO, not traditional P/E.',mistakes:['Evaluating REITs using P/E (depreciation makes this misleading)','Ignoring interest rate sensitivity','Not diversifying across REIT sectors']},
+    {id:'crypto',name:'Crypto Fundamentals',icon:'◆',level:'intermediate',desc:'Digital assets built on blockchain technology — high risk, high potential.',definition:'Cryptocurrencies are decentralized digital assets using blockchain technology for secure transactions.',whyMatters:'Whether you invest or not, understanding crypto is essential for modern financial literacy.',example:'Bitcoin (BTC) as digital gold / store of value. Ethereum (ETH) as decentralized computing platform. DeFi protocols creating financial services without intermediaries.',formula:'Market Cap = Token Price × Circulating Supply\nFully Diluted Valuation = Price × Max Supply',takeaway:'If allocating to crypto, keep it small (1-5% of portfolio). This is a highly speculative asset class.',mistakes:['Investing more than you can afford to lose','Buying based on hype without understanding the technology','Not securing assets properly (hardware wallets for large amounts)']},
+    {id:'prospect',name:'Prospect Theory',icon:'◆',level:'advanced',desc:'Kahneman & Tversky\'s framework explaining why we handle gains and losses asymmetrically.',definition:'People evaluate outcomes relative to a reference point and are risk-averse for gains but risk-seeking for losses.',whyMatters:'Explains why investors sell winners too early (lock in gains) and hold losers too long (avoid realizing losses).',example:'Given a choice between a certain $500 gain or 50% chance of $1,000, most choose the certain $500. But between a certain $500 loss or 50% chance of $1,000 loss, most gamble.',formula:'Value Function: Concave for gains (risk-averse)\nConvex for losses (risk-seeking)\nLosses weighted ~2x more than equivalent gains',takeaway:'Awareness of prospect theory helps you make more rational decisions about when to sell.',mistakes:['Holding losing positions hoping they\'ll recover','Taking profits too early on winners','Changing risk behavior based on recent gains or losses']},
+    {id:'futures',name:'Futures Basics',icon:'◆',level:'advanced',desc:'Standardized contracts to buy or sell assets at a future date and price.',definition:'Agreements to buy or sell a specific asset at a predetermined price on a set future date, traded on exchanges.',whyMatters:'Futures are used for hedging and speculation. They provide leverage and price discovery for major markets.',example:'A corn farmer sells futures to lock in a price for next season\'s harvest, eliminating price risk.',formula:'Futures Price ≈ Spot Price × (1 + r − yield)^t\nLeverage = Notional Value / Margin Required',takeaway:'Futures are primarily tools for hedging. Speculating with futures amplifies both gains and losses through leverage.',mistakes:['Not understanding margin requirements and forced liquidation','Speculating without a clear thesis','Ignoring rollover costs for ongoing positions']},
+    {id:'commodities',name:'Commodities',icon:'◆',level:'intermediate',desc:'Raw materials that drive the global economy — from gold to oil to wheat.',definition:'Physical goods traded on exchanges including precious metals, energy, agricultural products, and industrial metals.',whyMatters:'Commodities provide inflation hedging and portfolio diversification. They often move differently from stocks and bonds.',example:'Gold as an inflation/crisis hedge. Oil as an economic activity indicator. Agricultural commodities affected by weather and supply/demand.',formula:'Roll Yield = Futures Price − Spot Price (contango vs backwardation)\nCommodity returns come from spot change, roll yield, and collateral return',takeaway:'Commodities add diversification but require understanding of unique dynamics like contango and storage costs.',mistakes:['Buying commodity ETFs without understanding roll yield drag','Treating commodities like stocks (they don\'t generate earnings)','Over-allocating to a single commodity based on recent performance']}
+  ],
+  macro: [
+    {id:'fedres',name:'The Federal Reserve',icon:'⊕',level:'intermediate',desc:'The most powerful institution in global finance — how the Fed shapes markets.',definition:'The US central bank responsible for monetary policy, including setting interest rates and managing money supply.',whyMatters:'Fed decisions move every asset class globally. Understanding Fed policy is essential for investing.',example:'When the Fed raises rates, borrowing costs rise, slowing the economy and typically hurting stocks. Rate cuts do the opposite.',formula:'Federal Funds Rate: The rate at which banks lend to each other overnight\nQuantitative Easing/Tightening: Expanding/shrinking the Fed balance sheet',takeaway:'Don\'t fight the Fed. Monetary policy is the most powerful force in financial markets.',mistakes:['Ignoring Fed signals and fighting monetary policy','Trying to time exact rate decisions','Assuming Fed policy works instantly (there are long lags)']},
+    {id:'inflmacro',name:'Inflation (CPI, PPI)',icon:'⊕',level:'intermediate',desc:'The rate at which prices rise — the metric that drives Fed policy and market cycles.',definition:'CPI measures consumer price changes. PPI measures producer price changes. Core figures exclude volatile food and energy.',whyMatters:'Inflation determines real returns, interest rate policy, and asset class performance.',example:'CPI at 2% = Fed target, markets calm. CPI at 8% = aggressive rate hikes, market turmoil, bond losses.',formula:'Inflation Rate = (CPI_current − CPI_prior) / CPI_prior × 100%\nReal Return = Nominal Return − Inflation',takeaway:'Monitor inflation trends, not just levels. Accelerating inflation is bearish; decelerating is bullish.',mistakes:['Using headline inflation without checking core','Ignoring how inflation affects different asset classes differently','Assuming inflation is always bad (moderate inflation is normal and healthy)']},
+    {id:'gdp',name:'GDP & Growth',icon:'⊕',level:'intermediate',desc:'The broadest measure of economic output and health.',definition:'Gross Domestic Product — the total value of all goods and services produced within a country.',whyMatters:'GDP growth drives corporate earnings, employment, and market returns. Recessions (2+ quarters of decline) hurt investments.',example:'US GDP growing at 3% = healthy economy, good for stocks. Negative GDP = recession, historically leads to 20-30%+ market declines.',formula:'GDP = C + I + G + (X − M)\nC=Consumer, I=Investment, G=Government, X=Exports, M=Imports',takeaway:'GDP trends provide context for earnings expectations and market direction.',mistakes:['Reacting to single-quarter GDP data','Ignoring leading indicators that predict GDP changes','Not understanding GDP components and what\'s driving growth or decline']},
+    {id:'unemployment',name:'Unemployment',icon:'⊕',level:'beginner',desc:'The labor market\'s health — a key economic indicator.',definition:'The percentage of the labor force that is jobless and actively seeking employment.',whyMatters:'Low unemployment supports consumer spending and corporate earnings. Rising unemployment signals economic weakness.',example:'Unemployment below 4% historically signals a tight labor market. Rising above 5% often accompanies or precedes recessions.',formula:'Unemployment Rate = (Unemployed / Labor Force) × 100%\nU-6 (broader) includes underemployed and discouraged workers',takeaway:'Watch the direction of change, not the level. Rising unemployment from 3.5% to 4.5% is a bigger warning than stable 5%.',mistakes:['Only watching headline U-3 and ignoring U-6','Not considering labor force participation rate','Assuming low unemployment means the economy can\'t slow']},
+    {id:'recession',name:'Recession Indicators',icon:'⊕',level:'advanced',desc:'The warning signals that economic contraction is approaching.',definition:'A set of economic indicators that historically precede recessions.',whyMatters:'Early detection of recession risk allows defensive portfolio positioning.',example:'Inverted yield curve (2yr > 10yr Treasury yield) has preceded every recession since 1955, with 12-18 month lead time.',formula:'Key Indicators:\n- Yield curve inversion\n- Rising initial jobless claims\n- ISM Manufacturing below 50\n- Leading Economic Index declining\n- Credit spreads widening',takeaway:'No single indicator is perfect. Watch multiple signals simultaneously for confirmation.',mistakes:['Expecting immediate recession after one indicator triggers','Ignoring indicators because "this time is different"','Waiting for official recession declaration (it comes 6-12 months after the start)']},
+    {id:'econcycles',name:'Economic & Market Cycles',icon:'⊕',level:'intermediate',desc:'The rhythmic expansion and contraction that shapes all investment returns.',definition:'The recurring pattern of economic growth (expansion) and decline (contraction) that influences all asset prices.',whyMatters:'Different assets perform best at different cycle stages. Cyclical awareness improves timing and allocation.',example:'Early cycle: buy cyclicals and small caps. Mid cycle: stay invested broadly. Late cycle: shift to quality and defensives. Recession: buy the dip strategically.',formula:'Four Phases: Expansion → Peak → Contraction → Trough\nEach phase favors different sectors and asset classes',takeaway:'You don\'t need to time perfectly, but understanding where we are in the cycle improves decisions.',mistakes:['Trying to time cycle turns precisely','Holding the same portfolio regardless of economic conditions','Assuming the current phase will last forever']}
+  ]
+};
+
+/* ═══════════════════════════════════════════════════════
+   QUIZ DATA
+   ═══════════════════════════════════════════════════════ */
+const QUIZZES = [
+  {q:"What does a P/E ratio measure?",opts:["Price relative to earnings","Profit relative to equity","Price relative to EBITDA","Premium over face value"],answer:0},
+  {q:"What is compound interest?",opts:["Interest on principal only","Interest on principal and accumulated interest","A fixed annual payment","A type of bond"],answer:1},
+  {q:"What does an inverted yield curve typically signal?",opts:["Economic boom","High inflation","Potential recession","Strong consumer spending"],answer:2},
+  {q:"Which metric best measures a company's competitive advantage?",opts:["Revenue","ROIC sustained above WACC","Market capitalization","Share price"],answer:1},
+  {q:"What is Free Cash Flow?",opts:["Total revenue minus costs","Operating cash flow minus CapEx","Net income minus dividends","Gross profit minus taxes"],answer:1},
+  {q:"What does the Sharpe Ratio measure?",opts:["Total return","Risk-adjusted return","Maximum drawdown","Correlation"],answer:1},
+  {q:"Which is NOT a type of economic moat?",opts:["Network effects","Brand power","High employee count","Switching costs"],answer:2},
+  {q:"The 50/30/20 budget rule allocates 20% to what?",opts:["Entertainment","Food","Savings & investing","Transportation"],answer:2},
+  {q:"What is a REIT required to distribute as dividends?",opts:["50% of income","75% of income","90% of taxable income","100% of income"],answer:2},
+  {q:"What does Delta measure in options?",opts:["Time decay","Price sensitivity to underlying","Volatility sensitivity","Interest rate sensitivity"],answer:1},
+  {q:"What does EV/EBITDA compare?",opts:["Equity value to net income","Enterprise value to operational profit","Market cap to revenue","Book value to earnings"],answer:1},
+  {q:"Loss aversion in Prospect Theory means…",opts:["We feel losses ~2x more than equivalent gains","We prefer bonds to stocks","We never sell at a loss","We are always rational"],answer:0},
+  {q:"What is the Gordon Growth Model used for?",opts:["Valuing growth stocks","Calculating compound interest","Valuing dividend stocks","Measuring GDP"],answer:2},
+  {q:"A Debt-to-Equity ratio of 2.0 means…",opts:["Twice as much equity as debt","Twice as much debt as equity","Equal debt and equity","No debt"],answer:1},
+  {q:"Which is a leading recession indicator?",opts:["GDP decline","Rising stock prices","Yield curve inversion","Falling unemployment"],answer:2},
+  {q:"What is the Time Value of Money?",opts:["Money loses value due to inflation","A dollar today is worth more than a dollar tomorrow","Stocks always beat bonds","Interest rates never change"],answer:1},
+  {q:"Theta in options represents…",opts:["Price direction","Time decay","Volatility change","Dividend impact"],answer:1},
+  {q:"What does ROIC stand for?",opts:["Return on Investment Capital","Return on Invested Capital","Rate of Interest Compounding","Return on Internal Cash"],answer:1},
+  {q:"A PEG ratio below 1.0 generally suggests…",opts:["Overvaluation","Fair valuation","Potential undervaluation","High risk"],answer:2},
+  {q:"What percentage of active funds fail to beat their index over 15+ years?",opts:["About 50%","About 70%","About 90%","About 30%"],answer:2}
+];
+
+/* ═══════════════════════════════════════════════════════
+   FLASHCARD DATA
+   ═══════════════════════════════════════════════════════ */
+const FLASHCARDS = [
+  {front:"Compound Interest",back:"Interest earned on both principal and previously accumulated interest. Formula: A = P(1 + r/n)^(nt)"},
+  {front:"P/E Ratio",back:"Price-to-Earnings ratio. Share price divided by earnings per share. Measures what you pay per dollar of earnings."},
+  {front:"Free Cash Flow",back:"Operating cash flow minus capital expenditures. The cash truly available to shareholders."},
+  {front:"Economic Moat",back:"A sustainable competitive advantage that protects profits — network effects, brands, switching costs, cost advantages."},
+  {front:"Sharpe Ratio",back:"(Portfolio Return − Risk-Free Rate) / Standard Deviation. Measures risk-adjusted return."},
+  {front:"DCF Analysis",back:"Discounted Cash Flow — values a company by summing projected future free cash flows discounted to present value."},
+  {front:"ROIC",back:"Return on Invested Capital. NOPAT / Invested Capital. Best metric for measuring capital allocation effectiveness."},
+  {front:"Yield Curve Inversion",back:"When short-term yields exceed long-term yields. Has preceded every US recession since 1955."},
+  {front:"Dollar-Cost Averaging",back:"Investing fixed amounts at regular intervals regardless of price, reducing timing risk."},
+  {front:"Asset Allocation",back:"Strategic mix of stocks, bonds, and other assets. Determines 90%+ of portfolio return variability."},
+  {front:"Margin of Safety",back:"Buying at a significant discount to intrinsic value to protect against estimation errors."},
+  {front:"Delta (Options)",back:"Measures option price sensitivity to $1 change in underlying. Ranges from 0 to 1 (calls) or 0 to -1 (puts)."},
+  {front:"EV/EBITDA",back:"Enterprise Value / EBITDA. Compares total company value (including debt) to operational profitability."},
+  {front:"Behavioral Finance",back:"Study of psychological biases in investing: loss aversion, anchoring, herding, overconfidence."},
+  {front:"Risk-Free Rate",back:"Return on zero-risk investment, typically US Treasury bills. Benchmark for evaluating all other returns."},
+  {front:"Payout Ratio",back:"Dividends paid / Net Income. Shows what percentage of earnings is returned to shareholders."},
+  {front:"Contango",back:"Futures price > spot price. Creates negative roll yield for commodity ETFs."},
+  {front:"WACC",back:"Weighted Average Cost of Capital. The minimum return a company must earn to satisfy all capital providers."},
+  {front:"Prospect Theory",back:"People feel losses ~2x more than equivalent gains. Leads to selling winners early and holding losers."},
+  {front:"Rebalancing",back:"Periodically adjusting portfolio weights back to target allocation to maintain desired risk profile."}
+];
+
+/* ═══════════════════════════════════════════════════════
+   DAILY TIPS
+   ═══════════════════════════════════════════════════════ */
+const TIPS = [
+  "The stock market is a device for transferring money from the impatient to the patient. — Warren Buffett",
+  "Risk comes from not knowing what you're doing. Build knowledge before building positions.",
+  "The four most dangerous words in investing are: 'This time is different.'",
+  "Compounding is the eighth wonder of the world. He who understands it, earns it; he who doesn't, pays it.",
+  "Your investment results are determined more by behavior than by strategy.",
+  "In the short run, the market is a voting machine. In the long run, it is a weighing machine. — Benjamin Graham",
+  "The best time to invest was yesterday. The second best time is today.",
+  "Diversification is the only free lunch in investing.",
+  "Be fearful when others are greedy, and greedy when others are fearful.",
+  "Price is what you pay. Value is what you get.",
+  "The individual investor should act consistently as an investor and not as a speculator.",
+  "Know what you own, and know why you own it. — Peter Lynch",
+  "It's not about timing the market. It's about time IN the market.",
+  "The biggest risk is not taking any risk at all.",
+  "An investment in knowledge pays the best interest. — Benjamin Franklin"
+];
+
+/* ═══════════════════════════════════════════════════════
+   LEARNING PATH DATA
+   ═══════════════════════════════════════════════════════ */
+const PATHS = {
+  beginner: [
+    "Understand what money is and how it works",
+    "Learn the Time Value of Money",
+    "Master compound interest — use the calculator",
+    "Set up a budget (start with 50/30/20)",
+    "Build a 3-month emergency fund",
+    "Understand your credit score and optimize it",
+    "Open a brokerage account",
+    "Learn what stocks, bonds, and ETFs are",
+    "Buy your first index fund (e.g., S&P 500 ETF)",
+    "Set up automatic monthly contributions",
+    "Learn about asset allocation basics",
+    "Understand risk vs reward",
+    "Read 'The Simple Path to Wealth' by JL Collins"
+  ],
+  intermediate: [
+    "Deep dive into financial statement analysis",
+    "Learn P/E, PEG, EV/EBITDA valuation metrics",
+    "Understand free cash flow and why it matters",
+    "Study ROE, ROIC, and return metrics",
+    "Learn to identify economic moats",
+    "Build a stock analysis checklist",
+    "Study portfolio diversification strategies",
+    "Learn about dividend investing",
+    "Understand macroeconomic indicators",
+    "Start analyzing individual stocks",
+    "Learn basic options concepts",
+    "Study behavioral finance and your biases",
+    "Read '100 Baggers' by Christopher Mayer"
+  ],
+  advanced: [
+    "Master DCF valuation and build your own models",
+    "Study the complete options Greeks",
+    "Learn advanced portfolio optimization (Sharpe, Sortino)",
+    "Understand yield curves and their predictive power",
+    "Study accounting red flags and forensic analysis",
+    "Learn about special situations investing",
+    "Master position sizing and risk management",
+    "Study capital allocation frameworks (ROIC vs WACC)",
+    "Understand derivatives: futures, swaps, structured products",
+    "Learn about factor investing (value, momentum, quality)",
+    "Study market microstructure and order flow",
+    "Build and backtest an investment strategy",
+    "Read 'The Intelligent Investor' by Benjamin Graham"
+  ],
+  checklists: {
+    buy: [
+      "Do I understand the business model completely?",
+      "Is revenue growing consistently? At what rate?",
+      "Are margins stable or expanding?",
+      "Is ROIC above the cost of capital (WACC)?",
+      "Is free cash flow strong and growing?",
+      "Is the balance sheet healthy (manageable debt)?",
+      "Does the company have a durable economic moat?",
+      "Is management competent and aligned with shareholders?",
+      "Is the valuation reasonable relative to growth?",
+      "Have I applied a margin of safety to my valuation?",
+      "Does this fit my portfolio allocation strategy?",
+      "Am I buying for the right reasons (not FOMO)?"
+    ],
+    sell: [
+      "Has the original investment thesis been broken?",
+      "Have fundamentals deteriorated (margins, growth, FCF)?",
+      "Is the competitive position weakening?",
+      "Has management quality declined?",
+      "Is the stock extremely overvalued vs intrinsic value?",
+      "Have I found a significantly better opportunity?",
+      "Has the position grown too large for my portfolio?",
+      "Am I selling based on analysis, not emotion?",
+      "Have I accounted for tax implications?",
+      "Would I buy this stock at today's price if I didn't own it?"
+    ],
+    mistakes: [
+      "Buying based on tips without doing your own research",
+      "Panic selling during market corrections",
+      "Not having an investment thesis before buying",
+      "Ignoring valuation and overpaying for great companies",
+      "Holding losers hoping they'll recover without analysis",
+      "Over-diversifying into positions you can't monitor",
+      "Chasing past performance (buying yesterday's winners)",
+      "Not rebalancing your portfolio periodically",
+      "Letting emotions drive investment decisions",
+      "Ignoring fees and their compounding impact",
+      "Not having an emergency fund before investing",
+      "Trying to time the market instead of time in the market"
+    ]
+  }
+};
+
+/* ═══════════════════════════════════════════════════════
+   STATE MANAGEMENT (localStorage)
+   ═══════════════════════════════════════════════════════ */
+const STATE_KEY = 'finTerminal_v2';
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch { return {}; }
+}
+function saveState(state) {
+  localStorage.setItem(STATE_KEY, JSON.stringify(state));
+}
+let APP = loadState();
+if (!APP.completed) APP.completed = {};
+if (!APP.bookmarks) APP.bookmarks = {};
+if (!APP.notes) APP.notes = '';
+if (!APP.quizScore) APP.quizScore = { correct: 0, total: 0, best: 0 };
+
+/* ═══════════════════════════════════════════════════════
+   NAVIGATION
+   ═══════════════════════════════════════════════════════ */
+function navigateTo(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + pageId);
+  if (page) page.classList.add('active');
+  const nav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+  if (nav) nav.classList.add('active');
+  document.getElementById('contentArea').scrollTop = 0;
+}
+
+document.querySelectorAll('.nav-item[data-page]').forEach(item => {
+  item.addEventListener('click', () => navigateTo(item.dataset.page));
+});
+
+/* ═══════════════════════════════════════════════════════
+   RENDER TOPIC GRIDS
+   ═══════════════════════════════════════════════════════ */
+function renderTopicGrid(containerId, topics, section) {
+  const grid = document.getElementById(containerId);
+  if (!grid) return;
+  grid.innerHTML = topics.map(t => {
+    const isBookmarked = APP.bookmarks[t.id];
+    const isCompleted = APP.completed[t.id];
+    const levelClass = t.level === 'beginner' ? 'tag-beginner' : t.level === 'intermediate' ? 'tag-intermediate' : 'tag-advanced';
+    return `
+      <div class="topic-card" onclick="openTopic('${t.id}','${section}')">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div class="topic-icon" style="background:${isCompleted ? 'var(--green-dim)' : 'var(--gold-dim)'};color:${isCompleted ? 'var(--green)' : 'var(--gold)'};">
+            ${isCompleted ? '✓' : t.icon}
+          </div>
+          <span class="bookmark-btn ${isBookmarked ? 'active' : ''}" onclick="event.stopPropagation();toggleBookmark('${t.id}','${section}')">★</span>
+        </div>
+        <div class="topic-name">${t.name}</div>
+        <div class="topic-desc">${t.desc}</div>
+        <span class="topic-tag ${levelClass}">${t.level}</span>
+      </div>
+    `;
+  }).join('');
+}
+
+function getAllTopics() {
+  const all = [];
+  for (const [section, topics] of Object.entries(TOPICS)) {
+    topics.forEach(t => all.push({ ...t, section }));
+  }
+  return all;
+}
+
+function findTopic(id) {
+  for (const [section, topics] of Object.entries(TOPICS)) {
+    const found = topics.find(t => t.id === id);
+    if (found) return { ...found, section };
+  }
+  return null;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TOPIC DETAIL PANEL
+   ═══════════════════════════════════════════════════════ */
+function openTopic(id, section) {
+  const topic = findTopic(id);
+  if (!topic) return;
+  const isCompleted = APP.completed[id];
+  const isBookmarked = APP.bookmarks[id];
+  const panel = document.getElementById('topicPanel');
+  panel.innerHTML = `
+    <button class="detail-close" onclick="closeTopicOverlay()">✕</button>
+    <h2>${topic.name}</h2>
+    <p style="color:var(--text-secondary);font-size:14px;margin-bottom:8px;">${topic.desc}</p>
+
+    <div class="detail-section">
+      <h3>Definition</h3>
+      <p>${topic.definition}</p>
+    </div>
+
+    <div class="detail-section" style="border-left-color:var(--green);">
+      <h3>Why It Matters</h3>
+      <p>${topic.whyMatters}</p>
+    </div>
+
+    <div class="detail-section" style="border-left-color:var(--blue);">
+      <h3>Real-World Example</h3>
+      <p>${topic.example}</p>
+    </div>
+
+    ${topic.formula ? `
+    <div class="detail-section" style="border-left-color:var(--cyan);">
+      <h3>Formula / Key Metrics</h3>
+      <div class="formula-box">${topic.formula.replace(/\n/g,'<br>')}</div>
+    </div>` : ''}
+
+    <div class="detail-section" style="border-left-color:var(--purple);">
+      <h3>Key Takeaway</h3>
+      <p>${topic.takeaway}</p>
+    </div>
+
+    ${topic.mistakes ? `
+    <div class="detail-section" style="border-left-color:var(--red);">
+      <h3>Common Mistakes</h3>
+      <ul>${topic.mistakes.map(m => `<li>${m}</li>`).join('')}</ul>
+    </div>` : ''}
+
+    <div class="detail-actions">
+      <button class="detail-btn primary" onclick="toggleCompleted('${id}')">${isCompleted ? '✓ Completed' : 'Mark as Learned'}</button>
+      <button class="detail-btn" onclick="toggleBookmark('${id}','${section}');closeTopicOverlay();">${isBookmarked ? '★ Bookmarked' : '☆ Bookmark'}</button>
+    </div>
+  `;
+  document.getElementById('topicOverlay').classList.add('open');
+}
+
+function closeTopicOverlay() {
+  document.getElementById('topicOverlay').classList.remove('open');
+}
+
+document.getElementById('topicOverlay').addEventListener('click', e => {
+  if (e.target.id === 'topicOverlay') closeTopicOverlay();
+});
+
+/* ═══════════════════════════════════════════════════════
+   BOOKMARK / COMPLETED
+   ═══════════════════════════════════════════════════════ */
+function toggleBookmark(id, section) {
+  if (APP.bookmarks[id]) delete APP.bookmarks[id];
+  else APP.bookmarks[id] = section;
+  saveState(APP);
+  refreshAll();
+}
+
+function toggleCompleted(id) {
+  APP.completed[id] = !APP.completed[id];
+  if (!APP.completed[id]) delete APP.completed[id];
+  saveState(APP);
+  refreshAll();
+}
+
+/* ═══════════════════════════════════════════════════════
+   SEARCH
+   ═══════════════════════════════════════════════════════ */
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+let allTopicsFlat = [];
+
+function buildSearchIndex() {
+  allTopicsFlat = getAllTopics();
+}
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim();
+  if (!q) { searchResults.classList.remove('open'); return; }
+  const matches = allTopicsFlat.filter(t =>
+    t.name.toLowerCase().includes(q) ||
+    t.desc.toLowerCase().includes(q) ||
+    t.definition.toLowerCase().includes(q) ||
+    (t.takeaway && t.takeaway.toLowerCase().includes(q))
+  ).slice(0, 8);
+
+  if (matches.length === 0) { searchResults.classList.remove('open'); return; }
+  searchResults.innerHTML = matches.map(t => `
+    <div class="search-result-item" onclick="openTopic('${t.id}','${t.section}');searchInput.value='';searchResults.classList.remove('open');">
+      <div class="sr-section">${t.section}</div>
+      ${t.name} — <span style="color:var(--text-muted)">${t.desc.slice(0,60)}…</span>
+    </div>
+  `).join('');
+  searchResults.classList.add('open');
+});
+
+searchInput.addEventListener('blur', () => setTimeout(() => searchResults.classList.remove('open'), 200));
+document.addEventListener('keydown', e => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); searchInput.focus(); }
+  if (e.key === 'Escape') closeTopicOverlay();
+});
+
+/* ═══════════════════════════════════════════════════════
+   CALCULATORS
+   ═══════════════════════════════════════════════════════ */
+function calcCompound() {
+  const P = parseFloat(document.getElementById('ciPrincipal').value) || 0;
+  const r = (parseFloat(document.getElementById('ciRate').value) || 0) / 100;
+  const t = parseFloat(document.getElementById('ciYears').value) || 0;
+  const m = parseFloat(document.getElementById('ciMonthly').value) || 0;
+  const mr = r / 12;
+  const months = t * 12;
+  let total = P * Math.pow(1 + mr, months);
+  if (mr > 0) total += m * ((Math.pow(1 + mr, months) - 1) / mr);
+  else total += m * months;
+  const invested = P + m * months;
+  const res = document.getElementById('ciResult');
+  res.innerHTML = `$${total.toLocaleString('en-US',{maximumFractionDigits:0})}<br><span style="font-size:13px;color:var(--text-secondary);font-weight:400;">Invested: $${invested.toLocaleString('en-US',{maximumFractionDigits:0})} | Interest Earned: $${(total-invested).toLocaleString('en-US',{maximumFractionDigits:0})}</span>`;
+  res.classList.add('visible');
+}
+
+function calcReturn() {
+  const buy = parseFloat(document.getElementById('retBuy').value) || 0;
+  const sell = parseFloat(document.getElementById('retSell').value) || 0;
+  const div = parseFloat(document.getElementById('retDiv').value) || 0;
+  const ret = ((sell - buy + div) / buy * 100);
+  const res = document.getElementById('retResult');
+  res.innerHTML = `${ret >= 0 ? '+' : ''}${ret.toFixed(2)}%<br><span style="font-size:13px;color:var(--text-secondary);font-weight:400;">Profit/Loss: $${(sell - buy + div).toFixed(2)} per share</span>`;
+  res.style.borderColor = ret >= 0 ? 'rgba(52,211,153,0.15)' : 'rgba(248,113,113,0.15)';
+  res.style.background = ret >= 0 ? 'rgba(52,211,153,0.06)' : 'rgba(248,113,113,0.06)';
+  res.style.color = ret >= 0 ? 'var(--green)' : 'var(--red)';
+  res.classList.add('visible');
+}
+
+function calcPosition() {
+  const pv = parseFloat(document.getElementById('psPV').value) || 0;
+  const risk = (parseFloat(document.getElementById('psRisk').value) || 0) / 100;
+  const entry = parseFloat(document.getElementById('psEntry').value) || 0;
+  const stop = parseFloat(document.getElementById('psStop').value) || 0;
+  const riskAmt = pv * risk;
+  const perShare = Math.abs(entry - stop);
+  const shares = perShare > 0 ? Math.floor(riskAmt / perShare) : 0;
+  const positionValue = shares * entry;
+  const res = document.getElementById('psResult');
+  res.innerHTML = `${shares} shares ($${positionValue.toLocaleString('en-US',{maximumFractionDigits:0})})<br><span style="font-size:13px;color:var(--text-secondary);font-weight:400;">Risk Amount: $${riskAmt.toFixed(0)} | Position: ${(positionValue/pv*100).toFixed(1)}% of portfolio</span>`;
+  res.classList.add('visible');
+}
+
+function calcDCF() {
+  const fcf = parseFloat(document.getElementById('dcfFCF').value) || 0;
+  const g = (parseFloat(document.getElementById('dcfGrowth').value) || 0) / 100;
+  const r = (parseFloat(document.getElementById('dcfDiscount').value) || 0) / 100;
+  const years = parseInt(document.getElementById('dcfYears').value) || 0;
+  const shares = parseFloat(document.getElementById('dcfShares').value) || 1;
+  let totalPV = 0;
+  for (let i = 1; i <= years; i++) {
+    totalPV += (fcf * Math.pow(1 + g, i)) / Math.pow(1 + r, i);
+  }
+  const terminalGrowth = 0.03;
+  const terminalFCF = fcf * Math.pow(1 + g, years) * (1 + terminalGrowth);
+  const terminalValue = terminalFCF / (r - terminalGrowth);
+  const pvTerminal = terminalValue / Math.pow(1 + r, years);
+  const totalValue = totalPV + pvTerminal;
+  const perShare = totalValue / shares;
+  const res = document.getElementById('dcfResult');
+  res.innerHTML = `$${perShare.toFixed(2)} per share<br><span style="font-size:13px;color:var(--text-secondary);font-weight:400;">Total Enterprise Value: $${(totalValue).toFixed(0)}M | Terminal Value: ${(pvTerminal/totalValue*100).toFixed(0)}% of total</span>`;
+  res.classList.add('visible');
+}
+
+/* ═══════════════════════════════════════════════════════
+   QUIZ ENGINE
+   ═══════════════════════════════════════════════════════ */
+let quizIndex = 0;
+let quizAnswered = false;
+
+function renderQuiz() {
+  if (quizIndex >= QUIZZES.length) quizIndex = 0;
+  const q = QUIZZES[quizIndex];
+  quizAnswered = false;
+  document.getElementById('quizContainer').innerHTML = `
+    <p style="font-size:16px;font-weight:600;margin-bottom:16px;color:var(--text-primary);">Q${quizIndex+1}: ${q.q}</p>
+    ${q.opts.map((o,i) => `<div class="quiz-option" data-idx="${i}" onclick="answerQuiz(${i})">${o}</div>`).join('')}
+  `;
+  document.getElementById('quizScoreDisplay').textContent = `Score: ${APP.quizScore.correct}/${APP.quizScore.total}`;
+}
+
+function answerQuiz(idx) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  const q = QUIZZES[quizIndex];
+  const opts = document.querySelectorAll('.quiz-option');
+  opts.forEach((o,i) => {
+    if (i === q.answer) o.classList.add('correct');
+    if (i === idx && i !== q.answer) o.classList.add('wrong');
+  });
+  APP.quizScore.total++;
+  if (idx === q.answer) APP.quizScore.correct++;
+  if (APP.quizScore.total > 0) {
+    const pct = Math.round(APP.quizScore.correct / APP.quizScore.total * 100);
+    if (pct > (APP.quizScore.best || 0)) APP.quizScore.best = pct;
+  }
+  saveState(APP);
+  document.getElementById('quizScoreDisplay').textContent = `Score: ${APP.quizScore.correct}/${APP.quizScore.total}`;
+  updateDashboard();
+}
+
+function nextQuizQuestion() { quizIndex++; renderQuiz(); }
+function resetQuiz() { APP.quizScore = { correct:0, total:0, best: APP.quizScore.best || 0 }; quizIndex = 0; saveState(APP); renderQuiz(); }
+
+/* ═══════════════════════════════════════════════════════
+   FLASHCARDS
+   ═══════════════════════════════════════════════════════ */
+let flashIndex = 0;
+
+function renderFlashcard() {
+  const f = FLASHCARDS[flashIndex];
+  document.getElementById('flashFront').textContent = f.front;
+  document.getElementById('flashBack').textContent = f.back;
+  document.getElementById('flashcardBox').classList.remove('flipped');
+  document.getElementById('flashCounter').textContent = `${flashIndex+1} / ${FLASHCARDS.length}`;
+}
+function flipFlashcard() { document.getElementById('flashcardBox').classList.toggle('flipped'); }
+function nextFlashcard() { flashIndex = (flashIndex + 1) % FLASHCARDS.length; renderFlashcard(); }
+function prevFlashcard() { flashIndex = (flashIndex - 1 + FLASHCARDS.length) % FLASHCARDS.length; renderFlashcard(); }
+
+/* ═══════════════════════════════════════════════════════
+   TAB SYSTEM
+   ═══════════════════════════════════════════════════════ */
+document.querySelectorAll('.tab-bar').forEach(bar => {
+  bar.querySelectorAll('.tab-item').forEach(tab => {
+    tab.addEventListener('click', () => {
+      bar.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const tabId = tab.dataset.tab;
+      const page = bar.closest('.page');
+      page.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      const target = document.getElementById(tabId);
+      if (target) target.style.display = 'block';
+    });
+  });
+});
+
+/* ═══════════════════════════════════════════════════════
+   NOTES
+   ═══════════════════════════════════════════════════════ */
+function saveNotes() {
+  APP.notes = document.getElementById('notesTextarea').value;
+  saveState(APP);
+  document.getElementById('notesSaved').textContent = 'Saved at ' + new Date().toLocaleTimeString();
+}
+
+/* ═══════════════════════════════════════════════════════
+   LEARNING PATHS RENDERER
+   ═══════════════════════════════════════════════════════ */
+function renderLearningPaths() {
+  ['beginner','intermediate','advanced'].forEach(level => {
+    const el = document.getElementById(level + 'Path');
+    if (!el) return;
+    el.innerHTML = `<div class="card"><div class="card-header"><div class="card-title">${level.charAt(0).toUpperCase()+level.slice(1)} Roadmap</div></div>` +
+      PATHS[level].map((step, i) => {
+        const key = `lp_${level}_${i}`;
+        const done = APP.completed[key];
+        return `<div class="checklist-item"><div class="checklist-check ${done?'checked':''}" onclick="toggleCompleted('${key}');renderLearningPaths();">${done?'✓':''}</div><div class="checklist-text">${step}</div></div>`;
+      }).join('') + '</div>';
+  });
+  // Checklists
+  const cl = document.getElementById('checklistsPath');
+  if (!cl) return;
+  cl.innerHTML = `
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><div class="card-title" style="color:var(--green);">✓ Checklist Before Buying a Stock</div></div>
+      ${PATHS.checklists.buy.map(c => `<div class="checklist-item"><div class="checklist-check"></div><div class="checklist-text">${c}</div></div>`).join('')}
+    </div>
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><div class="card-title" style="color:var(--red);">✕ Checklist Before Selling</div></div>
+      ${PATHS.checklists.sell.map(c => `<div class="checklist-item"><div class="checklist-check"></div><div class="checklist-text">${c}</div></div>`).join('')}
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title" style="color:var(--gold);">⚠ Common Mistakes to Avoid</div></div>
+      ${PATHS.checklists.mistakes.map(c => `<div class="checklist-item"><div class="checklist-check"></div><div class="checklist-text">${c}</div></div>`).join('')}
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════
+   BOOKMARKS PAGE
+   ═══════════════════════════════════════════════════════ */
+function renderBookmarks() {
+  const list = document.getElementById('bookmarksList');
+  const noB = document.getElementById('noBookmarks');
+  const ids = Object.keys(APP.bookmarks);
+  if (ids.length === 0) { list.innerHTML = ''; noB.style.display = 'block'; return; }
+  noB.style.display = 'none';
+  list.innerHTML = ids.map(id => {
+    const t = findTopic(id);
+    if (!t) return '';
+    return `<div class="topic-card" onclick="openTopic('${t.id}','${t.section}')">
+      <div class="topic-name">${t.name}</div>
+      <div class="topic-desc">${t.desc}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════════
+   DASHBOARD UPDATE
+   ═══════════════════════════════════════════════════════ */
+function updateDashboard() {
+  const totalTopics = getAllTopics().length;
+  const completed = Object.keys(APP.completed).filter(k => APP.completed[k] && !k.startsWith('lp_')).length;
+  const pct = totalTopics > 0 ? Math.round(completed / totalTopics * 100) : 0;
+  document.getElementById('dashProgress').textContent = pct + '%';
+  document.getElementById('dashProgressBar').style.width = pct + '%';
+  document.getElementById('dashCompleted').textContent = completed;
+  document.getElementById('dashBookmarks').textContent = Object.keys(APP.bookmarks).length;
+  document.getElementById('dashQuizScore').textContent = APP.quizScore.best ? APP.quizScore.best + '%' : '—';
+  // Daily tip
+  const dayIndex = Math.floor(Date.now() / 86400000) % TIPS.length;
+  document.getElementById('dailyTip').textContent = TIPS[dayIndex];
+}
+
+/* ═══════════════════════════════════════════════════════
+   REFRESH ALL
+   ═══════════════════════════════════════════════════════ */
+function refreshAll() {
+  renderTopicGrid('fundamentalsGrid', TOPICS.fundamentals, 'fundamentals');
+  renderTopicGrid('personalGrid', TOPICS.personal, 'personal');
+  renderTopicGrid('investingGrid', TOPICS.investing, 'investing');
+  renderTopicGrid('fundamentalGrid', TOPICS.analysisFundamental, 'analysisFundamental');
+  renderTopicGrid('valuationGrid', TOPICS.analysisValuation, 'analysisValuation');
+  renderTopicGrid('qualitativeGrid', TOPICS.analysisQualitative, 'analysisQualitative');
+  renderTopicGrid('redflagsGrid', TOPICS.analysisRedflags, 'analysisRedflags');
+  renderTopicGrid('portfolioGrid', TOPICS.portfolio, 'portfolio');
+  renderTopicGrid('advancedGrid', TOPICS.advanced, 'advanced');
+  renderTopicGrid('macroGrid', TOPICS.macro, 'macro');
+  renderBookmarks();
+  updateDashboard();
+}
+
+/* ═══════════════════════════════════════════════════════
+   INIT
+   ═══════════════════════════════════════════════════════ */
+buildSearchIndex();
+refreshAll();
+renderQuiz();
+renderFlashcard();
+renderLearningPaths();
+document.getElementById('notesTextarea').value = APP.notes || '';
+
+// Responsive menu
+const mql = window.matchMedia('(max-width: 768px)');
+function handleMobile(e) {
+  document.getElementById('menuToggle').style.display = e.matches ? 'flex' : 'none';
+}
+mql.addEventListener('change', handleMobile);
+handleMobile(mql);
+document.getElementById('menuToggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+});
+</script>
+</body>
+</html>

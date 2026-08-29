@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio</title>
+<meta name="description" content="Quantitative developer. Trading terminals, options analytics and Monte Carlo risk models.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Portfolio">
+<meta property="og:description" content="Trading terminals, options analytics and Monte Carlo risk models.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b1a18'/><text x='50' y='68' font-family='monospace' font-size='52' font-weight='700' fill='%23d3a75f' text-anchor='middle'>R</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a class="skip" href="#work">Skip to work</a>
+
+<header class="topbar">
+  <a class="brand" href="#top">
+    <span class="mono-mark" id="mark"></span>
+    <span class="brand-name" id="brand-name"></span>
+  </a>
+  <nav class="topnav" aria-label="Sections">
+    <a href="#work">Work <i>01</i></a>
+    <a href="#approach">Approach <i>02</i></a>
+    <a href="#toolkit">Toolkit <i>03</i></a>
+    <a href="#contact">Contact <i>04</i></a>
+  </nav>
+  <a class="ghbtn" id="gh-top" href="#" target="_blank" rel="noopener" hidden>
+    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    <span>GitHub</span>
+  </a>
+</header>
+
+<main id="top">
+
+  <!-- ============================== hero ============================== -->
+  <section class="hero">
+    <p class="eyebrow"><span class="rule"></span><span id="hero-status"></span></p>
+    <p class="kicker" id="hero-kicker"></p>
+    <h1 class="display">
+      <span class="line-1" id="head-lead"></span>
+      <span class="line-2" id="head-accent"></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="lede" id="hero-intro"></p>
+      <a class="explore" href="#work">
+        <span>Explore the work</span>
+        <span class="arrow" aria-hidden="true">&darr;</span>
+      </a>
+    </div>
+    <div class="hero-rule">
+      <span class="mono dim" id="hero-focus"></span>
+      <span class="mono dim" id="hero-place"></span>
+    </div>
+  </section>
+
+  <!-- ============================== work ============================== -->
+  <section id="work" class="band">
+    <p class="sec-label">01 / Selected work</p>
+    <h2 class="display sm">
+      <span class="line-1">Software for</span>
+      <span class="line-2">high-conviction moves.</span>
+    </h2>
+
+    <div class="controls">
+      <label class="search">
+        <span class="mono dim">find</span>
+        <input id="search" type="search" placeholder="project, language, topic" autocomplete="off" aria-label="Search projects">
+      </label>
+      <div class="chips" id="filters" role="group" aria-label="Filter by category"></div>
+    </div>
+
+    <div class="work-grid" id="grid"></div>
+    <p class="note" id="empty" hidden>Nothing matches that search.</p>
+
+    <div class="note empty-state" id="getting-started" hidden>
+      <p><strong>No projects in here yet.</strong></p>
+      <p>Drag a file or a whole project folder onto <code>Add Project.bat</code>,
+         answer a few questions, then run <code>Publish.bat</code>.</p>
+    </div>
+  </section>
+
+  <!-- ============================ approach ============================ -->
+  <section id="approach" class="band alt">
+    <div class="split">
+      <div class="split-l">
+        <p class="sec-label">02 / How I work</p>
+        <h2 class="display sm">
+          <span class="line-1" id="ap-lead"></span>
+          <span class="line-2" id="ap-accent"></span>
+        </h2>
+        <p class="mono dim tiny" id="place-label"></p>
+      </div>
+      <div class="split-r">
+        <p class="statement" id="ap-statement"></p>
+        <ol class="points" id="points"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ toolkit ============================= -->
+  <section id="toolkit" class="band">
+    <p class="sec-label">03 / The toolkit</p>
+    <h2 class="display sm">
+      <span class="line-1">The stack behind</span>
+      <span class="line-2">the work.</span>
+    </h2>
+    <ul class="tools" id="tools"></ul>
+  </section>
+
+  <!-- ============================ contact ============================= -->
+  <section id="contact" class="band gold">
+    <p class="sec-label">04 / Get in touch</p>
+    <div class="contact-row">
+      <h2 class="display sm">
+        <span class="line-1">Let's talk</span>
+        <span class="line-2">markets.</span>
+      </h2>
+      <div class="contact-links">
+        <a class="mailto" id="mail-link" href="#"><span id="mail-text"></span><span class="arrow">&#8599;</span></a>
+        <button class="copy" id="copy-mail" type="button">Copy email</button>
+      </div>
+    </div>
+    <footer class="foot">
+      <span class="mono" id="foot-left"></span>
+      <span class="foot-social">
+        <a id="gh-foot" href="#" target="_blank" rel="noopener" hidden>GitHub</a>
+        <a id="li-foot" href="#" target="_blank" rel="noopener" hidden>LinkedIn</a>
+      </span>
+    </footer>
+  </section>
+
+</main>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true">
+  <div class="modal-backdrop" data-close></div>
+  <article class="modal-card">
+    <button class="modal-close" data-close aria-label="Close">&times;</button>
+    <div class="modal-body" id="modal-body"></div>
+  </article>
+</div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" aria-label="Close">&times;</button>
+  <img id="lb-img" alt="">
+</div>
+
+<script src="data/portfolio.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

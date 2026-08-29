@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Research – Verdant Apex Capital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="styles.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- NAV (keep your existing nav) -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="fas fa-chart-line"></i>
+        <span>Verdant Apex Capital</span>
+      </div>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="research.html" class="nav-link">Research</a>
+        <a href="research-pro.html" class="nav-link">Pro Research</a>
+        <a href="model.html" class="nav-link">Model Creator</a>
+        <a href="portfolio.html" class="nav-link">Portfolio Builder</a>
+        <a href="clients.html" class="nav-link">Clients</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="auth.html" class="nav-link" id="nav-auth-link">Sign in</a>
+        <a href="#" class="nav-link" id="nav-logout-link" style="display:none;">Logout</a>
+      </div>
+      <div class="nav-toggle" id="nav-toggle">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-section research-shell" style="padding-top:110px;">
+    <div class="container">
+      <div class="research-hero">
+        <h1>The Research Desk</h1>
+        <p>Manager-led market notes, stock write-ups, and framework-driven research.</p>
+      </div>
+
+      <div class="research-layout">
+        <!-- LEFT: posts list -->
+        <section class="research-main">
+          <div id="researchFeed" class="research-list"></div>
+        </section>
+        <input id="postTitle" />
+        <textarea id="postContent"></textarea>
+        <button id="publishPost">Publish</button>
+
+        <!-- RIGHT: sidebar -->
+        <aside class="research-sidebar">
+          <div class="sidebar-card">
+            <h3>Newsletter Sign Up</h3>
+            <p class="muted">Weekly market notes + new research drops.</p>
+            <div class="sidebar-input-row">
+              <input id="newsletterEmail" type="email" placeholder="Your email address..." />
+            </div>
+            <button class="plan-button primary" id="newsletterBtn">Subscribe</button>
+          </div>
+
+          <div class="sidebar-card">
+            <div class="sidebar-search">
+              <input id="researchSearch" type="text" placeholder="Search..." />
+              <i class="fas fa-magnifying-glass"></i>
+            </div>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Popular Posts</h3>
+            <div id="popularPosts" class="popular-list"></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">&copy; 2025 Verdant Apex Capital.</div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toast-message">Saved.</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

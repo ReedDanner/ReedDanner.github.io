@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Plans - InvestPro Elite</title>
+    <meta name="description" content="Choose the perfect investment plan for your needs. Premium stock picks, market analysis, and expert insights starting at $29/month.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pricing.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>InvestPro Elite</span>
+            </div>
+            
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="stock-picks.html" class="nav-link">Stock Picks</a>
+                <a href="pricing.html" class="nav-link active">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="nav-link">Login</a>
+                <a href="#" class="nav-cta">Get Started</a>
+            </div>
+            
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pricing Hero -->
+    <section class="pricing-hero">
+        <div class="container">
+            <div class="pricing-hero-content" data-aos="fade-up">
+                <h1>Choose Your Investment Plan</h1>
+                <p>Start building wealth with our proven investment strategies. Cancel anytime, no questions asked.</p>
+                
+                <!-- Billing Toggle -->
+                <div class="billing-toggle">
+                    <span class="toggle-label">Monthly</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="price-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label">Annual <span class="save-badge">Save 20%</span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans -->
+    <section class="pricing-plans">
+        <div class="container">
+            <div class="plans-grid">
+                <!-- Free Plan -->
+                <div class="plan-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="plan-header">
+                        <h3>Free</h3>
+                        <div class="plan-price">
+                            <span class="price monthly-price">$0</span>
+                            <span class="price annual-price" style="display: none;">$0</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p class="plan-description">Perfect for getting started</p>
+                    </div>
+                    
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 1 stock pick per month</li>
+                            <li><i class="fas fa-check"></i> Basic market insights</li>
+                            <li><i class="fas fa-check"></i> Email newsletter</li>
+                            <li><i class="fas fa-times"></i> Premium research reports</li>
+                            <li><i class="fas fa-times"></i> AI predictions</li>
+                            <li><i class="fas fa-times"></i> Priority support</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plan-cta">
+                        <a href="login.html" class="btn btn-secondary btn-full">Get Started Free</a>
+                    </div>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="plan-card featured" data-aos="fade-up" data-aos-delay="200">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="plan-header">
+                        <h3>Premium</h3>
+                        <div class="plan-price">
+                            <span class="price monthly-price">$49</span>
+                            <span class="price annual-price" style="display: none;">$39</span>
+                            <span class="period monthly-price">/month</span>
+                            <span class="period annual-price" style="display: none;">/month</span>
+                        </div>
+                        <p class="plan-description">For serious investors</p>
+                    </div>
+                    
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 5 stock picks per week</li>
+                            <li><i class="fas fa-check"></i> Premium research reports</li>
+                            <li><i class="fas fa-check"></i> AI market predictions</li>
+                            <li><i class="fas fa-check"></i> Risk analysis & alerts</li>
+                            <li><i class="fas fa-check"></i> Member dashboard</li>
+                            <li><i class="fas fa-check"></i> Email & chat support</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plan-cta">
+                        <a href="#" class="btn btn-primary btn-full" onclick="selectPlan('premium')">Start Premium Trial</a>
+                        <p class="trial-info">14-day free trial, then $49/month</p>
+                    </div>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="plan-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="plan-header">
+                        <h3>Pro</h3>
+                        <div class="plan-price">
+                            <span class="price monthly-price">$99</span>
+                            <span class="price annual-price" style="display: none;">$79</span>
+                            <span class="period monthly-price">/month</span>
+                            <span class="period annual-price" style="display: none;">/month</span>
+                        </div>
+                        <p class="plan-description">For professional traders</p>
+                    </div>
+                    
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Everything in Premium</li>
+                            <li><i class="fas fa-check"></i> 10+ stock picks per week</li>
+                            <li><i class="fas fa-check"></i> Options trading alerts</li>
+                            <li><i class="fas fa-check"></i> 1-on-1 strategy calls</li>
+                            <li><i class="fas fa-check"></i> Advanced portfolio tools</li>
+                            <li><i class="fas fa-check"></i> Priority phone support</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="plan-cta">
+                        <a href="#" class="btn btn-secondary btn-full" onclick="selectPlan('pro')">Start Pro Trial</a>
+                        <p class="trial-info">14-day free trial, then $99/month</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison -->
+    <section class="feature-comparison">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Compare All Features</h2>
+                <p>See exactly what's included in each plan</p>
+            </div>
+            
+            <div class="comparison-table" data-aos="fade-up" data-aos-delay="200">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Features</th>
+                            <th>Free</th>
+                            <th>Premium</th>
+                            <th>Pro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Stock Picks per Week</td>
+                            <td>1 per month</td>
+                            <td>5</td>
+                            <td>10+</td>
+                        </tr>
+                        <tr>
+                            <td>Research Reports</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>AI Predictions</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Options Trading</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>1-on-1 Strategy Calls</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Priority Support</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>Email & Chat</td>
+                            <td>Phone & Email</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods -->
+    <section class="payment-methods">
+        <div class="container">
+            <div class="payment-content" data-aos="fade-up">
+                <h2>Secure Payment Options</h2>
+                <p>Your payment information is encrypted and secure</p>
+                
+                <div class="payment-icons">
+                    <div class="payment-icon">
+                        <i class="fab fa-cc-stripe"></i>
+                        <span>Stripe</span>
+                    </div>
+                    <div class="payment-icon">
+                        <i class="fab fa-cc-paypal"></i>
+                        <span>PayPal</span>
+                    </div>
+                    <div class="payment-icon">
+                        <i class="fab fa-cc-visa"></i>
+                        <span>Visa</span>
+                    </div>
+                    <div class="payment-icon">
+                        <i class="fab fa-cc-mastercard"></i>
+                        <span>Mastercard</span>
+                    </div>
+                    <div class="payment-icon">
+                        <i class="fab fa-cc-amex"></i>
+                        <span>Amex</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Money Back Guarantee -->
+    <section class="guarantee-section">
+        <div class="container">
+            <div class="guarantee-content" data-aos="zoom-in">
+                <div class="guarantee-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>30-Day Money-Back Guarantee</h2>
+                <p>Not satisfied with your results? Get a full refund within 30 days, no questions asked. We're confident you'll love our service.</p>
+                <div class="guarantee-features">
+                    <div class="guarantee-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Cancel anytime</span>
+                    </div>
+                    <div class="guarantee-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>No hidden fees</span>
+                    </div>
+                    <div class="guarantee-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Instant refunds</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="pricing-faq">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about our pricing</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-question">
+                        <h3>Can I change my plan anytime?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any billing differences.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="faq-question">
+                        <h3>What payment methods do you accept?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards (Visa, Mastercard, American Express) and PayPal. All payments are processed securely through Stripe.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="faq-question">
+                        <h3>Is there a long-term contract?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No contracts required. You can cancel your subscription at any time and you'll continue to have access until the end of your current billing period.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="faq-question">
+                        <h3>Do you offer refunds?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer a 30-day money-back guarantee. If you're not satisfied with our service, contact us for a full refund within 30 days of your purchase.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="pricing-cta">
+        <div class="container">
+            <div class="cta-content" data-aos="zoom-in">
+                <h2>Ready to Start Investing Smarter?</h2>
+                <p>Join thousands of successful investors who trust InvestPro Elite</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary btn-large" onclick="selectPlan('premium')">Start Free Trial</a>
+                    <a href="contact.html" class="btn btn-secondary btn-large">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>InvestPro Elite</span>
+                    </div>
+                                    <p>Empowering investors with data-driven insights and proven strategies for building long-term wealth.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="stock-picks.html">Stock Picks</a></li>
+                        <li><a href="research.html">Research Reports</a></li>
+                        <li><a href="portfolio.html">Portfolio Tools</a></li>
+                        <li><a href="education.html">Investment Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="press.html">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> support@investproelite.com</p>
+                        <p><i class="fas fa-phone"></i> 1-800-INVEST-1</p>
+                        <p><i class="fas fa-map-marker-alt"></i> New York, NY</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2024 InvestPro Elite. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="disclaimer.html">Investment Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Plan Selection Modal -->
+    <div id="plan-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Start Your Free Trial</h2>
+            <p>Enter your email to begin your 14-day free trial</p>
+            <form id="plan-selection-form">
+                <input type="hidden" id="selected-plan" value="">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit" class="btn btn-primary">Start Free Trial</button>
+            </form>
+            <p class="form-disclaimer">No credit card required. Cancel anytime.</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pricing.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,29 @@
+# QuantMC -- Monte Carlo & Quantitative Modelling Terminal
+# Python 3.11+   (developed and tested on 3.13)
+
+# --- core numerics (required) -------------------------------------------
+numpy>=1.26
+pandas>=2.0
+scipy>=1.11
+matplotlib>=3.8
+
+# --- GUI (required for the terminal; not needed for --selftest/--headless)
+PyQt6>=6.6
+
+# --- market data ---------------------------------------------------------
+# The default provider talks to Yahoo's JSON endpoints directly over requests,
+# sending browser headers (Yahoo answers 429 to anything that does not look
+# like a browser) and doing the cookie/crumb handshake the /v7 endpoints need.
+requests>=2.31
+
+# Optional second-opinion fallback if Yahoo changes its endpoints.
+yfinance>=0.2.40
+
+# Deliberately NOT required:
+#   statsmodels  -- the ADF test and Ljung-Box are implemented in
+#                   quantmc/models/stats.py and validated against it
+#   arch         -- GARCH(1,1) QMLE is implemented in
+#                   quantmc/models/calibration.py
+#   hmmlearn     -- Baum-Welch for the 2-state Gaussian HMM is implemented in
+#                   quantmc/models/stats.py
+#   pyarrow      -- the cache is SQLite, not parquet

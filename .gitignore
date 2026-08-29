@@ -1,0 +1,20 @@
+# never publish credentials
+.env
+*.env
+secrets.*
+credentials.*
+*.key
+*.pem
+id_rsa*
+id_ed25519*
+*token*.txt
+
+# junk
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+*.tmp
+~$*

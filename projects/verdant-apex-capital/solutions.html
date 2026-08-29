@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Solutions – Verdant Apex Capital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>Verdant Apex Capital</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="research.html" class="nav-link">Research</a>
+                <a href="research-pro.html" class="nav-link">Pro Research</a>
+
+                <a href="model.html" class="nav-link">Model Creator</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Builder</a>
+
+                <a href="clients.html" class="nav-link">Clients</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+
+                <!-- auth buttons (script.js will wire these) -->
+                <a href="auth.html" class="nav-link" id="nav-auth-link">Sign in</a>
+                <a href="#" class="nav-link" id="nav-logout-link" style="display:none;">Logout</a>
+                </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-section" style="padding-top:100px;">
+        <div class="container">
+            <div class="page-header">
+                <h1>Strategy Library & Solutions</h1>
+                <p>Each strategy is rules-based, benchmarked, and designed to slot inside your existing process.</p>
+            </div>
+
+            <div class="solutions-grid">
+                <div>
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3>Core Equity – Quality Growth</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <p>
+                                    Screens for durable earnings growth, strong balance sheets, and healthy
+                                    free-cash-flow margins. Positions are sized by volatility and conviction,
+                                    with a built-in trim rule when valuations stretch beyond historical bands.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3>Satellite – High-Conviction Thematics</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <p>
+                                    Concentrated exposures around themes like AI infrastructure, cyber security,
+                                    and digital payments. Stop-loss bands and maximum position caps help keep risk
+                                    in check.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3>Income & Defense – Yield with Guardrails</h3>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="accordion-body">
+                                <p>
+                                    Focuses on dividend growth names, defensive sectors, and select ETFs.
+                                    Designed to complement higher-beta sleeves in your portfolio.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="pricing-card featured">
+                        <div class="popular-badge">Advisory Access</div>
+                        <div class="plan-header">
+                            <h3>Verdant Apex Premium</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">49</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <ul class="plan-features">
+                            <li><i class="fas fa-check"></i> Full strategy documentation</li>
+                            <li><i class="fas fa-check"></i> Monthly model refresh</li>
+                            <li><i class="fas fa-check"></i> Scenario worksheets</li>
+                            <li><i class="fas fa-check"></i> Priority feature requests</li>
+                        </ul>
+                        <button class="plan-button primary" onclick="showSubscriptionModal()">Request Access</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Subscription Modal + Footer + Toast (same as others) -->
+    <div class="modal" id="subscription-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSubscriptionModal()">&times;</span>
+            <h3>Request Premium Access</h3>
+            <p>Choose how you’d like to start. No live payments are processed on this demo.</p>
+            <div class="payment-options">
+                <button class="payment-button"><i class="fab fa-stripe"></i>Simulate Stripe Checkout</button>
+                <button class="payment-button"><i class="fab fa-paypal"></i>Simulate PayPal Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Verdant Apex Capital</span>
+                    </div>
+                    <p>AI-driven tools built to help investors think in models, not headlines.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="model.html">Model Creator</a></li>
+                        <li><a href="portfolio.html">Portfolio Builder</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="clients.html">Clients</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2025 Verdant Apex Capital.</div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Action completed.</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

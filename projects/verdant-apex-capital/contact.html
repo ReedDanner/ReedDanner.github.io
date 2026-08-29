@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact – Verdant Apex Capital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>Verdant Apex Capital</span>
+            </div>
+                <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="research.html" class="nav-link">Research</a>
+                <a href="research-pro.html" class="nav-link">Pro Research</a>
+
+                <a href="model.html" class="nav-link">Model Creator</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Builder</a>
+
+                <a href="clients.html" class="nav-link">Clients</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+
+                <!-- auth buttons (script.js will wire these) -->
+                <a href="auth.html" class="nav-link" id="nav-auth-link">Sign in</a>
+                <a href="#" class="nav-link" id="nav-logout-link" style="display:none;">Logout</a>
+                </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-section" style="padding-top:100px;">
+        <div class="container">
+            <div class="page-header">
+                <h1>Get In Touch</h1>
+                <p>Tell us how you’d like to use Verdant Apex. We’ll respond with next steps and resources.</p>
+            </div>
+
+            <div class="contact-form-container">
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="role" name="role" placeholder="Investor type (student, individual, RIA, etc.)">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" placeholder="Share a bit about your goals and how you’d like to use the platform." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        Submit Inquiry
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER + TOAST -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Verdant Apex Capital</span>
+                    </div>
+                    <p>AI-driven tools built to help investors think in models, not headlines.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="model.html">Model Creator</a></li>
+                        <li><a href="portfolio.html">Portfolio Builder</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="clients.html">Clients</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2025 Verdant Apex Capital.</div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Message sent.</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

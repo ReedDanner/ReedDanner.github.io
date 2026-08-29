@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clients – Verdant Apex Capital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-chart-line"></i>
+                <span>Verdant Apex Capital</span>
+            </div>
+                <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="research.html" class="nav-link">Research</a>
+                <a href="research-pro.html" class="nav-link">Pro Research</a>
+
+                <a href="model.html" class="nav-link">Model Creator</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Builder</a>
+
+                <a href="clients.html" class="nav-link">Clients</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+
+                <!-- auth buttons (script.js will wire these) -->
+                <a href="auth.html" class="nav-link" id="nav-auth-link">Sign in</a>
+                <a href="#" class="nav-link" id="nav-logout-link" style="display:none;">Logout</a>
+                </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page-section" style="padding-top:100px;">
+        <div class="container">
+            <div class="page-header">
+                <h1>Who We Build For</h1>
+                <p>Verdant Apex tools are built for investors who care about process as much as outcomes.</p>
+            </div>
+
+            <div class="client-types">
+                <div class="client-card">
+                    <h3>Self-Directed Investors</h3>
+                    <p>Individuals managing their own accounts who want institutional-style tooling without the bureaucracy.</p>
+                </div>
+                <div class="client-card">
+                    <h3>Student Managers</h3>
+                    <p>Investment club leaders and student funds that need a light but serious framework for decision-making.</p>
+                </div>
+                <div class="client-card">
+                    <h3>Emerging Managers</h3>
+                    <p>Small RIA and aspiring fund managers who want a clean, explainable process to share with LPs.</p>
+                </div>
+            </div>
+
+            <div class="case-studies">
+                <h2 style="color:var(--green);margin-bottom:16px;">Example Use-Cases</h2>
+                <div class="case-card">
+                    <h4>Student Fund – Equity Sleeve</h4>
+                    <span>Scenario modeling + portfolio builder</span>
+                    <p>Used the Model Creator to align expected drawdowns with the club’s one-year horizon, then locked allocations with the Portfolio Builder.</p>
+                </div>
+                <div class="case-card">
+                    <h4>Early-Career PM – Personal Capital</h4>
+                    <span>Risk-anchored, high-conviction sleeve</span>
+                    <p>Built a concentrated growth book while tracking weighted risk score and exposure to single factors.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Testimonials reuse -->
+    <section class="page-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Feedback From Early Users</h2>
+                <p>Qualitative snapshots from people already building with Verdant Apex.</p>
+            </div>
+            <div class="testimonials-carousel">
+                <div class="testimonial-card active">
+                    <div class="testimonial-content">
+                        <p>"The interface feels like something I’d expect from a small fund, not a student project."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=60&h=60&fit=crop&crop=face" alt="">
+                        <div class="author-info">
+                            <h4>Chloe L.</h4>
+                            <span>Undergrad Investor</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"It forces you to put numbers behind your views instead of just vibes."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1525134479668-1bee5c7c6845?w=60&h=60&fit=crop&crop=face" alt="">
+                        <div class="author-info">
+                            <h4>Marcus T.</h4>
+                            <span>Associate, Equity Research</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER + TOAST -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Verdant Apex Capital</span>
+                    </div>
+                    <p>AI-driven tools built to help investors think in models, not headlines.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul>
+                        <li><a href="model.html">Model Creator</a></li>
+                        <li><a href="portfolio.html">Portfolio Builder</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="clients.html">Clients</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2025 Verdant Apex Capital.</div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Saved.</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
