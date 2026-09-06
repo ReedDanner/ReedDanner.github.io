@@ -16,10 +16,11 @@ automatically to GitHub Pages.
 | **Add Project.bat** | Drag a file or a whole project folder onto it. It asks a few questions, copies the files in, and writes the entry. |
 | **Publish.bat** | Pushes everything new. The live site updates in about a minute. |
 
-Two extras:
+Three extras:
 
 - **Preview Site.bat** — opens the site locally, exactly as visitors will see it, before publishing.
 - **Manage Projects.bat** — reorder, feature, rename, or delete projects; edit your headline, links and toolkit.
+- **Lock Source.bat** — run this after adding a project. It decides what the site is allowed to show.
 
 ## Adding a project
 
@@ -31,6 +32,35 @@ Drag one or many things onto `Add Project.bat`:
 - **screenshots** — become the gallery, and the first one becomes the card image
 - a **PDF** — embedded in the page, readable without downloading
 - a **web project with `index.html`** — gets a live link that really runs
+
+## Source that is public to read, private to use
+
+`Lock Source.bat` (`tools/protect.py`) is what stands between a visitor and a
+working copy of a project. It writes `data/previews.js`, which holds a short
+readable excerpt of each file plus a filler block that is generated noise, and
+it moves the full source into `_private/`. That folder is git-ignored, so your
+working copy keeps everything and the live site never receives it.
+
+The site renders only what is in `previews.js`. There is nothing to unblur in
+the browser, no download button anywhere, and a request for a locked file's URL
+returns 404 because the file is not deployed.
+
+    PREVIEW_LINES   how many lines stay readable, currently 35
+    START_AT        where a file's excerpt begins, chosen per file
+    NO_PREVIEW      listed in the manifest, never shown
+    OPEN_SUFFIXES   .md and .txt, always shown in full
+
+Two things stay public on purpose. Documentation is the selling point, so
+READMEs and requirements files are shown whole. The five website projects have
+live demos served out of their own folders, so their files must stay deployed;
+they are gated in the listing, but anything running in a browser can be read
+with view-source, and that is a property of the web rather than of this tool.
+
+    python tools/protect.py --check     see what would change
+    python tools/protect.py --restore   pull _private/ back into place
+
+`Publish.bat` refuses to push a project whose source has not been through this
+step, unless you tell it to.
 
 ## Safety net
 

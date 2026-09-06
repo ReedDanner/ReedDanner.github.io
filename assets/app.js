@@ -4,6 +4,10 @@
   "use strict";
 
   var DATA = window.PORTFOLIO || {};
+  /* Source excerpts are baked in by tools/protect.py. The full files are not
+     on the site at all, so there is nothing here to fetch or unblur. */
+  var PREVIEWS = window.PORTFOLIO_PREVIEWS || {};
+  var MANIFESTS = window.PORTFOLIO_MANIFESTS || {};
   var profile = DATA.profile || {};
   var approach = DATA.approach || {};
   var toolkit = DATA.toolkit || [];
@@ -251,6 +255,50 @@
     return d;
   }
   function fileName(path) { return String(path).split("/").pop(); }
+  function nfmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+
+  /* ------------------------------------------------ gated source ---- */
+  function lockPanel(rec) {
+    var lock = el("div", "codelock");
+
+    var ghost = el("pre", "ghost");
+    ghost.setAttribute("aria-hidden", "true");
+    ghost.textContent = rec.filler || "";
+    lock.appendChild(ghost);
+
+    var face = el("div", "lockface");
+    face.appendChild(el("span", "lockmark", "Withheld"));
+    face.appendChild(el("p", "lockline",
+      nfmt(rec.hiddenLines) + " more line" + (rec.hiddenLines === 1 ? "" : "s") +
+      " are not published."));
+    if (profile.email) {
+      var ask = el("a", "btn sm", "Request full source");
+      ask.href = "mailto:" + profile.email + "?subject=" +
+        encodeURIComponent("Source request: " + (rec.name || ""));
+      face.appendChild(ask);
+    }
+    lock.appendChild(face);
+    return lock;
+  }
+
+  function codePanel(path, rec) {
+    var wrap = el("div", "codewrap");
+
+    var head = el("div", "codehead");
+    head.appendChild(el("span", "grow", rec.name || fileName(path)));
+    head.appendChild(el("span", "linecount", rec.locked
+      ? "lines " + rec.shownFrom + "-" + rec.shownTo + " of " + nfmt(rec.totalLines)
+      : nfmt(rec.totalLines) + " lines"));
+    if (rec.locked) head.appendChild(el("span", "pill", "Locked"));
+    wrap.appendChild(head);
+
+    var pre = el("pre", rec.locked ? "clipped" : null);
+    pre.innerHTML = highlight(rec.preview || "");
+    wrap.appendChild(pre);
+
+    if (rec.locked) wrap.appendChild(lockPanel(rec));
+    return wrap;
+  }
 
   function openModal(p) {
     lastFocus = document.activeElement;
@@ -296,67 +344,42 @@
 
     (p.docs || []).forEach(function (doc, i) {
       var db = block(i === 0 ? "Document" : fileName(doc));
-      var a = el("a", "btn", "Open " + fileName(doc) + "  ↗");
-      a.href = doc; a.target = "_blank"; a.rel = "noopener";
-      db.appendChild(a);
+      db.appendChild(el("p", "m-note", "Read here. No download."));
       var fr = document.createElement("iframe");
       fr.className = "pdfframe";
-      fr.src = doc;
+      fr.src = doc + "#toolbar=0&navpanes=0";   // hides the viewer's own save button
       fr.title = fileName(doc);
-      fr.style.marginTop = "14px";
       db.appendChild(fr);
       modalBody.appendChild(db);
     });
 
-    if (p.code && p.code.length) {
-      var cb = block(p.code.length === 1 ? "Source" : "Source files");
-      p.code.forEach(function (c) {
-        var path = typeof c === "string" ? c : c.path;
-        var wrap = el("div", "codewrap");
-        var head = el("div", "codehead");
-        head.appendChild(el("span", "grow", fileName(path)));
-        var dl = el("a", "btn", "Download");
-        dl.href = path; dl.setAttribute("download", "");
-        head.appendChild(dl);
-        wrap.appendChild(head);
-        var pre = el("pre");
-        pre.textContent = "Loading...";
-        wrap.appendChild(pre);
-        cb.appendChild(wrap);
+    var panels = (p.code || []).map(function (c) {
+      var path = typeof c === "string" ? c : c.path;
+      var rec = PREVIEWS[path];
+      return (rec && !rec.manifestOnly) ? codePanel(path, rec) : null;
+    }).filter(Boolean);
 
-        fetch(path).then(function (r) {
-          if (!r.ok) throw new Error(r.status);
-          return r.text();
-        }).then(function (txt) {
-          var clipped = txt.length > 60000;
-          if (clipped) txt = txt.slice(0, 60000);
-          pre.innerHTML = highlight(txt);
-          if (clipped) {
-            var more = el("div", "codehead");
-            more.appendChild(el("span", null, "truncated - use Download for the whole file"));
-            wrap.appendChild(more);
-          }
-        }).catch(function () {
-          pre.textContent = "";
-          var a2 = el("a", "btn", "Open " + fileName(path));
-          a2.href = path; a2.target = "_blank";
-          pre.appendChild(a2);
-        });
-      });
+    if (panels.length) {
+      var cb = block(panels.length === 1 ? "Source" : "Source files");
+      panels.forEach(function (panel) { cb.appendChild(panel); });
       modalBody.appendChild(cb);
     }
 
-    if (p.downloads && p.downloads.length) {
-      var fb = block("Files");
+    var man = MANIFESTS[p.id];
+    if (man && man.files && man.files.length) {
+      var fb = block("Package contents");
+      var note = man.lockedFiles
+        ? nfmt(man.totalFiles) + " further module" + (man.totalFiles === 1 ? "" : "s") +
+          ", " + nfmt(man.totalLines) + " lines. Listed for scale, not published."
+        : nfmt(man.totalFiles) + " further file" + (man.totalFiles === 1 ? "" : "s") +
+          ", " + nfmt(man.totalLines) + " lines.";
+      fb.appendChild(el("p", "m-note", note));
       var fl = el("div", "filelist");
-      p.downloads.forEach(function (f) {
-        var path = typeof f === "string" ? f : f.path;
+      man.files.forEach(function (f) {
         var row = el("div", "filerow");
-        row.appendChild(el("span", "fname", (f && f.name) || fileName(path)));
-        if (f && f.size) row.appendChild(el("span", "fsize", f.size));
-        var a3 = el("a", "btn", "Download");
-        a3.href = path; a3.setAttribute("download", "");
-        row.appendChild(a3);
+        row.appendChild(el("span", "fname", f.name));
+        row.appendChild(el("span", "fsize", nfmt(f.lines) + " lines"));
+        if (f.locked) row.appendChild(el("span", "pill sm", "Locked"));
         fl.appendChild(row);
       });
       fb.appendChild(fl);

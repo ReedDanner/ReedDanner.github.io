@@ -8,6 +8,7 @@ from common import (
     C, MAX_FILE_BYTES, ROOT, ask, ask_yes, banner, err, git, git_ok, human_size,
     load_data, ok, open_url, pause, say, scan_secrets, step, warn,
 )
+from protect import gate as gate_check
 
 CONFIG = ROOT / ".portfolio.json"
 
@@ -44,6 +45,22 @@ def preflight(items: list[tuple[str, Path]]) -> bool:
         for p in big:
             say(f"  {p.relative_to(ROOT).as_posix()} - {human_size(p.stat().st_size)}")
         return False
+
+    _, _, ungated = gate_check(load_data(), apply=False)
+    if ungated:
+        print()
+        warn(f"{C['b']}{len(ungated)} source file(s) would go public in full:{C['r']}")
+        for p in ungated[:10]:
+            say(f"  {p.relative_to(ROOT).as_posix()}")
+        if len(ungated) > 10:
+            say(f"  {C['dim']}...and {len(ungated) - 10} more{C['r']}")
+        print()
+        say("Run Lock Source.bat first - it keeps a readable excerpt on the site")
+        say("and moves the rest into _private/, which is never pushed.")
+        print()
+        if not ask_yes("Publish the full source anyway?", False):
+            say("Nothing was published.")
+            return False
 
     flagged = []
     for p in files:

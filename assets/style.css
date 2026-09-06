@@ -330,8 +330,38 @@ code{font-family:var(--mono);font-size:.85em;background:var(--panel);
   font-family:var(--mono);font-size:.72rem;color:var(--ink-2);
 }
 .codehead .grow{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.codehead .linecount{flex:none;color:var(--ink-3);font-size:.68rem;letter-spacing:.04em}
 pre{margin:0;padding:18px;overflow:auto;max-height:440px;
   font-family:var(--mono);font-size:.78rem;line-height:1.65;color:#cdc7b9}
+pre.clipped{max-height:none;overflow:visible;padding-bottom:6px}
+
+/* ---- locked source ---- */
+.pill{
+  flex:none;border:1px solid var(--line-2);border-radius:999px;
+  padding:2px 9px;font-family:var(--mono);font-size:.6rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);
+}
+.pill.sm{padding:1px 8px;font-size:.56rem}
+.codelock{position:relative;overflow:hidden;border-top:1px solid var(--line)}
+.codelock .ghost{
+  margin:0;padding:10px 18px 18px;height:158px;overflow:hidden;
+  font-family:var(--mono);font-size:.78rem;line-height:1.65;color:#9a9384;
+  filter:blur(4px);opacity:.62;user-select:none;pointer-events:none;
+  -webkit-mask-image:linear-gradient(#000,#000 72%,transparent);
+  mask-image:linear-gradient(#000,#000 72%,transparent);
+}
+.lockface{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;text-align:center;padding:14px;
+  background:radial-gradient(120% 90% at 50% 50%,rgba(20,19,16,.92),rgba(20,19,16,.66));
+}
+.lockmark{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold);
+}
+.lockline{margin:0;font-size:.86rem;color:var(--ink-2)}
+.btn.sm{padding:7px 14px;font-size:.62rem}
+.m-note{margin:0 0 14px;font-size:.88rem;color:var(--ink-3)}
 pre::-webkit-scrollbar,.modal-card::-webkit-scrollbar{width:9px;height:9px}
 pre::-webkit-scrollbar-thumb,.modal-card::-webkit-scrollbar-thumb{background:var(--line-2)}
 .tok-kw{color:#d3a75f}.tok-str{color:#9dbf8a}.tok-num{color:#c98f6a}
