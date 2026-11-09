@@ -1,5 +1,5 @@
 /* =============================================================================
-   Reed Danner / portfolio
+   Kenneth “Reed” Danner / portfolio
    Plain CSS, no build step. Colors come from one of three colorways, chosen by
    data-theme on <html>: forest (default), charcoal or burgundy. Set it with
    profile.theme in data/portfolio.js, or try one with ?theme=burgundy.
@@ -617,15 +617,16 @@ button.plate:hover .pages--single img:nth-child(1) { transform: translate(-50%, 
   letter-spacing: -.04em;
 }
 .contact__lede { max-width: 34em; margin-top: 30px; font-size: 1.15rem; font-weight: 300; color: var(--on-primary-2); }
-.contact__side { grid-column: 9 / span 4; }
+.contact__side { grid-column: 8 / span 5; }
 .contact__mail {
   display: inline-flex; align-items: center; gap: .4em;
+  max-width: 100%;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--accent);
-  font: 400 clamp(1.45rem, 2.3vw, 2.05rem)/1.2 var(--f-serif);
+  font: 400 clamp(1.3rem, 2.15vw, 1.95rem)/1.2 var(--f-serif);
   letter-spacing: -.01em;
-  overflow-wrap: anywhere;
 }
+.contact__mail span { min-width: 0; overflow-wrap: anywhere; }   /* breaks only if it truly cannot fit */
 .contact__mail svg { width: .8em; height: .8em; flex: none; color: var(--accent-text); transition: transform .25s var(--ease); }
 .contact__mail:hover svg { transform: translate(2px, -2px); }
 .contact__copy {
@@ -895,13 +896,16 @@ dialog { padding: 0; border: 0; color: inherit; }
   .contact__head, .contact__side { grid-column: 1 / -1; }
   .contact__side { max-width: 520px; }
 }
+/* the full name is long: below 1000px the header keeps only the Contact button */
+@media (max-width: 1000px) {
+  .nav a:not(.nav__keep) { display: none; }
+}
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
   .hero__copy { max-width: 680px; }
   .fan { max-width: 640px; }
 }
 @media (max-width: 860px) {
-  .nav a:not(.nav__keep) { display: none; }
   .bar { min-height: 84px; gap: 24px; }
   .lockup__name { font-size: 1.3rem; }
   .section__head { grid-template-columns: 1fr; }
@@ -921,8 +925,8 @@ dialog { padding: 0; border: 0; color: inherit; }
 }
 @media (max-width: 600px) {
   body { font-size: 1rem; }
-  .nav .btn { min-height: 42px; padding: 0 1em; font-size: 1rem; }
-  .nav { gap: 20px; }
+  .nav { display: none; }              /* the hero's buttons sit right below */
+  .lockup__name { font-size: 1.1rem; letter-spacing: .14em; margin-right: -.14em; }
   .hero { padding-top: 48px; }
   .hero__actions .btn { flex: 1 1 auto; }
   .fan figcaption { flex-direction: column; gap: 10px; }

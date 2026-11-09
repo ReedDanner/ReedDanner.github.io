@@ -2,7 +2,7 @@
    You can also hand-edit it - it is plain JSON inside window.PORTFOLIO. */
 window.PORTFOLIO = {
   "profile": {
-    "name": "Reed Danner",
+    "name": "Kenneth “Reed” Danner",
     "monogram": "RD",
     "kicker": "Investment research & quantitative tools",
     "status": "Looking for investment analyst roles",
@@ -13,7 +13,7 @@ window.PORTFOLIO = {
     "intro": "I’m an aspiring investment analyst. I build my own research tools, from Monte Carlo risk engines to options pricing models and trading terminals, and I document exactly where each model breaks.",
     "focus": "Options analytics & risk simulation",
     "location": "",
-    "email": "reed.danner@pm.me",
+    "email": "kennethrdanner@proton.me",
     "github": "https://github.com/ReedDanner",
     "linkedin": "https://www.linkedin.com/in/kenneth-d-5a4654353/",
     "resume": "",
