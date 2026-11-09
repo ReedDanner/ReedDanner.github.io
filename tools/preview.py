@@ -6,7 +6,6 @@ import functools
 import sys
 import http.server
 import socket
-import socketserver
 import threading
 import webbrowser
 
@@ -34,8 +33,10 @@ def main() -> None:
     banner("Local preview")
     port = free_port()
     handler = functools.partial(Quiet, directory=str(ROOT))
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(("127.0.0.1", port), handler) as httpd:
+    # Threaded: browsers hold idle keep-alive and preconnect sockets open, and a
+    # single-threaded server blocks on those, leaving the page's scripts pending.
+    http.server.ThreadingHTTPServer.allow_reuse_address = True
+    with http.server.ThreadingHTTPServer(("127.0.0.1", port), handler) as httpd:
         url = f"http://localhost:{port}/"
         ok(f"serving your portfolio at {C['b']}{C['cy']}{url}{C['r']}")
         say(f"{C['dim']}This is only on your computer - nobody else can see it.{C['r']}")

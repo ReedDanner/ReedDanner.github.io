@@ -73,27 +73,51 @@ Files above 45 MB are refused (GitHub warns at 50 MB and rejects 100 MB).
 
 ## The page
 
-One page, four numbered sections: the work, how I work, the toolkit, and contact.
-LinkedIn sits in the footer, so the site points at the profile rather than the
-other way round.
+One page: a hero with a Monte Carlo figure that is simulated in the browser
+(Fig. 1), three principles, the selected work in depth, an index of everything
+else, the approach and toolkit, and contact. Every project opens in a side
+sheet with its write-up, screenshots, embedded PDF and gated source.
 
 All the wording lives in `data/portfolio.js` and can be changed with
-`Manage Projects.bat`, or by editing that file directly — it is plain JSON:
+`Manage Projects.bat`, or by editing that file directly. It is plain JSON:
 
 ```
-profile.headline   the big two-line headline (the second half is gold)
-profile.status     the small line above it
-approach.points    the three numbered principles
-toolkit            the chips in section 03
-projects           everything Add Project.bat writes
+profile.kicker       the small line above the headline
+profile.headline     the headline, one short sentence per line (lead, accent)
+profile.intro        the paragraph under it
+profile.status       the line under the buttons, e.g. the roles you want
+profile.focus        "Current focus", shown in the approach section
+profile.resume       a link to a resume PDF; adds a Resume button when set
+profile.theme        forest (default), charcoal or burgundy
+approach.points      the three numbered principles under the hero
+toolkit              a flat list, grouped on the page automatically
+projects             everything Add Project.bat writes
 ```
+
+Optional project fields, shown only when present:
+
+```
+metrics      [{"value": "67", "label": "automated correctness checks"}]
+highlights   ["one sentence per point", ...]
+note         a short disclaimer, e.g. that a demo uses placeholder figures
+```
+
+Featured projects get the case-study layout, in data-file order; the rest go
+into the index. Images named `page-001.jpg` or `screenshot-volatility-surface.png`
+caption themselves ("Page 1", "Volatility surface"). To compare colorways
+without editing anything, open the site with `?theme=charcoal` or
+`?theme=burgundy`.
+
+`assets/og.jpg` is the preview card LinkedIn and others show when the link is
+shared. It is a screenshot of the hero, so regenerate it if the headline changes.
 
 ## Layout
 
 ```
 index.html            the page
-assets/style.css      styling
-assets/app.js         rendering, search, filters, code viewer
+assets/style.css      styling and the three colorways
+assets/app.js         rendering, filters, project sheet, code viewer, Fig. 1
+assets/og.jpg         link preview image (1200 x 630)
 data/portfolio.js     your details and every project entry
 projects/<slug>/      the actual files for each project
 tools/                the Python behind the .bat buttons

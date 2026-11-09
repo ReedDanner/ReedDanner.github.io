@@ -1,155 +1,190 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="forest">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portfolio</title>
-<meta name="description" content="Quantitative developer. Trading terminals, options analytics and Monte Carlo risk models.">
+<title>Reed Danner · Investment research and quantitative tools</title>
+<meta name="description" content="Reed Danner builds Monte Carlo risk engines, options pricing models and trading terminals, and documents where each model breaks.">
+<meta name="theme-color" content="#173f35">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Portfolio">
-<meta property="og:description" content="Trading terminals, options analytics and Monte Carlo risk models.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231b1a18'/><text x='50' y='68' font-family='monospace' font-size='52' font-weight='700' fill='%23d3a75f' text-anchor='middle'>R</text></svg>">
+<meta property="og:url" content="https://reeddanner.github.io/">
+<meta property="og:title" content="Reed Danner · Investment research and quantitative tools">
+<meta property="og:description" content="Monte Carlo risk engines, options pricing models and trading terminals, with the write-ups behind them.">
+<meta property="og:image" content="https://reeddanner.github.io/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300..600&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
 <link rel="stylesheet" href="assets/style.css">
+<script src="data/portfolio.js"></script>
+<script>
+  /* Colorway: ?theme=charcoal for a quick look, otherwise profile.theme. */
+  (function () {
+    var allowed = { forest: "#173f35", charcoal: "#242728", burgundy: "#542936" };
+    var asked = /[?&]theme=(\w+)/.exec(location.search);
+    var profile = (window.PORTFOLIO && window.PORTFOLIO.profile) || {};
+    var theme = (asked && asked[1]) || profile.theme;
+    if (!allowed[theme]) return;
+    document.documentElement.setAttribute("data-theme", theme);
+    document.querySelector('meta[name="theme-color"]').content = allowed[theme];
+  })();
+</script>
 </head>
 <body>
 
-<a class="skip" href="#work">Skip to work</a>
+<a class="skip" href="#work">Skip to the work</a>
 
-<header class="topbar">
-  <a class="brand" href="#top">
-    <span class="mono-mark" id="mark"></span>
-    <span class="brand-name" id="brand-name"></span>
-  </a>
-  <nav class="topnav" aria-label="Sections">
-    <a href="#work">Work <i>01</i></a>
-    <a href="#approach">Approach <i>02</i></a>
-    <a href="#toolkit">Toolkit <i>03</i></a>
-    <a href="#contact">Contact <i>04</i></a>
-  </nav>
-  <a class="ghbtn" id="gh-top" href="#" target="_blank" rel="noopener" hidden>
-    <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.42 7.42 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-    <span>GitHub</span>
-  </a>
+<header class="masthead" id="top">
+  <div class="topline">
+    <div class="wrap bar">
+      <a class="lockup" href="#top" aria-label="Reed Danner, back to the top">
+        <span class="lockup__name" data-name>Reed Danner</span>
+        <span class="lockup__sub" id="lockup-sub" aria-hidden="true">Portfolio</span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#approach">Approach</a>
+        <a href="#" id="nav-github" target="_blank" rel="noopener" hidden>GitHub
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+        </a>
+        <a class="btn btn--accent-line nav__keep" href="#contact">Contact
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="wrap hero">
+    <div class="hero__copy">
+      <p class="eyebrow" id="hero-eyebrow">Investment research &amp; quantitative tools</p>
+      <h1 class="hero__title"><span id="head-lead"></span> <span id="head-accent"></span></h1>
+      <p class="hero__lede" id="hero-intro"></p>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="#work">See the work
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13.5M11.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </a>
+        <a class="btn btn--line" id="hero-second" href="#contact">Get in touch</a>
+      </div>
+      <p class="hero__status" id="hero-status" hidden></p>
+      <noscript><p class="hero__lede">This page draws its content with JavaScript. Reach me at reed.danner@pm.me.</p></noscript>
+    </div>
+
+    <figure class="fan" id="fan">
+      <div class="fan__plot"><canvas aria-hidden="true"></canvas></div>
+      <p class="vh" id="fan-summary" aria-live="polite"></p>
+      <figcaption>
+        <span><span class="fig-no">Fig. 1</span>One year of a $100 stock, simulated 10,000 times (geometric Brownian motion, &mu; 8%, &sigma; 22%). Shaded: the 25th&ndash;75th and 5th&ndash;95th percentiles on each date. Bars: where the paths finish.</span>
+        <button class="fan__rerun" type="button">Resample</button>
+      </figcaption>
+    </figure>
+  </div>
 </header>
 
-<main id="top">
+<section class="principles" aria-label="How I work">
+  <ol class="wrap" id="principles"></ol>
+</section>
 
-  <!-- ============================== hero ============================== -->
-  <section class="hero">
-    <p class="eyebrow"><span class="rule"></span><span id="hero-status"></span></p>
-    <p class="kicker" id="hero-kicker"></p>
-    <h1 class="display">
-      <span class="line-1" id="head-lead"></span>
-      <span class="line-2" id="head-accent"></span>
-    </h1>
-    <div class="hero-foot">
-      <p class="lede" id="hero-intro"></p>
-      <a class="explore" href="#work">
-        <span>Explore the work</span>
-        <span class="arrow" aria-hidden="true">&darr;</span>
-      </a>
+<main>
+  <section class="section" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <h2 class="section__title" id="work-title">Selected work</h2>
+          <p class="section__note" id="work-note"></p>
+        </div>
+        <dl class="factsheet" id="factsheet"></dl>
+      </header>
     </div>
-    <div class="hero-rule">
-      <span class="mono dim" id="hero-focus"></span>
-      <span class="mono dim" id="hero-place"></span>
-    </div>
+    <div class="wrap" id="cases"></div>
   </section>
 
-  <!-- ============================== work ============================== -->
-  <section id="work" class="band">
-    <p class="sec-label">01 / Selected work</p>
-    <h2 class="display sm">
-      <span class="line-1">Software for</span>
-      <span class="line-2">high-conviction moves.</span>
-    </h2>
-
-    <div class="controls">
-      <label class="search">
-        <span class="mono dim">find</span>
-        <input id="search" type="search" placeholder="project, language, topic" autocomplete="off" aria-label="Search projects">
-      </label>
-      <div class="chips" id="filters" role="group" aria-label="Filter by category"></div>
+  <section class="section section--index" id="more" aria-labelledby="more-title">
+    <div class="wrap">
+      <header class="section__head">
+        <div>
+          <h2 class="section__title" id="more-title">More work</h2>
+          <p class="section__note">Earlier tools and front-end builds. Each opens to its write-up and source.</p>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter by type"></div>
+      </header>
     </div>
-
-    <div class="work-grid" id="grid"></div>
-    <p class="note" id="empty" hidden>Nothing matches that search.</p>
-
-    <div class="note empty-state" id="getting-started" hidden>
-      <p><strong>No projects in here yet.</strong></p>
-      <p>Drag a file or a whole project folder onto <code>Add Project.bat</code>,
-         answer a few questions, then run <code>Publish.bat</code>.</p>
-    </div>
-  </section>
-
-  <!-- ============================ approach ============================ -->
-  <section id="approach" class="band alt">
-    <div class="split">
-      <div class="split-l">
-        <p class="sec-label">02 / How I work</p>
-        <h2 class="display sm">
-          <span class="line-1" id="ap-lead"></span>
-          <span class="line-2" id="ap-accent"></span>
-        </h2>
-        <p class="mono dim tiny" id="place-label"></p>
+    <div class="wrap ledger">
+      <div class="ledger__head" aria-hidden="true">
+        <span>No.</span><span>Project</span><span>Type</span><span class="h-stack">Built with</span><span>Date</span>
       </div>
-      <div class="split-r">
-        <p class="statement" id="ap-statement"></p>
-        <ol class="points" id="points"></ol>
-      </div>
+      <ol class="ledger__list" id="ledger"></ol>
+      <p class="ledger__empty" id="ledger-empty" hidden>Nothing of that type yet.</p>
     </div>
   </section>
 
-  <!-- ============================ toolkit ============================= -->
-  <section id="toolkit" class="band">
-    <p class="sec-label">03 / The toolkit</p>
-    <h2 class="display sm">
-      <span class="line-1">The stack behind</span>
-      <span class="line-2">the work.</span>
-    </h2>
-    <ul class="tools" id="tools"></ul>
-  </section>
-
-  <!-- ============================ contact ============================= -->
-  <section id="contact" class="band gold">
-    <p class="sec-label">04 / Get in touch</p>
-    <div class="contact-row">
-      <h2 class="display sm">
-        <span class="line-1">Let's talk</span>
-        <span class="line-2">markets.</span>
-      </h2>
-      <div class="contact-links">
-        <a class="mailto" id="mail-link" href="#"><span id="mail-text"></span><span class="arrow">&#8599;</span></a>
-        <button class="copy" id="copy-mail" type="button">Copy email</button>
+  <section class="section section--approach" id="approach" aria-labelledby="approach-title">
+    <div class="wrap approach">
+      <div class="approach__head">
+        <p class="eyebrow">Approach</p>
+        <h2 class="section__title" id="approach-title"></h2>
+        <p class="approach__focus" id="approach-focus" hidden></p>
       </div>
+      <p class="approach__statement" id="approach-statement"></p>
+      <div class="toolkit" id="toolkit" aria-label="Toolkit"></div>
     </div>
-    <footer class="foot">
-      <span class="mono" id="foot-left"></span>
-      <span class="foot-social">
-        <a id="gh-foot" href="#" target="_blank" rel="noopener" hidden>GitHub</a>
-        <a id="li-foot" href="#" target="_blank" rel="noopener" hidden>LinkedIn</a>
-      </span>
-    </footer>
   </section>
-
 </main>
 
-<div class="modal" id="modal" hidden role="dialog" aria-modal="true">
-  <div class="modal-backdrop" data-close></div>
-  <article class="modal-card">
-    <button class="modal-close" data-close aria-label="Close">&times;</button>
-    <div class="modal-body" id="modal-body"></div>
-  </article>
-</div>
+<footer class="contact" id="contact">
+  <div class="wrap contact__body">
+    <div class="contact__head">
+      <p class="eyebrow">Contact</p>
+      <h2 class="contact__title">Let&rsquo;s talk.</h2>
+      <p class="contact__lede" id="contact-lede">If you are hiring for research or analyst roles, I would like to hear from you. Email is the fastest way to reach me.</p>
+    </div>
+    <div class="contact__side">
+      <a class="contact__mail" id="mail-link" href="mailto:reed.danner@pm.me"><span id="mail-text">reed.danner@pm.me</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 14 14 6M7.5 6H14v6.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      </a>
+      <button class="contact__copy" id="copy-mail" type="button">Copy address</button>
+      <div class="contact__links" id="contact-links"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="colophon">
+      <span id="copyright"></span>
+      <span>Set in Newsreader and Libre Franklin. Static HTML, no frameworks.</span>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
 
-<div class="lightbox" id="lightbox" hidden>
-  <button class="lb-close" aria-label="Close">&times;</button>
-  <img id="lb-img" alt="">
-</div>
+<dialog class="sheet" id="sheet" aria-labelledby="sheet-title">
+  <div class="sheet__bar">
+    <span class="sheet__crumb" id="sheet-crumb"></span>
+    <div class="sheet__tools">
+      <button class="iconbtn" id="sheet-prev" type="button" aria-label="Previous project">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M17 10H3.5M8.5 5l-5 5 5 5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+      </button>
+      <button class="iconbtn" id="sheet-next" type="button" aria-label="Next project">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13.5M11.5 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+      </button>
+      <button class="iconbtn sheet__close" id="sheet-close" type="button">Close
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="sheet__scroll" id="sheet-scroll">
+    <article class="sheet__body" id="sheet-body"></article>
+  </div>
+</dialog>
 
-<script src="data/portfolio.js"></script>
+<dialog class="lightbox" id="lightbox" aria-label="Image viewer">
+  <button class="iconbtn" id="lightbox-close" type="button" aria-label="Close image">
+    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+  </button>
+  <img id="lightbox-img" alt="">
+  <p id="lightbox-cap"></p>
+</dialog>
+
 <script src="data/previews.js"></script>
 <script src="assets/app.js"></script>
 </body>

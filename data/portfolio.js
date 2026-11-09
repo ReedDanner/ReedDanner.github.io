@@ -4,25 +4,27 @@ window.PORTFOLIO = {
   "profile": {
     "name": "Reed Danner",
     "monogram": "RD",
-    "kicker": "Aspiring Investment Analyst",
-    "status": "Building quant tools in public",
+    "kicker": "Investment research & quantitative tools",
+    "status": "Looking for investment analyst roles",
     "headline": {
-      "lead": "The whole",
-      "accent": "distribution."
+      "lead": "Ten thousand paths.",
+      "accent": "One decision."
     },
-    "intro": "I build trading terminals, options analytics and Monte Carlo risk models - tools that show the full range of outcomes rather than a single number.",
+    "intro": "I’m an aspiring investment analyst. I build my own research tools, from Monte Carlo risk engines to options pricing models and trading terminals, and I document exactly where each model breaks.",
     "focus": "Options analytics & risk simulation",
     "location": "",
     "email": "reed.danner@pm.me",
     "github": "https://github.com/ReedDanner",
-    "linkedin": "https://www.linkedin.com/in/kenneth-d-5a4654353/"
+    "linkedin": "https://www.linkedin.com/in/kenneth-d-5a4654353/",
+    "resume": "",
+    "theme": "forest"
   },
   "projects": [
     {
       "id": "quantmc-terminal",
-      "title": "QuantMC - Monte Carlo Terminal",
-      "summary": "Desktop terminal that prices options and stress-tests positions with Monte Carlo simulation.",
-      "description": "A PyQt6 desktop terminal for Monte Carlo modelling of equity and options positions. It simulates price paths under configurable volatility and drift assumptions, prices derivatives off those paths, and reports the whole risk distribution - VaR, expected shortfall, and the full payoff profile - rather than a single point estimate.\n\nCalibration, multi-asset correlation, an implied-volatility surface and a caching data layer sit in separate modules, so the engine can be driven headlessly as well as from the interface. The package ships with a self-test suite of 67 checks that exercises the pipeline end to end.",
+      "title": "QuantMC Monte Carlo Terminal",
+      "summary": "A desktop terminal that prices options and stress-tests positions with Monte Carlo simulation.",
+      "description": "A PyQt6 desktop terminal for Monte Carlo modeling of equity and options positions. It simulates price paths under configurable volatility and drift assumptions, prices derivatives off those paths, and reports the whole risk distribution (VaR, expected shortfall and the full payoff profile) rather than a single point estimate.\n\nCalibration, multi-asset correlation, an implied-volatility surface and a caching data layer sit in separate modules, so the engine can be driven headlessly as well as from the interface. The package ships with a self-test suite of 67 checks that exercises the pipeline end to end.",
       "kind": "app",
       "tags": [
         "Python",
@@ -168,7 +170,27 @@ window.PORTFOLIO = {
           "size": "7.0 KB"
         }
       ],
-      "demo": ""
+      "demo": "",
+      "metrics": [
+        {
+          "value": "6",
+          "label": "model families, from GBM to Heston"
+        },
+        {
+          "value": "67",
+          "label": "automated correctness checks"
+        },
+        {
+          "value": "100k",
+          "label": "paths per run, streamed in batches"
+        }
+      ],
+      "highlights": [
+        "Six model families (GBM, Student-t, Merton jumps, Heston, GARCH and bootstrap) share one drift, so switching models changes the shape of the distribution, not its mean.",
+        "Prices vanilla and exotic options off the simulated paths, and builds implied-volatility smiles and surfaces from live option chains.",
+        "The model layer is pure NumPy and SciPy with no GUI or I/O, so the 67-check self-test runs headlessly.",
+        "The README documents where each model is wrong: biased Heston calibration, drift the data can barely identify, and percentile bands that hold pointwise only."
+      ]
     },
     {
       "id": "quantdesk-terminal",
@@ -183,7 +205,7 @@ window.PORTFOLIO = {
         "ARIMA",
         "GARCH"
       ],
-      "date": "Aug 2026",
+      "date": "Jul 2026",
       "featured": true,
       "links": [],
       "cover": "projects/quantdesk-terminal/screenshot-price-predictor.png",
@@ -225,12 +247,32 @@ window.PORTFOLIO = {
           "size": "1.0 KB"
         }
       ],
-      "demo": ""
+      "demo": "",
+      "metrics": [
+        {
+          "value": "5",
+          "label": "backtested strategies, costs included"
+        },
+        {
+          "value": "4",
+          "label": "forecast horizons with P10, P50 and P90 bands"
+        },
+        {
+          "value": "5,636",
+          "label": "lines in a single Python file"
+        }
+      ],
+      "highlights": [
+        "Risk and benchmark analytics: Sharpe, Sortino, Calmar and Omega ratios, Cornish-Fisher VaR, beta, tracking error and up/down capture.",
+        "Regime detection through volatility percentiles, the Hurst exponent, variance ratios and rolling beta.",
+        "Backtests charge transaction costs and trade with a one-bar lag, so no future information leaks into the results.",
+        "Resolves split- and dividend-adjusted prices through four fallbacks and reports which one it used."
+      ]
     },
     {
       "id": "convexity-portfolio",
       "title": "The Convexity Portfolio",
-      "summary": "A 163-page research framework on options, leverage and risk. Published as a redacted sample.",
+      "summary": "A 163-page research framework on options, leverage and risk, published as a redacted sample.",
       "description": "A rule-governed framework for combining long options and leveraged equity exposure into one portfolio: the mathematics of optimal leverage, position sizing, drawdown control, and an empirical validation section that backtests the rules against a century of real market history.\n\nThis copy is redacted. The structure, scale and section numbering are intact; every rule, parameter, table and chart is obscured. The working document stays private.",
       "kind": "document",
       "tags": [
@@ -242,14 +284,33 @@ window.PORTFOLIO = {
       "date": "Aug 2026",
       "featured": true,
       "links": [],
-      "cover": "",
-      "images": [],
+      "cover": "projects/convexity-portfolio/page-001.jpg",
+      "images": [
+        "projects/convexity-portfolio/page-001.jpg",
+        "projects/convexity-portfolio/page-002.jpg",
+        "projects/convexity-portfolio/page-021.jpg"
+      ],
       "docs": [
         "projects/convexity-portfolio/Convexity Portfolio (redacted).pdf"
       ],
       "code": [],
       "downloads": [],
-      "demo": ""
+      "demo": "",
+      "metrics": [
+        {
+          "value": "163",
+          "label": "pages in the current revision, v4.4"
+        },
+        {
+          "value": "100",
+          "label": "years of market history behind the backtests"
+        }
+      ],
+      "highlights": [
+        "Works out optimal leverage and position sizing for a portfolio that holds long options alongside leveraged equity.",
+        "Sets drawdown-control rules and tests them against a century of market history.",
+        "Shared here as a redacted sample: the structure and section numbering are intact, while the rules, parameters, tables and charts are obscured."
+      ]
     },
     {
       "id": "terminal-v3",
@@ -262,7 +323,7 @@ window.PORTFOLIO = {
         "Monte Carlo",
         "Analytics"
       ],
-      "date": "Aug 2026",
+      "date": "Dec 2025",
       "featured": false,
       "links": [],
       "cover": "",
@@ -289,7 +350,7 @@ window.PORTFOLIO = {
         "Greeks",
         "Options"
       ],
-      "date": "Aug 2026",
+      "date": "Mar 2026",
       "featured": false,
       "links": [],
       "cover": "",
@@ -308,14 +369,14 @@ window.PORTFOLIO = {
       "id": "capital-decision-dashboard",
       "title": "Capital Decision Dashboard",
       "summary": "A personal financial decision assistant built with CustomTkinter.",
-      "description": "A desktop dashboard for personal capital decisions - laying out the trade-offs behind an allocation choice rather than just reporting balances. Built with CustomTkinter.",
+      "description": "A desktop dashboard for personal capital decisions. It lays out the trade-offs behind an allocation choice rather than just reporting balances. Built with CustomTkinter.",
       "kind": "app",
       "tags": [
         "Python",
         "CustomTkinter",
         "Personal Finance"
       ],
-      "date": "Aug 2026",
+      "date": "Mar 2026",
       "featured": false,
       "links": [],
       "cover": "",
@@ -334,7 +395,7 @@ window.PORTFOLIO = {
       "id": "apex-terminal",
       "title": "Apex Terminal",
       "summary": "A browser-based investment terminal built as a single self-contained HTML file.",
-      "description": "A master investment platform that runs entirely in the browser - charts, screens and analysis panels - with no build step and no dependencies, written as one self-contained HTML file.",
+      "description": "A master investment platform that runs entirely in the browser (charts, screens and analysis panels) with no build step and no dependencies, written as one self-contained HTML file.",
       "kind": "website",
       "tags": [
         "HTML",
@@ -342,11 +403,13 @@ window.PORTFOLIO = {
         "JavaScript",
         "Dashboard"
       ],
-      "date": "Aug 2026",
+      "date": "Mar 2026",
       "featured": false,
       "links": [],
-      "cover": "",
-      "images": [],
+      "cover": "projects/apex-terminal/cover.jpg",
+      "images": [
+        "projects/apex-terminal/cover.jpg"
+      ],
       "docs": [],
       "code": [
         {
@@ -355,13 +418,14 @@ window.PORTFOLIO = {
         }
       ],
       "downloads": [],
-      "demo": "projects/apex-terminal/index.html"
+      "demo": "projects/apex-terminal/index.html",
+      "note": "Prices on the page are simulated in the browser, not live market data."
     },
     {
       "id": "master-terminal",
       "title": "Master Terminal",
-      "summary": "A finance and investment command centre covering fundamentals, in one HTML file.",
-      "description": "A browser command centre for finance fundamentals and investment analysis, organised as a set of panels. Another single-file build - the whole application is one HTML document.",
+      "summary": "A finance and investment command center covering fundamentals, in one HTML file.",
+      "description": "A browser command center for finance fundamentals and investment analysis, organized as a set of panels. Another single-file build: the whole application is one HTML document.",
       "kind": "website",
       "tags": [
         "HTML",
@@ -369,11 +433,13 @@ window.PORTFOLIO = {
         "JavaScript",
         "Dashboard"
       ],
-      "date": "Aug 2026",
+      "date": "Mar 2026",
       "featured": false,
       "links": [],
-      "cover": "",
-      "images": [],
+      "cover": "projects/master-terminal/cover.jpg",
+      "images": [
+        "projects/master-terminal/cover.jpg"
+      ],
       "docs": [],
       "code": [
         {
@@ -396,11 +462,13 @@ window.PORTFOLIO = {
         "JavaScript",
         "Web Design"
       ],
-      "date": "Aug 2026",
+      "date": "Apr 2026",
       "featured": false,
       "links": [],
-      "cover": "",
-      "images": [],
+      "cover": "projects/citadis-holdings/cover.jpg",
+      "images": [
+        "projects/citadis-holdings/cover.jpg"
+      ],
       "docs": [],
       "code": [
         {
@@ -409,7 +477,8 @@ window.PORTFOLIO = {
         }
       ],
       "downloads": [],
-      "demo": "projects/citadis-holdings/index.html"
+      "demo": "projects/citadis-holdings/index.html",
+      "note": "Concept build. Prices, ratings and report counts on the page are placeholders."
     },
     {
       "id": "verdant-apex-capital",
@@ -424,11 +493,13 @@ window.PORTFOLIO = {
         "Supabase",
         "Web Design"
       ],
-      "date": "Aug 2026",
+      "date": "Feb 2026",
       "featured": false,
       "links": [],
-      "cover": "",
-      "images": [],
+      "cover": "projects/verdant-apex-capital/cover.jpg",
+      "images": [
+        "projects/verdant-apex-capital/cover.jpg"
+      ],
       "docs": [],
       "code": [
         {
@@ -493,7 +564,8 @@ window.PORTFOLIO = {
           "size": "320 B"
         }
       ],
-      "demo": "projects/verdant-apex-capital/index.html"
+      "demo": "projects/verdant-apex-capital/index.html",
+      "note": "Concept build. The brand, performance figures and client numbers are fictional."
     },
     {
       "id": "investpro-elite",
@@ -507,11 +579,13 @@ window.PORTFOLIO = {
         "JavaScript",
         "Web Design"
       ],
-      "date": "Aug 2026",
+      "date": "Aug 2025",
       "featured": false,
       "links": [],
-      "cover": "",
-      "images": [],
+      "cover": "projects/investpro-elite/cover.jpg",
+      "images": [
+        "projects/investpro-elite/cover.jpg"
+      ],
       "docs": [],
       "code": [
         {
@@ -551,20 +625,21 @@ window.PORTFOLIO = {
           "size": "14.6 KB"
         }
       ],
-      "demo": "projects/investpro-elite/index.html"
+      "demo": "projects/investpro-elite/index.html",
+      "note": "Concept build. The brand, returns, member counts and the firms named on the page are fictional placeholders, not endorsements."
     }
   ],
   "approach": {
     "lead": "Make it",
     "accent": "reproducible.",
-    "statement": "A model is only worth something if you can rerun it, question it, and see where it breaks. I put as much care into the tooling around the maths as into the maths itself.",
+    "statement": "A model is only worth something if you can rerun it, question it and see where it breaks. I put as much care into the tooling around the math as into the math itself.",
     "points": [
       {
         "title": "Start from the data",
         "body": "Cache it, validate it, and know exactly which call produced each number."
       },
       {
-        "title": "Simulate, do not guess",
+        "title": "Simulate, don’t guess",
         "body": "A point estimate hides the risk. Ten thousand paths show you its shape."
       },
       {

@@ -122,15 +122,16 @@ def fill_profile(user: str) -> None:
     p["monogram"] = ask(
         "Monogram for the corner",
         p.get("monogram") or "".join(w[0] for w in p["name"].split()[:2]).upper())
-    p["kicker"] = ask("Your role, in a few words", p.get("kicker") or "")
-    p["status"] = ask("Small line above the headline (blank to hide it)", p.get("status") or "")
+    p["kicker"] = ask("Your field, in a few words (shown above the headline)", p.get("kicker") or "")
+    p["status"] = ask("Status line under the buttons, e.g. roles you want (blank to hide it)",
+                      p.get("status") or "")
 
-    say(f"{C['dim']}The big headline is split in two - the second half is the gold line.{C['r']}")
-    head["lead"] = ask("Headline, first half", head.get("lead") or "")
-    head["accent"] = ask("Headline, gold half", head.get("accent") or "")
+    say(f"{C['dim']}The big headline runs over two lines, one short sentence each.{C['r']}")
+    head["lead"] = ask("Headline, first line", head.get("lead") or "")
+    head["accent"] = ask("Headline, second line", head.get("accent") or "")
 
     p["intro"] = ask("Short paragraph under the headline", p.get("intro") or "")
-    p["focus"] = ask("Small line at the foot of the hero", p.get("focus") or "")
+    p["focus"] = ask("Current focus (shown in the approach section)", p.get("focus") or "")
     p["location"] = ask("Location (blank to hide it)", p.get("location") or "")
 
     p["github"] = f"https://github.com/{user}"

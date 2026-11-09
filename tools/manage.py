@@ -39,26 +39,28 @@ def edit_profile(data: dict) -> None:
     say(f"{C['dim']}Press Enter on any line to keep it as it is.{C['r']}")
     p["name"] = ask("Display name", p.get("name", ""))
     p["monogram"] = ask("Monogram", p.get("monogram", ""))
-    p["kicker"] = ask("Your role", p.get("kicker", ""))
-    p["status"] = ask("Small line above the headline", p.get("status", ""))
-    head["lead"] = ask("Headline, first half", head.get("lead", ""))
-    head["accent"] = ask("Headline, gold half", head.get("accent", ""))
+    p["kicker"] = ask("Your field (the small line above the headline)", p.get("kicker", ""))
+    p["status"] = ask("Status line under the buttons", p.get("status", ""))
+    head["lead"] = ask("Headline, first line", head.get("lead", ""))
+    head["accent"] = ask("Headline, second line", head.get("accent", ""))
     p["intro"] = ask("Paragraph under the headline", p.get("intro", ""))
-    p["focus"] = ask("Small line at the foot of the hero", p.get("focus", ""))
+    p["focus"] = ask("Current focus (shown in the approach section)", p.get("focus", ""))
     p["location"] = ask("Location", p.get("location", ""))
     p["email"] = ask("Contact email", p.get("email", ""))
     p["github"] = ask("GitHub URL", p.get("github", ""))
-    p["linkedin"] = ask("LinkedIn URL (shown in the footer)", p.get("linkedin", ""))
+    p["linkedin"] = ask("LinkedIn URL (shown in the contact section)", p.get("linkedin", ""))
+    p["resume"] = ask("Link to a resume PDF (blank for none)", p.get("resume", ""))
+    p["theme"] = ask("Colorway: forest, charcoal or burgundy", p.get("theme", "forest"))
     ok("profile updated")
 
 
 def edit_toolkit(data: dict) -> None:
     current = data.get("toolkit", [])
-    step("The toolkit chips")
+    step("The toolkit (grouped on the page automatically)")
     say(f"{C['dim']}{', '.join(current) or 'empty'}{C['r']}")
     raw = ask("Comma separated list", ", ".join(current))
     data["toolkit"] = [t.strip() for t in raw.split(",") if t.strip()]
-    ok(f"{len(data['toolkit'])} chips")
+    ok(f"{len(data['toolkit'])} entries")
 
 
 def edit_project(pr: dict) -> None:
@@ -86,7 +88,7 @@ def main() -> None:
         print(f"      {C['b']}3{C['r']}. Edit a project's text")
         print(f"      {C['b']}4{C['r']}. Delete a project")
         print(f"      {C['b']}5{C['r']}. Edit your name, headline and links")
-        print(f"      {C['b']}6{C['r']}. Edit the toolkit chips")
+        print(f"      {C['b']}6{C['r']}. Edit the toolkit")
         print(f"      {C['b']}7{C['r']}. Save and close")
         choice = ask("choose 1-7", "7")
 

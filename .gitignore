@@ -21,3 +21,6 @@ desktop.ini
 
 # full source kept off the live site by tools/protect.py
 _private/
+
+# local editor / assistant settings
+.claude/
